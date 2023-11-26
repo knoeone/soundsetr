@@ -52,13 +52,18 @@ class App extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // var textColor = MacosTheme.brightnessOf(context).resolve(
+    //   const Color.fromRGBO(0, 0, 0, 1),
+    //   const Color.fromRGBO(255, 255, 255, 1),
+    // );
     return MacosApp(
       theme: MacosThemeData.light().copyWith(
         primaryColor: SystemTheme.accentColor.accent,
+        //typography: MacosTypography(color: Colors.red),
       ),
       darkTheme: MacosThemeData.dark().copyWith(
         primaryColor: SystemTheme.accentColor.accent,
-        //typography: MacosTypography(color: Colors.white),
+        //typography: MacosTypography(color: Colors.red, body: TextStyle(color: Colors.red)),
       ),
       themeMode: ThemeMode.system,
       //themeMode: ThemeMode.light,
