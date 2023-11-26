@@ -1,11 +1,15 @@
+import 'dart:io';
+
 import 'package:plist_parser/plist_parser.dart';
 import 'package:path/path.dart' as p;
+import 'package:propertylistserialization/propertylistserialization.dart';
 
 class SoundSet {
   String name;
   String description;
   String repo;
   String? download;
+  // path = Config.path / name.eragesoundset for installed soundsets
   String? path;
   Map? _plist;
   bool tmp;
@@ -25,8 +29,35 @@ class SoundSet {
     return _plist as Map;
   }
 
+  set plist(Map? plist) {
+    _plist = plist;
+  }
+
+  // static getPlist(path) {
+  //   return PlistParser().parseFileSync(p.join(path as String, 'soundset.plist'));
+  // }
+
   static getPlist(path) {
-    return PlistParser().parseFileSync(p.join(path as String, 'soundset.plist'));
+    File file = File(p.join(path as String, 'soundset.plist'));
+    String plist = file.readAsStringSync();
+    var list = PropertyListSerialization.propertyListWithString(plist);
+    return list;
+  }
+
+  static savePlist(SoundSet set) async {
+    final soundsetFile = p.join(set.path as String, 'soundset.plist');
+
+    File file = File(soundsetFile);
+    String plist = await file.readAsString();
+
+    var dict = PropertyListSerialization.propertyListWithString(plist) as Map;
+    dict['SoundSetUserString'] = set.description;
+    dict['SoundSetURL'] = set.repo;
+    dict['SoundSetDownloadURL'] = '${set.download}';
+
+    var result = PropertyListSerialization.stringWithPropertyList(dict);
+
+    File(soundsetFile).writeAsStringSync(result);
   }
 
   SoundSet.fromJson(Map<String, dynamic> json)

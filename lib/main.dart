@@ -157,7 +157,7 @@ class _MainViewState extends State<MainView> with WindowListener {
               }),
               CupertinoTabView(builder: (context) {
                 return const ScaffoldScreen(
-                  title: Text('Store'),
+                  title: Text('Shop'),
                   child: MarketScreen(),
                 );
               }),
@@ -223,7 +223,7 @@ class _MainViewState extends State<MainView> with WindowListener {
             color: _pageIndex == 2 ? selectedColor : SystemTheme.accentColor.accent,
           ),
           label: Text(
-            'Store',
+            'Shop',
             style: TextStyle(color: _pageIndex == 2 ? selectedColor : readableColor),
           ),
         ),

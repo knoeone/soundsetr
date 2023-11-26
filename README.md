@@ -15,7 +15,7 @@ Changing your Outlook sounds its a two part process. First you need to download 
 
 When downloading a Sound Set, it will automaticly be created in your Outlook SoundSet Directory.',
 
-1. Go to the Store on the left hand menu.
+1. Go to the Shop on the left hand menu.
 2. Select any pack you want and click "GET".
 
 
@@ -40,3 +40,15 @@ Once you have a SoundSet downloaded, you will need to change the SoundSet in Out
     ![Outlook Sounds](https://raw.githubusercontent.com/knoeone/soundsetr/main/res/outlook_sounds.png)
 
 If your SoundSet is not appearing, try restarting Outlook
+
+---
+
+## Creating your own Sound Sets
+1. Grab some sounds at https://pixabay.com/ or somewhere similar
+2. Click the "+" button on the Installed tab
+3. Click the File icon for and select each sound
+4. Set that sound in Outlook and enjoy
+
+Creating a new sound set copies the default set that is included with Outlook. Thes audio files are in .wav. Soundsetr will convert whatever new audio you add into the format if the existing Soundset. If you want your files to be in .aif, change the file names in the soundset.plist to .aif, and any new sounds added will auto convert to aif. Otherwise it will convert to .wav.
+
+If your sounds have pops or cliks, try using .wav instead of .aif.

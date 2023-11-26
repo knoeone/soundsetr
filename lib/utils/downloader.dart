@@ -11,6 +11,7 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:plist_parser/plist_parser.dart';
 import 'package:crypto/crypto.dart';
+import 'package:propertylistserialization/propertylistserialization.dart';
 import 'package:sanitize_filename/sanitize_filename.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:watcher/watcher.dart';
@@ -352,7 +353,9 @@ abstract class Downloader {
       // File file = File(
       //   path.join(
       //     path.absolute(
-      //         io.Platform.environment['HOME'] as String, 'Projects/knoeone/soundsetr/README.md'),
+      //       io.Platform.environment['HOME'] as String,
+      //       'Projects/knoeone/soundsetr/README.md',
+      //     ),
       //   ),
       // );
       // String md = await file.readAsString();
@@ -360,5 +363,17 @@ abstract class Downloader {
     } catch (e) {
       print(e);
     }
+  }
+
+  static saveSoundSet(SoundSet set) async {
+    final sourceFilename = set.path as String;
+    final sourcePathname = sourceFilename.replaceAll(path.basename(sourceFilename), '');
+    final destinationFileName = path.join(sourcePathname, '${set.name}.eragesoundset');
+    print('file $destinationFileName ${set.path}');
+    if (destinationFileName != set.path) {
+      Directory(sourceFilename).renameSync(destinationFileName);
+      set.path = destinationFileName;
+    }
+    SoundSet.savePlist(set);
   }
 }

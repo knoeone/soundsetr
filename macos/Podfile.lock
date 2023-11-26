@@ -1,4 +1,7 @@
 PODS:
+  - accessing_security_scoped_resource (0.0.1):
+    - Flutter
+    - FlutterMacOS
   - appkit_ui_element_colors (1.0.0):
     - FlutterMacOS
   - audioplayers_darwin (0.0.1):
@@ -16,6 +19,8 @@ PODS:
     - FlutterMacOS
     - ZIPFoundation (= 0.9.13)
   - FlutterMacOS (1.0.0)
+  - macos_file_picker (0.0.1):
+    - FlutterMacOS
   - macos_ui (0.1.0):
     - FlutterMacOS
   - macos_window_utils (1.0.0):
@@ -37,12 +42,14 @@ PODS:
   - ZIPFoundation (0.9.13)
 
 DEPENDENCIES:
+  - accessing_security_scoped_resource (from `Flutter/ephemeral/.symlinks/plugins/accessing_security_scoped_resource/darwin`)
   - appkit_ui_element_colors (from `Flutter/ephemeral/.symlinks/plugins/appkit_ui_element_colors/macos`)
   - audioplayers_darwin (from `Flutter/ephemeral/.symlinks/plugins/audioplayers_darwin/macos`)
   - desktop_drop (from `Flutter/ephemeral/.symlinks/plugins/desktop_drop/macos`)
   - ffmpeg_kit_flutter (from `Flutter/ephemeral/.symlinks/plugins/ffmpeg_kit_flutter/macos`)
   - flutter_archive (from `Flutter/ephemeral/.symlinks/plugins/flutter_archive/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
+  - macos_file_picker (from `Flutter/ephemeral/.symlinks/plugins/macos_file_picker/macos`)
   - macos_ui (from `Flutter/ephemeral/.symlinks/plugins/macos_ui/macos`)
   - macos_window_utils (from `Flutter/ephemeral/.symlinks/plugins/macos_window_utils/macos`)
   - path_provider_foundation (from `Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/darwin`)
@@ -58,6 +65,8 @@ SPEC REPOS:
     - ZIPFoundation
 
 EXTERNAL SOURCES:
+  accessing_security_scoped_resource:
+    :path: Flutter/ephemeral/.symlinks/plugins/accessing_security_scoped_resource/darwin
   appkit_ui_element_colors:
     :path: Flutter/ephemeral/.symlinks/plugins/appkit_ui_element_colors/macos
   audioplayers_darwin:
@@ -70,6 +79,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/flutter_archive/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
+  macos_file_picker:
+    :path: Flutter/ephemeral/.symlinks/plugins/macos_file_picker/macos
   macos_ui:
     :path: Flutter/ephemeral/.symlinks/plugins/macos_ui/macos
   macos_window_utils:
@@ -88,6 +99,7 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/window_manager/macos
 
 SPEC CHECKSUMS:
+  accessing_security_scoped_resource: 5328c9963fc8873d1b60650ff42101847d3ff0ea
   appkit_ui_element_colors: 39bb2d80be3f19b152ccf4c70d5bbe6cba43d74a
   audioplayers_darwin: dcad41de4fbd0099cb3749f7ab3b0cb8f70b810c
   desktop_drop: 69eeff437544aa619c8db7f4481b3a65f7696898
@@ -95,6 +107,7 @@ SPEC CHECKSUMS:
   ffmpeg_kit_flutter: 5bd75928cf88ec177cea410b027681e4bfe09452
   flutter_archive: 1a28d55ba9013cf5f4513ae1bb6af118f787df96
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
+  macos_file_picker: 9ae907f5f69a352afc8fb44e8a80bb180f9267d5
   macos_ui: 6229a8922cd97bafb7d9636c8eb8dfb0744183ca
   macos_window_utils: 933f91f64805e2eb91a5bd057cf97cd097276663
   path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943

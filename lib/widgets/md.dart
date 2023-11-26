@@ -24,7 +24,11 @@ class _MdState extends State<Md> {
   }
 
   void init() async {
-    String response = await widget.fetch();
+    String? response = await widget.fetch();
+    if (response == null) {
+      setState(() => md = '404');
+      return;
+    }
     setState(() => md = response);
   }
 

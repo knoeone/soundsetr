@@ -11,6 +11,7 @@ import '../models/soundset.dart';
 import '../utils/downloader.dart';
 import '../widgets/delete.dart';
 import '../widgets/duplicate.dart';
+import '../widgets/edit.dart';
 import '../widgets/play.dart';
 import '../widgets/publish.dart';
 import '../widgets/replace.dart';
@@ -64,6 +65,10 @@ class SoundSetDetailScreen extends StatefulWidget {
 
 class _SoundSetDetailScreenState extends State<SoundSetDetailScreen> {
   SoundSet? item;
+  bool editing = false;
+  var controllerName = TextEditingController();
+  var controllerDescription = TextEditingController();
+  var controllerRepository = TextEditingController();
 
   void loadItem() async {
     if (widget.item.path != null) {
@@ -74,6 +79,10 @@ class _SoundSetDetailScreenState extends State<SoundSetDetailScreen> {
 
       setState(() => item = updatedItem);
     }
+
+    controllerName.text = item!.name;
+    controllerDescription.text = item!.description;
+    controllerRepository.text = item!.repo;
   }
 
   @override
@@ -99,11 +108,27 @@ class _SoundSetDetailScreenState extends State<SoundSetDetailScreen> {
 
     return ScaffoldScreen(
       canBack: true,
-      title: Text(
-        '${item?.name}',
-        overflow: TextOverflow.ellipsis,
-      ),
+      title: editing
+          ? MacosTextField(
+              controller: controllerName,
+              padding: const EdgeInsets.all(12.0),
+              placeholder: 'asdasd',
+            )
+          : Text(
+              '${item?.name}',
+              overflow: TextOverflow.ellipsis,
+            ),
       actions: [
+        EditButton(
+          item: item!,
+          onEdit: () => setState(() => editing = !editing),
+          onSave: () => EditButtonEdits(
+            name: controllerName.text,
+            description: controllerDescription.text,
+            repository: controllerRepository.text,
+          ),
+          editing: editing,
+        ),
         RevealButton(file: item!.path),
         PublishButton(item: item!),
         DuplicateButton(item: item!),
@@ -119,19 +144,31 @@ class _SoundSetDetailScreenState extends State<SoundSetDetailScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('${item?.description}'),
+                  editing
+                      ? MacosTextField(
+                          controller: controllerDescription,
+                          padding: const EdgeInsets.all(12.0),
+                          placeholder: 'asdasd',
+                        )
+                      : Text('${item?.description}'),
                   const SizedBox(height: 10),
-                  GestureDetector(
-                    onTap: () => launchUrl(Uri.parse('${item?.repo}')),
-                    child: Text(
-                      item!.repo,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: SystemTheme.accentColor.accent,
-                        //decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ),
+                  editing
+                      ? MacosTextField(
+                          controller: controllerRepository,
+                          padding: const EdgeInsets.all(12.0),
+                          placeholder: 'GitHub repo URL',
+                        )
+                      : GestureDetector(
+                          onTap: () => launchUrl(Uri.parse('${item?.repo}')),
+                          child: Text(
+                            item!.repo,
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: SystemTheme.accentColor.accent,
+                              //decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
                 ],
               ),
             ),
