@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter/return_code.dart';
@@ -7,6 +8,7 @@ import 'package:io/io.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:plist_parser/plist_parser.dart';
+import 'package:crypto/crypto.dart';
 import 'package:sanitize_filename/sanitize_filename.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'config.dart';
@@ -20,6 +22,60 @@ abstract class Downloader {
 
   static exists(set) {
     return Directory(dstName(set['name'])).existsSync();
+  }
+
+  static Future saveAudio(set, name) async {
+    final Directory tempDir = await getDownloadsDirectory() as Directory;
+    var tmpFileName = path.join(tempDir.path, '${set['name']} - ${set['plist'][name]}');
+    var currentFile = File(path.join(set['path'], set['plist'][name]));
+
+    currentFile.copySync(tmpFileName);
+    reveal(tempDir.path);
+  }
+
+  static Future preview(set) async {
+    var appTempDir = 'soundsets';
+    final Directory tempDir = await getTemporaryDirectory();
+    var name = sha1.convert(utf8.encode(set['download'])).toString();
+    var tmpFileName = path.join(tempDir.path, appTempDir, '$name.zip');
+    var tmpFile = File(tmpFileName);
+    var tmpDirName = path.join(tempDir.path, appTempDir, name);
+
+    try {
+      await Directory(path.join(tempDir.path, appTempDir)).create();
+    } catch (e) {
+      print(e);
+    }
+
+    final request = await HttpClient().getUrl(Uri.parse(set['download']));
+    final response = await request.close();
+    await response.pipe(tmpFile.openWrite());
+
+    try {
+      await ZipFile.extractToDirectory(zipFile: tmpFile, destinationDir: Directory(tmpDirName));
+    } catch (e) {
+      print(e);
+    }
+    try {
+      tmpFile.deleteSync();
+    } catch (e) {
+      print(e);
+    }
+
+    var extractedDir = Directory(tmpDirName).listSync().firstWhere(
+          (file) => path.basename(file.path).endsWith('.eragesoundset'),
+        );
+    print(extractedDir);
+
+    var plist = PlistParser().parseFileSync(path.join(extractedDir.path, 'soundset.plist'));
+    //'description': plist['SoundSetUserString'],
+    //'repo': plist['SoundSetURL'],
+    return {
+      ...set,
+      'path': extractedDir.path,
+      'tmp': true,
+      'plist': plist,
+    };
   }
 
   static Future get(set) async {

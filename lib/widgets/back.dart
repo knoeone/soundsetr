@@ -10,7 +10,7 @@ class BackButton extends StatelessWidget {
       height: 40,
       width: 40,
       child: MacosTooltip(
-        message: 'Toggle Sidebar',
+        message: 'Bacck',
         useMousePosition: false,
         child: MacosIconButton(
           icon: MacosIcon(

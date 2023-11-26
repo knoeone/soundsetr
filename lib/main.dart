@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
-import 'package:soundset_market/widgets/create.dart';
 import 'package:system_theme/system_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:window_manager/window_manager.dart';
@@ -10,6 +9,7 @@ import 'screens/installed.dart';
 import 'screens/market.dart';
 import 'screens/settings.dart';
 import 'screens/setup.dart';
+import 'widgets/create.dart';
 import 'widgets/scaffold.dart';
 import 'widgets/toggle.dart';
 import 'widgets/window.dart';
@@ -48,7 +48,6 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MacosApp(
-      //title: 'soundset_market',
       theme: MacosThemeData.light().copyWith(
         primaryColor: SystemTheme.accentColor.accent,
       ),
@@ -97,7 +96,7 @@ class _MainViewState extends State<MainView> {
       child: PlatformMenuBar(
         menus: [
           PlatformMenu(
-            label: 'SoundsetMarket',
+            label: 'Soundsetr',
             menus: [
               PlatformProvidedMenuItem(
                 type: PlatformProvidedMenuItemType.about,
@@ -207,7 +206,7 @@ class _MainViewState extends State<MainView> {
         ),
         SidebarItem(
           leading: MacosIcon(
-            CupertinoIcons.settings,
+            CupertinoIcons.wrench,
             color: _pageIndex == 4 ? iconColor : SystemTheme.accentColor.accent,
           ),
           label: Text('Settings'),

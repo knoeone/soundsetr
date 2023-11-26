@@ -13,18 +13,15 @@ import '../utils/downloader.dart';
 class ReplaceButton extends StatelessWidget {
   final file;
   final item;
-  final onChange;
   ReplaceButton({
     super.key,
     required this.file,
     required this.item,
-    required this.onChange,
   });
 
   void replaceFile() async {
     print('file $file');
     await Downloader.replace(item, file);
-    onChange();
   }
 
   @override

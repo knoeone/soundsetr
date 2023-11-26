@@ -68,7 +68,7 @@ class _MarketScreenState extends State<MarketScreen> {
           title: '${item['name']}',
           description: '${item['description']}',
           repo: '${item['repo']}',
-          icon: CupertinoIcons.archivebox,
+          icon: CupertinoIcons.globe,
           item: item,
           action: DownloadButton(
             item: item,

@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
-import 'package:soundset_market/screens/soundset.dart';
 import 'package:system_theme/system_theme.dart';
+
+import '../screens/soundset.dart';
 
 class Card extends StatelessWidget {
   final String title;

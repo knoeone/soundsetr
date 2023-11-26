@@ -3,13 +3,17 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:macos_ui/macos_ui.dart';
+import 'package:plist_parser/plist_parser.dart';
 import 'package:siri_wave/siri_wave.dart';
-import 'package:soundset_market/widgets/duplicate.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../utils/downloader.dart';
 import '../widgets/delete.dart';
+import '../widgets/duplicate.dart';
 import '../widgets/play.dart';
 import '../widgets/publish.dart';
 import '../widgets/replace.dart';
 import '../widgets/reveal.dart';
+import '../widgets/save.dart';
 import '../widgets/scaffold.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:path/path.dart' as path;
@@ -50,15 +54,55 @@ class SoundsetScreen extends StatelessWidget {
   }
 }
 
-class SoundSetDetailScreen extends StatelessWidget {
+class SoundSetDetailScreen extends StatefulWidget {
   final item;
   SoundSetDetailScreen({super.key, required this.item});
 
   @override
+  State<SoundSetDetailScreen> createState() => _SoundSetDetailScreenState();
+}
+
+class _SoundSetDetailScreenState extends State<SoundSetDetailScreen> {
+  var item;
+
+  void loadItem() async {
+    if (widget.item['path'] != null) {
+      setState(() => item = widget.item);
+    } else {
+      var updatedItem = await Downloader.preview(widget.item);
+      print(updatedItem);
+
+      setState(() => item = updatedItem);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadItem();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (item == null) {
+      return ScaffoldScreen(
+        canBack: true,
+        title: Text(
+          widget.item['name'],
+          overflow: TextOverflow.ellipsis,
+        ),
+        child: Center(
+          child: ProgressCircle(),
+        ),
+      );
+    }
+
     return ScaffoldScreen(
       canBack: true,
-      title: Text(item['description']),
+      title: Text(
+        item['name'],
+        overflow: TextOverflow.ellipsis,
+      ),
       actions: [
         RevealButton(item: item),
         PublishButton(item: item),
@@ -77,11 +121,15 @@ class SoundSetDetailScreen extends StatelessWidget {
                 children: [
                   Text(item['description']),
                   SizedBox(height: 10),
-                  Text(
-                    item['repo'],
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: MacosTheme.of(context).primaryColor,
+                  GestureDetector(
+                    onTap: () => launchUrl(Uri.parse(item['repo'])),
+                    child: Text(
+                      item['repo'],
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: MacosTheme.of(context).primaryColor,
+                        //decoration: TextDecoration.underline,
+                      ),
                     ),
                   ),
                 ],
@@ -160,7 +208,9 @@ class SoundSetAudioFile extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 20),
-          ReplaceButton(item: item, file: file, onChange: () => {}),
+          item['tmp'] == true
+              ? SaveAudioButton(item: item, file: file)
+              : ReplaceButton(item: item, file: file),
           PlayButton(item: item, file: '${item['path']}/${item['plist'][file]}')
         ],
       ),
