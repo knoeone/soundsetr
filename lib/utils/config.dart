@@ -1,10 +1,20 @@
 import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
+import 'package:path/path.dart' as p;
+import 'dart:io' as io;
 
 abstract class Config {
-  static String pathDefault =
-      '/Users/spacedevin/Library/Group Containers/UBF8T346G9.Office/Outlook/Outlook Sound Sets';
-  static String outlookResourcePathDefault =
-      '/Applications/Microsoft Outlook.app/Contents/Frameworks/OutlookCore.framework/Resources';
+  static String pathDefault = p.join(
+    p.absolute(
+      io.Platform.environment['HOME'] as String,
+      'Library/Group Containers/UBF8T346G9.Office/Outlook/Outlook Sound Sets',
+    ),
+  );
+  static String outlookResourcePathDefault = p.join(
+    p.absolute(
+      io.Platform.environment['HOME'] as String,
+      'Applications/Microsoft Outlook.app/Contents/Frameworks/OutlookCore.framework/Resources',
+    ),
+  );
   static String repositoryDefault =
       'https://raw.githubusercontent.com/knoeone/soundsetr/main/soundsets/soundsets.json';
 
