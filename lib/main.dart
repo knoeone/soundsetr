@@ -83,6 +83,10 @@ class _MainViewState extends State<MainView> {
     });
   }
 
+  void goToIndex(index) {
+    setState(() => _pageIndex = index);
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedOpacity(
@@ -143,7 +147,7 @@ class _MainViewState extends State<MainView> {
               ),
               ScaffoldScreen(
                 title: const Text('Outlook Settings'),
-                child: SetupScreen(),
+                child: SetupScreen(goToIndex: goToIndex),
               ),
             ],
           ),
