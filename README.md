@@ -1,5 +1,5 @@
 
-![Soundsetr](https://raw.githubusercontent.com/knoeone/soundsetr/main/assets/images/home.jpg "jumbo")
+![Soundsetr](https://raw.githubusercontent.com/knoeone/soundsetr/main/res/home.jpg "jumbo")
 
 # Soundsetr
 
@@ -24,14 +24,14 @@ Once you have a SoundSet downloaded, you will need to change the SoundSet in Out
 
 2. **From the top meny bar**, Click "Outlook" and select "Settings..."
 
-    ![Outlook Menu](https://raw.githubusercontent.com/knoeone/soundsetr/main/assets/images/outlook_menu.png)
+    ![Outlook Menu](https://raw.githubusercontent.com/knoeone/soundsetr/main/res/outlook_menu.png)
 
 3. **Select Notifications & Sounds** in the center of the settings panel.
 
-    ![Outlook Settings](https://raw.githubusercontent.com/knoeone/soundsetr/main/assets/images/outlook_settings.png)
+    ![Outlook Settings](https://raw.githubusercontent.com/knoeone/soundsetr/main/res/outlook_settings.png)
 
 4. **Click the currently enabled SoundSet** to open the dropdown and then select the set you want to use.
 
-    ![Outlook Sounds](https://raw.githubusercontent.com/knoeone/soundsetr/main/assets/images/outlook_sounds.png)
+    ![Outlook Sounds](https://raw.githubusercontent.com/knoeone/soundsetr/main/res/outlook_sounds.png)
 
 If your SoundSet is not appearing, try restarting Outlook
