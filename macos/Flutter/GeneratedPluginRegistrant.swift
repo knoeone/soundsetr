@@ -7,6 +7,7 @@ import Foundation
 
 import appkit_ui_element_colors
 import audioplayers_darwin
+import ffmpeg_kit_flutter
 import flutter_archive
 import just_waveform
 import macos_ui
@@ -20,6 +21,7 @@ import window_manager
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   AppkitUiElementColorsPlugin.register(with: registry.registrar(forPlugin: "AppkitUiElementColorsPlugin"))
   AudioplayersDarwinPlugin.register(with: registry.registrar(forPlugin: "AudioplayersDarwinPlugin"))
+  FFmpegKitFlutterPlugin.register(with: registry.registrar(forPlugin: "FFmpegKitFlutterPlugin"))
   FlutterArchivePlugin.register(with: registry.registrar(forPlugin: "FlutterArchivePlugin"))
   JustWaveformPlugin.register(with: registry.registrar(forPlugin: "JustWaveformPlugin"))
   MacOSUiPlugin.register(with: registry.registrar(forPlugin: "MacOSUiPlugin"))

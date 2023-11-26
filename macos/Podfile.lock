@@ -3,6 +3,13 @@ PODS:
     - FlutterMacOS
   - audioplayers_darwin (0.0.1):
     - FlutterMacOS
+  - ffmpeg-kit-macos-https (6.0)
+  - ffmpeg_kit_flutter (6.0.3):
+    - ffmpeg_kit_flutter/https (= 6.0.3)
+    - FlutterMacOS
+  - ffmpeg_kit_flutter/https (6.0.3):
+    - ffmpeg-kit-macos-https (= 6.0)
+    - FlutterMacOS
   - flutter_archive (0.0.1):
     - FlutterMacOS
     - ZIPFoundation (= 0.9.13)
@@ -29,6 +36,7 @@ PODS:
 DEPENDENCIES:
   - appkit_ui_element_colors (from `Flutter/ephemeral/.symlinks/plugins/appkit_ui_element_colors/macos`)
   - audioplayers_darwin (from `Flutter/ephemeral/.symlinks/plugins/audioplayers_darwin/macos`)
+  - ffmpeg_kit_flutter (from `Flutter/ephemeral/.symlinks/plugins/ffmpeg_kit_flutter/macos`)
   - flutter_archive (from `Flutter/ephemeral/.symlinks/plugins/flutter_archive/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
   - just_waveform (from `Flutter/ephemeral/.symlinks/plugins/just_waveform/macos`)
@@ -42,6 +50,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - ffmpeg-kit-macos-https
     - ZIPFoundation
 
 EXTERNAL SOURCES:
@@ -49,6 +58,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/appkit_ui_element_colors/macos
   audioplayers_darwin:
     :path: Flutter/ephemeral/.symlinks/plugins/audioplayers_darwin/macos
+  ffmpeg_kit_flutter:
+    :path: Flutter/ephemeral/.symlinks/plugins/ffmpeg_kit_flutter/macos
   flutter_archive:
     :path: Flutter/ephemeral/.symlinks/plugins/flutter_archive/macos
   FlutterMacOS:
@@ -73,6 +84,8 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   appkit_ui_element_colors: 39bb2d80be3f19b152ccf4c70d5bbe6cba43d74a
   audioplayers_darwin: dcad41de4fbd0099cb3749f7ab3b0cb8f70b810c
+  ffmpeg-kit-macos-https: 60de703db964ccca7fd0d4d1611f4c102a8139cc
+  ffmpeg_kit_flutter: 5bd75928cf88ec177cea410b027681e4bfe09452
   flutter_archive: 1a28d55ba9013cf5f4513ae1bb6af118f787df96
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
   just_waveform: 1ab8cecd081342f77c51392910db0162720f0cba
@@ -85,6 +98,6 @@ SPEC CHECKSUMS:
   window_manager: 3a1844359a6295ab1e47659b1a777e36773cd6e8
   ZIPFoundation: ae5b4b813d216d3bf0a148773267fff14bd51d37
 
-PODFILE CHECKSUM: ff0a9a3ce75ee73f200ca7e2f47745698c917ef9
+PODFILE CHECKSUM: 8d40c19d3cbdb380d870685c3a564c989f1efa52
 
 COCOAPODS: 1.14.3

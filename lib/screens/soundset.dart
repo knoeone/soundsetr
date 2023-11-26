@@ -149,8 +149,8 @@ class SoundSetAudioFile extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 20),
-          ReplaceButton(item: item, file: file),
-          PlayButton(file: '${item['path']}/${item['plist'][file]}')
+          ReplaceButton(item: item, file: file, onChange: () => {}),
+          PlayButton(item: item, file: '${item['path']}/${item['plist'][file]}')
         ],
       ),
     );

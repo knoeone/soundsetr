@@ -1,4 +1,7 @@
 import 'dart:io';
+import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
+import 'package:ffmpeg_kit_flutter/return_code.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter_archive/flutter_archive.dart';
 import 'package:io/io.dart';
 import 'package:path/path.dart' as path;
@@ -98,5 +101,40 @@ abstract class Downloader {
 
   static reveal(file) async {
     launchUrl(Uri.parse(path.join('file://$file')));
+  }
+
+  static replace(set, name) async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['aif', 'wav', 'mp3', 'ogg', 'aiff'],
+    );
+
+    if (result == null) return;
+
+    File file = File(result.files.single.path!);
+    print(file.path);
+
+    final Directory downloads = await getTemporaryDirectory();
+    final tmpFile = path.join('${downloads.path}', 'converted.aif');
+    final session = await FFmpegKit.execute('-y -i "${file.path}" "${tmpFile}"');
+    final returnCode = await session.getReturnCode();
+
+    if (ReturnCode.isSuccess(returnCode)) {
+      // SUCCESS
+    } else if (ReturnCode.isCancel(returnCode)) {
+      // CANCEL
+    } else {
+      // ERROR
+    }
+
+    print(returnCode);
+    print(name);
+
+    print(set['plist'][name]);
+    final destinationFile = path.join(dstName(set['name']), set['plist'][name]);
+    print(destinationFile);
+
+    File(destinationFile).deleteSync();
+    File(tmpFile).renameSync(destinationFile);
   }
 }

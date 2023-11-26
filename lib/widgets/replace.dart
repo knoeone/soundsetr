@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
+import 'package:ffmpeg_kit_flutter/return_code.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
@@ -11,21 +13,18 @@ import '../utils/downloader.dart';
 class ReplaceButton extends StatelessWidget {
   final file;
   final item;
+  final onChange;
   ReplaceButton({
     super.key,
     required this.file,
     required this.item,
+    required this.onChange,
   });
 
   void replaceFile() async {
-    FilePickerResult? result = await FilePicker.platform
-        .pickFiles(type: FileType.custom, allowedExtensions: ['aif', 'wav', 'mp3']);
-
-    if (result != null) {
-      File file = File(result.files.single.path!);
-    } else {
-      // User canceled the picker
-    }
+    print('file $file');
+    await Downloader.replace(item, file);
+    onChange();
   }
 
   @override
