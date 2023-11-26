@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:macos_window_utils/macos_window_utils.dart';
+import 'package:soundset_market/screens/soundset.dart';
 import 'package:system_theme/system_theme.dart';
 import 'package:window_manager/window_manager.dart';
 import 'content.dart';
@@ -53,6 +54,9 @@ class App extends StatelessWidget {
       ),
       themeMode: ThemeMode.system,
       home: const MainView(),
+      routes: {
+        '/soundset': (context) => const SoundsetScreen(),
+      },
       debugShowCheckedModeBanner: false,
     );
   }
@@ -112,19 +116,37 @@ class _MainViewState extends State<MainView> {
           child: IndexedStack(
             index: _pageIndex,
             children: [
-              Container(),
+              ScaffoldScreen(
+                title: const Text('Home'),
+                child: Container(),
+              ),
               ScaffoldScreen(
                 title: const Text('Installed'),
                 child: InstalledScreen(),
               ),
-              ScaffoldScreen(
-                title: const Text('Store'),
-                child: MarketScreen(),
-              ),
+              CupertinoTabView(builder: (context) {
+                return ScaffoldScreen(
+                  title: const Text('Store'),
+                  child: MarketScreen(),
+                );
+              }),
               Container(),
               Container(),
             ],
           ),
+          // child: ScaffoldScreen(
+          //   title: const Text('Home'),
+          //   child: IndexedStack(
+          //     index: _pageIndex,
+          //     children: [
+          //       Container(),
+          //       InstalledScreen(),
+          //       MarketScreen(),
+          //       Container(),
+          //       Container(),
+          //     ],
+          //   ),
+          // ),
         ),
         // child: TransparentSidebarAndContent(
         //   width: 200,

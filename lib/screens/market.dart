@@ -9,6 +9,7 @@ import 'package:watcher/watcher.dart';
 import 'dart:io' as io;
 
 import '../widgets/download.dart';
+import 'soundset.dart';
 
 class MarketScreen extends StatefulWidget {
   final ScrollController? scrollController;
@@ -92,11 +93,17 @@ class _MarketScreenState extends State<MarketScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      '$name',
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(SoundsetScreen.route());
+                        //Navigator.of(context).pushNamed('/soundset');
+                      },
+                      child: Text(
+                        '$name',
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 5),
