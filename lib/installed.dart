@@ -24,8 +24,8 @@ class _InstalledState extends State<Installed> {
     super.initState();
     updateFiles();
 
-    var watcher = DirectoryWatcher(p.absolute(directory));
-    watcher.events.listen((e) => updateFiles());
+    // var watcher = DirectoryWatcher(p.absolute(directory));
+    // watcher.events.listen((e) => updateFiles());
   }
 
   void updateFiles() {

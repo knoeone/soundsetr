@@ -4,6 +4,7 @@ import 'package:macos_ui/macos_ui.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:macos_window_utils/macos_window_utils.dart';
 
+import 'content.dart';
 import 'installed.dart';
 
 /// This method initializes macos_window_utils and styles the window.
@@ -84,46 +85,51 @@ class _MainViewState extends State<MainView> {
         ],
         child: MacosWindow(
           backgroundColor: Color.fromRGBO(0, 0, 0, 0.0),
-          sidebar: SideBar(),
+          sidebar: Sidebar(
+            minWidth: 200,
+            builder: SideBar,
+          ),
           child: IndexedStack(
             index: _pageIndex,
             children: const [
-              //HomePage(),
-              Text("Asd")
+              HomePage(),
             ],
           ),
         ),
+        // child: TransparentSidebarAndContent(
+        //   width: 200,
+        //   isOpen: true,
+        //   sidebarBuilder: SideBar,
+        //   child: HomePage(),
+        // ),
       ),
     );
   }
 
-  Sidebar SideBar() {
-    return Sidebar(
-      minWidth: 200,
-      builder: (context, scrollController) => SidebarItems(
-        currentIndex: _pageIndex,
-        onChanged: (index) {
-          setState(() => _pageIndex = index);
-        },
-        items: const [
-          SidebarItem(
-            leading: MacosIcon(CupertinoIcons.home),
-            label: Text('Home'),
-          ),
-          SidebarItem(
-            leading: MacosIcon(CupertinoIcons.folder),
-            label: Text('Installed'),
-          ),
-          SidebarItem(
-            leading: MacosIcon(CupertinoIcons.cloud),
-            label: Text('Market'),
-          ),
-          SidebarItem(
-            leading: MacosIcon(CupertinoIcons.speaker_2),
-            label: Text('Setup'),
-          ),
-        ],
-      ),
+  Widget SideBar([BuildContext? context, ScrollController? scrollController]) {
+    return SidebarItems(
+      currentIndex: _pageIndex,
+      onChanged: (index) {
+        setState(() => _pageIndex = index);
+      },
+      items: const [
+        SidebarItem(
+          leading: MacosIcon(CupertinoIcons.home),
+          label: Text('Home'),
+        ),
+        SidebarItem(
+          leading: MacosIcon(CupertinoIcons.folder),
+          label: Text('Installed'),
+        ),
+        SidebarItem(
+          leading: MacosIcon(CupertinoIcons.cloud),
+          label: Text('Market'),
+        ),
+        SidebarItem(
+          leading: MacosIcon(CupertinoIcons.speaker_2),
+          label: Text('Setup'),
+        ),
+      ],
     );
   }
 }
