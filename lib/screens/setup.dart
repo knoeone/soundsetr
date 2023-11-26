@@ -13,7 +13,7 @@ class SetupScreen extends StatelessWidget {
       useSliver: true,
       children: [
         Image.network(
-          'https://raw.githubusercontent.com/knoeone/soundsetr/main/assets/images/home.jpg',
+          'https://raw.githubusercontent.com/knoeone/soundsetr/main/res/home.jpg',
         ),
         Container(
           color: MacosTheme.of(context).canvasColor,
