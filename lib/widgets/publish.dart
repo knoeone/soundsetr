@@ -10,7 +10,6 @@ class PublishButton extends StatelessWidget {
   publishSet(context) async {
     void onComplete() {
       Navigator.of(context, rootNavigator: true).pop();
-      Navigator.of(context).pop();
     }
 
     showMacosAlertDialog(

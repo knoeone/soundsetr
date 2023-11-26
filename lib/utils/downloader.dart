@@ -308,4 +308,16 @@ abstract class Downloader {
 
     return controller.stream;
   }
+
+  static Future contributing() async {
+    try {
+      final request = await HttpClient().getUrl(Uri.parse(
+          'https://raw.githubusercontent.com/auth0/open-source-template/master/GENERAL-CONTRIBUTING.md'));
+      final response = await request.close();
+      final String md = await response.transform(utf8.decoder).join();
+      return md;
+    } catch (e) {
+      print(e);
+    }
+  }
 }
