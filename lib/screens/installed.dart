@@ -46,6 +46,7 @@ class _InstalledScreenState extends State<InstalledScreen> {
         'name': name.replaceAll('.eragesoundset', ''),
         'description': plist['SoundSetUserString'],
         'repo': plist['SoundSetURL'],
+        'path': file.path,
       });
     });
 

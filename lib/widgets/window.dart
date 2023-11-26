@@ -307,6 +307,7 @@ class _MacosWindowState extends State<MacosWindow> {
                       : TransparentMacOSSidebar(
                           state: sidebarState,
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               // If an app is running on macOS, apply
                               // sidebar.topOffset as needed in order to avoid the

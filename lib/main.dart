@@ -104,8 +104,8 @@ class _MainViewState extends State<MainView> {
           backgroundColor: const Color.fromRGBO(0, 0, 0, 0.0),
           sidebar: Sidebar(
             padding: const EdgeInsets.all(0),
-            //top: const Toggle(),
-            //topOffset: 0,
+            top: const Toggle(),
+            topOffset: 0,
             bottom: Container(
               alignment: Alignment.bottomLeft,
               child: const HelpButton(),
@@ -117,7 +117,7 @@ class _MainViewState extends State<MainView> {
             index: _pageIndex,
             children: [
               ScaffoldScreen(
-                title: const Text('Home'),
+                title: const Text('Get Started'),
                 child: Container(),
               ),
               CupertinoTabView(builder: (context) {
@@ -159,11 +159,11 @@ class _MainViewState extends State<MainView> {
       items: [
         SidebarItem(
           leading: MacosIcon(
-            CupertinoIcons.home,
+            CupertinoIcons.flag,
             color: _pageIndex == 0 ? iconColor : SystemTheme.accentColor.accent,
           ),
           label: Text(
-            'Home',
+            'Get Started',
             style: TextStyle(color: Colors.white),
           ),
         ),

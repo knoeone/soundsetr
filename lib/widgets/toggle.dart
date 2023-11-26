@@ -2,10 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 class Toggle extends StatelessWidget {
-  const Toggle({super.key});
+  final bool hideIfToggled;
+  const Toggle({super.key, this.hideIfToggled = false});
 
   @override
   Widget build(BuildContext context) {
+    if (hideIfToggled && MacosWindowScope.of(context).isSidebarShown) {
+      return SizedBox();
+    }
     return SizedBox(
       height: 40,
       width: 40,

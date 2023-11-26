@@ -27,7 +27,7 @@ class Back extends StatelessWidget {
               // maxWidth: 48,
               // maxHeight: 38,
               ),
-          onPressed: () => MacosWindowScope.of(context).toggleSidebar(),
+          onPressed: () => Navigator.of(context).pop(),
         ),
       ),
     );
