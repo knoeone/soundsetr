@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
@@ -11,7 +12,9 @@ import 'package:plist_parser/plist_parser.dart';
 import 'package:crypto/crypto.dart';
 import 'package:sanitize_filename/sanitize_filename.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:watcher/watcher.dart';
 import 'config.dart';
+import 'dart:io' as io;
 
 abstract class Downloader {
   static var downloading = [];
@@ -236,5 +239,59 @@ abstract class Downloader {
 
     File(destinationFile).deleteSync();
     File(tmpFile).renameSync(destinationFile);
+  }
+
+  static watchFiles() {
+    var controller = StreamController();
+    DirectoryWatcher watcher;
+    StreamSubscription? listener;
+
+    void updateFiles(directory, [WatchEvent? e]) {
+      var files = [];
+
+      try {
+        if (!Directory(directory).existsSync()) {
+          if (listener != null) {
+            controller.add([]);
+            listener!.cancel();
+            return;
+          }
+        }
+
+        io.Directory(directory).listSync().forEach((file) async {
+          bool isFile = file is File;
+          //bool isZip = isFile && p.basename(file.path).endsWith('.zip');
+          var name = path.basename(file.path);
+          //if (isFile && !isZip) return;
+          if (isFile) return;
+          if (!name.contains('eragesoundset')) return;
+          var plist = PlistParser().parseFileSync(path.join(file.path, 'soundset.plist'));
+          files.add({
+            'name': name.replaceAll('.eragesoundset', ''),
+            'description': plist['SoundSetUserString'],
+            'repo': plist['SoundSetURL'],
+            'path': file.path,
+            'plist': plist
+          });
+        });
+        controller.add(files..sort((a, b) => a['name'].compareTo(b['name'])));
+      } catch (e) {
+        print(e);
+      }
+    }
+
+    Config.prefs.getString('path', defaultValue: '').listen((directory) {
+      if (!Directory(directory).existsSync()) {
+        controller.add([]);
+        return;
+      }
+
+      watcher = DirectoryWatcher(path.absolute(directory));
+      listener = watcher.events.listen((e) => updateFiles(directory, e));
+
+      updateFiles(directory);
+    });
+
+    return controller.stream;
   }
 }
