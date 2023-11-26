@@ -7,6 +7,8 @@ import 'package:window_manager/window_manager.dart';
 import 'screens/installed.dart';
 import 'screens/market.dart';
 import 'widgets/scaffold.dart';
+import 'widgets/toggle.dart';
+import 'widgets/window.dart';
 
 /// This method initializes macos_window_utils and styles the window.
 Future<void> _configureMacosWindowUtils() async {
@@ -52,9 +54,6 @@ class App extends StatelessWidget {
       ),
       themeMode: ThemeMode.system,
       home: const MainView(),
-      routes: {
-        '/soundset': (context) => const SoundsetScreen(),
-      },
       debugShowCheckedModeBanner: false,
     );
   }
@@ -101,12 +100,15 @@ class _MainViewState extends State<MainView> {
             ],
           ),
         ],
-        child: MacosWindow(
+        child: OtherMacosWindow(
           backgroundColor: const Color.fromRGBO(0, 0, 0, 0.0),
           sidebar: Sidebar(
+            padding: const EdgeInsets.all(0),
+            //top: const Toggle(),
+            //topOffset: 0,
             bottom: Container(
               alignment: Alignment.bottomLeft,
-              child: HelpButton(),
+              child: const HelpButton(),
             ),
             minWidth: 200,
             builder: SideBar,

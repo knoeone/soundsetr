@@ -1,40 +1,45 @@
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
+import 'back.dart';
+import 'toggle.dart';
 
 class ScaffoldScreen extends StatelessWidget {
-  Widget child;
-  Widget title;
-  ScaffoldScreen({
+  final Widget child;
+  final Widget title;
+  final bool canBack;
+  const ScaffoldScreen({
     super.key,
     required this.child,
     required this.title,
+    this.canBack = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return MacosScaffold(
       toolBar: ToolBar(
-        leading: MacosTooltip(
-          message: 'Toggle Sidebar',
-          useMousePosition: false,
-          child: MacosIconButton(
-            icon: MacosIcon(
-              CupertinoIcons.sidebar_left,
-              color: MacosTheme.brightnessOf(context).resolve(
-                const Color.fromRGBO(0, 0, 0, 0.5),
-                const Color.fromRGBO(255, 255, 255, 0.5),
-              ),
-              size: 20.0,
-            ),
-            boxConstraints: const BoxConstraints(
-              minHeight: 20,
-              minWidth: 20,
-              maxWidth: 48,
-              maxHeight: 38,
-            ),
-            onPressed: () => MacosWindowScope.of(context).toggleSidebar(),
-          ),
-        ),
+        // alignment: Alignment.centerLeft,
+        // leading: Back(),
+        //MacosWindowScope.of(context).isSidebarShown ? SizedBox(width: 1, height: 1) : Toggle(),
+
+        leading: canBack
+            ? MacosBackButton(
+                onPressed: () => Navigator.of(context).pop(),
+                fillColor: MacosColors.transparent,
+              )
+            : SizedBox(),
+        actions: false //MacosWindowScope.of(context).isSidebarShown
+            ? null
+            : [
+                ToolBarIconButton(
+                  label: "Delete",
+                  icon: const MacosIcon(
+                    CupertinoIcons.sidebar_left,
+                  ),
+                  onPressed: () => MacosWindowScope.of(context).toggleSidebar(),
+                  showLabel: false,
+                ),
+              ],
         title: title,
       ),
       children: [

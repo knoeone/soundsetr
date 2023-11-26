@@ -25,6 +25,7 @@ class SoundSetDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 //    return Container(width: 100, height: 100, color: Colors.red);
     return ScaffoldScreen(
+      canBack: true,
       title: const Text('SoundSet'),
       child: Container(color: Colors.red),
     );
