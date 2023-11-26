@@ -53,7 +53,7 @@ class SetupScreen extends StatelessWidget {
         Divider(thickness: 1, color: MacosTheme.of(context).dividerColor),
         const SizedBox(height: 26),
         const Text(
-          'Once you have a SoundSet downloaded, you will need to change the sound set in Outlook.',
+          'Once you have a SoundSet downloaded, you will need to change the SoundSet in Outlook.',
           style: TextStyle(
             height: 1.7,
           ),
@@ -89,7 +89,7 @@ class SetupScreen extends StatelessWidget {
         const SizedBox(height: 26),
         const SetupItem(
           num: 4,
-          text: 'Click the currently enabled sound set and select the set you want to use.',
+          text: 'Click the currently enabled SoundSet and select the set you want to use.',
           image: 'outlook_sounds',
         ),
         const SizedBox(height: 26),

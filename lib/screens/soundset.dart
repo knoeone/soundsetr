@@ -104,7 +104,7 @@ class _SoundSetDetailScreenState extends State<SoundSetDetailScreen> {
         overflow: TextOverflow.ellipsis,
       ),
       actions: [
-        RevealButton(item: item),
+        RevealButton(file: item['path']),
         PublishButton(item: item),
         DuplicateButton(item: item),
         DeleteButton(item: item),

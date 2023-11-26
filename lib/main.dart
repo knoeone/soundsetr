@@ -9,6 +9,7 @@ import 'screens/installed.dart';
 import 'screens/market.dart';
 import 'screens/settings.dart';
 import 'screens/setup.dart';
+import 'utils/config.dart';
 import 'widgets/create.dart';
 import 'widgets/scaffold.dart';
 import 'widgets/toggle.dart';
@@ -18,6 +19,7 @@ import 'widgets/window.dart';
 Future<void> _configureMacosWindowUtils() async {
   const config = MacosWindowUtilsConfig();
   await config.apply();
+  Config.init();
   // await WindowManipulator.makeTitlebarTransparent();
   // await WindowManipulator.setWindowBackgroundColorToClear();
   // WindowManipulator.makeWindowFullyTransparent();

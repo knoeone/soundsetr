@@ -4,9 +4,9 @@ import 'package:flutter_shake_animated/flutter_shake_animated.dart';
 
 import '../utils/downloader.dart';
 
-class RevealButton extends StatelessWidget {
-  final file;
-  const RevealButton({super.key, required this.file});
+class ResetButton extends StatelessWidget {
+  final onPressed;
+  const ResetButton({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -14,18 +14,18 @@ class RevealButton extends StatelessWidget {
       height: 40,
       width: 40,
       child: MacosTooltip(
-        message: 'Show in Finder',
+        message: 'Reset to Default',
         useMousePosition: false,
         child: MacosIconButton(
           icon: MacosIcon(
-            CupertinoIcons.folder,
+            CupertinoIcons.refresh,
             color: MacosTheme.brightnessOf(context).resolve(
               const Color.fromRGBO(0, 0, 0, 0.5),
               const Color.fromRGBO(255, 255, 255, 0.5),
             ),
             size: 20.0,
           ),
-          onPressed: () => Downloader.reveal(file),
+          onPressed: onPressed,
         ),
       ),
     );

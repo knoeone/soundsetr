@@ -203,8 +203,8 @@ abstract class Downloader {
     //copyPathSync(set['path'], path.join('$downloads', file));
   }
 
-  static reveal(file) async {
-    launchUrl(Uri.parse(path.join('file://$file')));
+  static reveal(String file) async {
+    launchUrl(Uri.parse(file.indexOf('https://') == 0 ? file : 'file://$file'));
   }
 
   static replace(set, name) async {

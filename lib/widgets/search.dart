@@ -41,6 +41,7 @@ class _SearchState extends State<Search> {
     List all = widget.items('');
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Flexible(
           flex: 0,
@@ -50,7 +51,7 @@ class _SearchState extends State<Search> {
               controller: controller,
               maxLines: 1,
               padding: const EdgeInsets.all(12),
-              placeholder: 'Search for a sound set...',
+              placeholder: 'Search for a SoundSet...',
               results: all.map((e) => SearchResultItem(e['name'] as String)).toList(),
               onResultSelected: (resultItem) {
                 debugPrint(resultItem.searchKey);
@@ -59,17 +60,23 @@ class _SearchState extends State<Search> {
           ),
         ),
         Expanded(
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              return MasonryGridView.count(
-                crossAxisCount: (constraints.maxWidth / 400).floor().clamp(1, 4),
-                itemCount: filterd.length,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                itemBuilder: (context, index) => widget.itemBuilder(context, index, filterd[index]),
-              );
-            },
-          ),
+          child: filterd.length > 0
+              ? LayoutBuilder(
+                  builder: (context, constraints) {
+                    return MasonryGridView.count(
+                      crossAxisCount: (constraints.maxWidth / 400).floor().clamp(1, 4),
+                      itemCount: filterd.length,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      itemBuilder: (context, index) =>
+                          widget.itemBuilder(context, index, filterd[index]),
+                    );
+                  },
+                )
+              : Padding(
+                  padding: EdgeInsets.only(top: 20, left: 20),
+                  child: Text('No results found'),
+                ),
         ),
       ],
     );
