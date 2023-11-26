@@ -36,12 +36,13 @@ Future<void> main() async {
   await windowManager.ensureInitialized();
 
   WindowOptions windowOptions = const WindowOptions(
-    minimumSize: Size(800, 600),
+    minimumSize: Size(600, 500),
+    size: Size(1024, 500),
   );
-  // windowManager.waitUntilReadyToShow(windowOptions, () async {
-  //   await windowManager.show();
-  //   await windowManager.focus();
-  // });
+  windowManager.waitUntilReadyToShow(windowOptions, () async {
+    await windowManager.show();
+    await windowManager.focus();
+  });
   runApp(const App());
 }
 
@@ -74,18 +75,29 @@ class MainView extends StatefulWidget {
   State<MainView> createState() => _MainViewState();
 }
 
-class _MainViewState extends State<MainView> {
+class _MainViewState extends State<MainView> with WindowListener {
   int _pageIndex = 0;
   bool _visible = false;
 
   @override
   void initState() {
     super.initState();
+    windowManager.addListener(this);
+    //setState(() => _visible = true);
     Future.delayed(const Duration(milliseconds: 100), () {
-      setState(() {
-        _visible = true;
-      });
+      setState(() => _visible = true);
     });
+  }
+
+  @override
+  void dispose() {
+    windowManager.removeListener(this);
+    super.dispose();
+  }
+
+  @override
+  void onWindowFocus() {
+    setState(() => _visible = true);
   }
 
   void goToIndex(index) {
@@ -96,7 +108,7 @@ class _MainViewState extends State<MainView> {
   Widget build(BuildContext context) {
     return AnimatedOpacity(
       opacity: _visible ? 1.0 : 0.0,
-      duration: const Duration(milliseconds: 600),
+      duration: const Duration(milliseconds: 4000),
       curve: Curves.easeOutExpo,
       child: PlatformMenuBar(
         menus: [
@@ -159,8 +171,8 @@ class _MainViewState extends State<MainView> {
     );
   }
 
-  Widget sideBar(BuildContext? context, ScrollController? scrollController) {
-    var readableColor = MacosTheme.brightnessOf(context as BuildContext).resolve(
+  Widget sideBar(BuildContext context, ScrollController scrollController) {
+    var readableColor = MacosTheme.brightnessOf(context).resolve(
       const Color.fromRGBO(0, 0, 0, 1),
       const Color.fromRGBO(255, 255, 255, 1),
     );
