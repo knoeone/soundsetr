@@ -29,17 +29,19 @@ Future<void> _configureMacosWindowUtils() async {
 }
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemTheme.accentColor.load();
+
   await _configureMacosWindowUtils();
   await windowManager.ensureInitialized();
-  WidgetsFlutterBinding.ensureInitialized();
 
   WindowOptions windowOptions = const WindowOptions(
     minimumSize: Size(800, 600),
   );
-  windowManager.waitUntilReadyToShow(windowOptions, () async {
-    await windowManager.show();
-    await windowManager.focus();
-  });
+  // windowManager.waitUntilReadyToShow(windowOptions, () async {
+  //   await windowManager.show();
+  //   await windowManager.focus();
+  // });
   runApp(const App());
 }
 
@@ -158,10 +160,15 @@ class _MainViewState extends State<MainView> {
   }
 
   Widget sideBar(BuildContext? context, ScrollController? scrollController) {
-    var iconColor = MacosTheme.brightnessOf(context as BuildContext).resolve(
-      const Color.fromRGBO(255, 255, 255, 1),
+    var readableColor = MacosTheme.brightnessOf(context as BuildContext).resolve(
       const Color.fromRGBO(0, 0, 0, 1),
+      const Color.fromRGBO(255, 255, 255, 1),
     );
+    // var selectedColor = MacosTheme.brightnessOf(context as BuildContext).resolve(
+    //   const Color.fromRGBO(255, 255, 255, 1),
+    //   const Color.fromRGBO(0, 0, 0, 1),
+    // );
+    var selectedColor = const Color.fromRGBO(255, 255, 255, 1);
     //var iconColor = SystemTheme.accentColor.accent;
     //var iconColor = CupertinoColors.secondaryLabel.color;
 
@@ -179,37 +186,52 @@ class _MainViewState extends State<MainView> {
         SidebarItem(
           leading: MacosIcon(
             CupertinoIcons.flag,
-            color: _pageIndex == 0 ? iconColor : SystemTheme.accentColor.accent,
+            color: _pageIndex == 0 ? selectedColor : SystemTheme.accentColor.accent,
           ),
-          label: const Text('Get Started'),
+          label: Text(
+            'Get Started',
+            style: TextStyle(color: _pageIndex == 0 ? selectedColor : readableColor),
+          ),
         ),
         SidebarItem(
           leading: MacosIcon(
             CupertinoIcons.folder,
-            color: _pageIndex == 1 ? iconColor : SystemTheme.accentColor.accent,
+            color: _pageIndex == 1 ? selectedColor : SystemTheme.accentColor.accent,
           ),
-          label: const Text('Installed'),
+          label: Text(
+            'Installed',
+            style: TextStyle(color: _pageIndex == 1 ? selectedColor : readableColor),
+          ),
         ),
         SidebarItem(
           leading: MacosIcon(
             CupertinoIcons.cloud,
-            color: _pageIndex == 2 ? iconColor : SystemTheme.accentColor.accent,
+            color: _pageIndex == 2 ? selectedColor : SystemTheme.accentColor.accent,
           ),
-          label: const Text('Store'),
+          label: Text(
+            'Store',
+            style: TextStyle(color: _pageIndex == 2 ? selectedColor : readableColor),
+          ),
         ),
         SidebarItem(
           leading: MacosIcon(
             CupertinoIcons.sparkles,
-            color: _pageIndex == 3 ? iconColor : SystemTheme.accentColor.accent,
+            color: _pageIndex == 3 ? selectedColor : SystemTheme.accentColor.accent,
           ),
-          label: const Text('Contribute'),
+          label: Text(
+            'Contribute',
+            style: TextStyle(color: _pageIndex == 3 ? selectedColor : readableColor),
+          ),
         ),
         SidebarItem(
           leading: MacosIcon(
             CupertinoIcons.wrench,
-            color: _pageIndex == 4 ? iconColor : SystemTheme.accentColor.accent,
+            color: _pageIndex == 4 ? selectedColor : SystemTheme.accentColor.accent,
           ),
-          label: const Text('Settings'),
+          label: Text(
+            'Settings',
+            style: TextStyle(color: _pageIndex == 4 ? selectedColor : readableColor),
+          ),
         ),
       ],
     );

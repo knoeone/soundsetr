@@ -21,16 +21,17 @@ abstract class Config {
   static set path(String value) {
     if (_path == value) return;
     _path = value;
-    print('setting to $value');
     prefs.setString('path', value);
   }
 
   static set outlookResourcePath(String value) {
+    if (_outlookResourcePath == value) return;
     _outlookResourcePath = value;
     prefs.setString('outlookResourcePath', value);
   }
 
   static set repository(String value) {
+    if (_repository == value) return;
     _repository = value;
     prefs.setString('repository', value);
   }

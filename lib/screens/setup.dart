@@ -12,11 +12,16 @@ class SetupScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScaffoldScreen(
       useSliver: true,
-      title: const Text(
-        'Get Started with Soundsetr',
-        maxLines: 1,
-      ),
+      // title: const Text(
+      //   'Get Started with Soundsetr',
+      //   maxLines: 1,
+      // ),
       children: [
+        Image(
+          image: AssetImage(
+            'assets/images/home.jpg',
+          ),
+        ),
         Container(
           color: MacosTheme.of(context).canvasColor,
           padding: const EdgeInsets.all(20),

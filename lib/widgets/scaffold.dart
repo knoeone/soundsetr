@@ -6,7 +6,7 @@ import 'toggle.dart';
 class ScaffoldScreen extends StatelessWidget {
   final Widget? child;
   final List<Widget>? children;
-  final Widget title;
+  final Widget? title;
   final bool canBack;
   final List<Widget>? actions;
   final bool useSliver;
@@ -15,7 +15,7 @@ class ScaffoldScreen extends StatelessWidget {
   const ScaffoldScreen({
     super.key,
     this.child,
-    required this.title,
+    this.title,
     this.canBack = false,
     this.actions,
     this.useSliver = false,
@@ -61,7 +61,7 @@ class ScaffoldScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: leading,
         ),
-        Expanded(child: title),
+        title != null ? Expanded(child: title as Widget) : SizedBox(),
         ...a,
       ],
     );
@@ -70,13 +70,17 @@ class ScaffoldScreen extends StatelessWidget {
       return CustomScrollView(
         controller: scrollController,
         slivers: [
-          SliverToolBar(
-            automaticallyImplyLeading: false,
-            title: titleRow,
-            pinned: true,
-            toolbarOpacity: 0.75,
-            padding: const EdgeInsets.all(0),
-          ),
+          title != null || (title == null && !MacosWindowScope.of(context).isSidebarShown)
+              ? SliverToolBar(
+                  automaticallyImplyLeading: false,
+                  title: titleRow,
+                  pinned: true,
+                  floating: true,
+                  toolbarOpacity: title == null ? 0 : 0.75,
+                  padding: const EdgeInsets.all(0),
+                  height: 0,
+                )
+              : SliverToBoxAdapter(),
           SliverList.list(
             children: children ?? [],
           ),
@@ -85,13 +89,15 @@ class ScaffoldScreen extends StatelessWidget {
     }
 
     return MacosScaffold(
-      toolBar: ToolBar(
-        automaticallyImplyLeading: false,
-        allowWallpaperTintingOverrides: true,
-        titleWidth: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.all(0),
-        title: titleRow,
-      ),
+      toolBar: title != null
+          ? ToolBar(
+              automaticallyImplyLeading: false,
+              allowWallpaperTintingOverrides: true,
+              titleWidth: MediaQuery.of(context).size.width,
+              padding: const EdgeInsets.all(0),
+              title: titleRow,
+            )
+          : null,
       children: [
         ContentArea(builder: (context, scrollController) => child ?? Container()),
       ],
