@@ -7,6 +7,8 @@ PODS:
     - FlutterMacOS
     - ZIPFoundation (= 0.9.13)
   - FlutterMacOS (1.0.0)
+  - just_waveform (0.0.1):
+    - FlutterMacOS
   - macos_ui (0.1.0):
     - FlutterMacOS
   - macos_window_utils (1.0.0):
@@ -29,6 +31,7 @@ DEPENDENCIES:
   - audioplayers_darwin (from `Flutter/ephemeral/.symlinks/plugins/audioplayers_darwin/macos`)
   - flutter_archive (from `Flutter/ephemeral/.symlinks/plugins/flutter_archive/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
+  - just_waveform (from `Flutter/ephemeral/.symlinks/plugins/just_waveform/macos`)
   - macos_ui (from `Flutter/ephemeral/.symlinks/plugins/macos_ui/macos`)
   - macos_window_utils (from `Flutter/ephemeral/.symlinks/plugins/macos_window_utils/macos`)
   - path_provider_foundation (from `Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/darwin`)
@@ -50,6 +53,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/flutter_archive/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
+  just_waveform:
+    :path: Flutter/ephemeral/.symlinks/plugins/just_waveform/macos
   macos_ui:
     :path: Flutter/ephemeral/.symlinks/plugins/macos_ui/macos
   macos_window_utils:
@@ -70,6 +75,7 @@ SPEC CHECKSUMS:
   audioplayers_darwin: dcad41de4fbd0099cb3749f7ab3b0cb8f70b810c
   flutter_archive: 1a28d55ba9013cf5f4513ae1bb6af118f787df96
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
+  just_waveform: 1ab8cecd081342f77c51392910db0162720f0cba
   macos_ui: 6229a8922cd97bafb7d9636c8eb8dfb0744183ca
   macos_window_utils: 933f91f64805e2eb91a5bd057cf97cd097276663
   path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943

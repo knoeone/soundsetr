@@ -26,6 +26,10 @@ dependencies:
   audioplayers: ^5.2.1
   io: ^1.0.4
   flutter_shake_animated: ^0.0.5
+  just_waveform: ^0.0.5
+  audio_waveforms: ^1.0.4
+  siri_wave: ^2.0.0+1
+  file_picker: ^6.1.1
 
 dev_dependencies:
   flutter_test:

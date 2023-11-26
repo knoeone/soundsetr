@@ -17,6 +17,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
+  audio_waveforms:
+    dependency: "direct main"
+    description:
+      name: audio_waveforms
+      sha256: f2f81e256c5c03b64e2861e0323a77e1b6790c256c73393b671214c9846260fc
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.4"
   audioplayers:
     dependency: "direct main"
     description:
@@ -153,6 +161,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.0"
+  file_picker:
+    dependency: "direct main"
+    description:
+      name: file_picker
+      sha256: "4e42aacde3b993c5947467ab640882c56947d9d27342a5b6f2895b23956954a6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.1.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -174,6 +190,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
+  flutter_plugin_android_lifecycle:
+    dependency: transitive
+    description:
+      name: flutter_plugin_android_lifecycle
+      sha256: b068ffc46f82a55844acfa4fdbb61fad72fa2aef0905548419d97f0f95c456da
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.17"
   flutter_shake_animated:
     dependency: "direct main"
     description:
@@ -240,6 +264,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.7"
+  just_waveform:
+    dependency: "direct main"
+    description:
+      name: just_waveform
+      sha256: a566b92e8a2cae00a914918bbd37227a09551b98dc60bea20a52cf736df0bf51
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.5"
   lints:
     dependency: transitive
     description:
@@ -392,6 +424,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.1.9"
+  siri_wave:
+    dependency: "direct main"
+    description:
+      name: siri_wave
+      sha256: "3bbd2bb95727a234f059b7947d79654d6e00e3fe1f66040dab99b74aec9279a8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0+1"
   sky_engine:
     dependency: transitive
     description: flutter

@@ -72,7 +72,7 @@ class _InstalledScreenState extends State<InstalledScreen> {
           title: '${item['name']}',
           description: '${item['description']}',
           repo: '${item['repo']}',
-          icon: CupertinoIcons.speaker_2,
+          icon: CupertinoIcons.archivebox,
           action: Container(),
           item: item,
         );

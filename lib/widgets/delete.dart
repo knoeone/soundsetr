@@ -53,7 +53,7 @@ class DeleteButton extends StatelessWidget {
       height: 40,
       width: 40,
       child: MacosTooltip(
-        message: 'Delte',
+        message: 'Delete',
         useMousePosition: false,
         child: MacosIconButton(
           icon: MacosIcon(
