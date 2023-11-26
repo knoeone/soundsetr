@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:macos_ui/macos_ui.dart';
@@ -19,6 +21,15 @@ const audioDescriptions = {
   'SoundFile_NoMail': 'Played when you have no friends.',
   'SoundFile_Reminder': 'Played when a meeting with an event reminder happens.',
   'SoundFile_Welcome': 'Played when Outlook first opens.',
+};
+
+const audioNames = {
+  'SoundFile_NewMail': 'New Mail',
+  'SoundFile_MailError': 'Mail Error',
+  'SoundFile_MailSent': 'Mail Sent',
+  'SoundFile_NoMail': 'No Mail',
+  'SoundFile_Reminder': 'Reminder',
+  'SoundFile_Welcome': 'Welcome',
 };
 
 class SoundsetScreen extends StatelessWidget {
@@ -47,7 +58,7 @@ class SoundSetDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScaffoldScreen(
       canBack: true,
-      title: Text(item['name']),
+      title: Text(item['description']),
       actions: [
         RevealButton(item: item),
         PublishButton(item: item),
@@ -129,7 +140,7 @@ class SoundSetAudioFile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  item['plist'][file].replaceAll('.aif', ''),
+                  '${audioNames[file]}',
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,

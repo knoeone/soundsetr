@@ -90,7 +90,7 @@ abstract class Downloader {
   <key>SoundSetFileFormatVersion</key>
   <integer>0</integer>
   <key>SoundSetUserString</key>
-  <string>$name</string>
+  <string>Created by Soundsetr</string>
   <key>SoundSetURL</key>
   <string>http://www.microsoft.com/mac</string>
   <key>SoundFile_MailError</key>

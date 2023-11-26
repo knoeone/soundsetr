@@ -39,7 +39,7 @@ class _PlayButtonState extends State<PlayButton> {
 
   void setSource() {
     try {
-      if (!Directory(widget.item['path]']).existsSync() || !File(widget.file).existsSync()) return;
+      if (!Directory(widget.item['path']).existsSync() || !File(widget.file).existsSync()) return;
 
       setState(() => source = DeviceFileSource(widget.file));
       player.setSource(source);

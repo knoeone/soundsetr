@@ -25,7 +25,6 @@ class CreateButton extends StatelessWidget {
       }
 
       Navigator.of(context, rootNavigator: true).pop();
-      Navigator.of(context).pop();
       Downloader.newFromDefault(controller.text);
     }
 
