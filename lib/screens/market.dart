@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import '../utils/downloader.dart';
 import '../widgets/card.dart';
 import '../widgets/download.dart';
 import '../widgets/search.dart';
@@ -12,44 +13,15 @@ class MarketScreen extends StatefulWidget {
 }
 
 class _MarketScreenState extends State<MarketScreen> {
-  var sets = [
-    {
-      'name': 'Microsoft Sound Set',
-      'repo': 'https://github.com/l337-haxx0r/microsoft-soundset',
-      'description':
-          'The soundset from Microsoft\'s Entourage 2004 for Mac, preserved for Outlook for Mac 2016, 2019, or 2021',
-      'download':
-          'https://raw.githubusercontent.com/l337-haxx0r/microsoft-soundset/main/Microsoft%20Sound%20Set.eragesoundset.zip',
-    },
-    {
-      'name': 'Microsoft Sound Set',
-      'repo': 'https://github.com/l337-haxx0r/microsoft-soundset',
-      'description':
-          'The soundset from Microsoft\'s Entourage 2004 for Mac, preserved for Outlook for Mac 2016, 2019, or 2021',
-      'download':
-          'https://raw.githubusercontent.com/l337-haxx0r/microsoft-soundset/main/Microsoft%20Sound%20Set.eragesoundset.zip',
-    },
-    {
-      'name': 'Microsoft Sound Set',
-      'repo': 'https://github.com/l337-haxx0r/microsoft-soundset',
-      'description':
-          'The soundset from Microsoft\'s Entourage 2004 for Mac, preserved for Outlook for Mac 2016, 2019, or 2021',
-      'download':
-          'https://raw.githubusercontent.com/l337-haxx0r/microsoft-soundset/main/Microsoft%20Sound%20Set.eragesoundset.zip',
-    },
-    {
-      'name': 'Microsoft Sound Set',
-      'repo': 'https://github.com/l337-haxx0r/microsoft-soundset',
-      'description':
-          'The soundset from Microsoft\'s Entourage 2004 for Mac, preserved for Outlook for Mac 2016, 2019, or 2021',
-      'download':
-          'https://raw.githubusercontent.com/l337-haxx0r/microsoft-soundset/main/Microsoft%20Sound%20Set.eragesoundset.zip',
-    }
-  ];
+  var sets = [];
 
   @override
   void initState() {
     super.initState();
+
+    Downloader.watchNetwork().listen((files) {
+      setState(() => sets = files);
+    });
   }
 
   @override
@@ -58,16 +30,14 @@ class _MarketScreenState extends State<MarketScreen> {
       items: (filter) => sets
           .where(
             (item) =>
-                filter == '' ||
-                (item['name'] as String).contains(filter) ||
-                (item['description'] as String).contains(filter),
+                filter == '' || (item.name).contains(filter) || (item.description).contains(filter),
           )
           .toList(),
       itemBuilder: (context, index, item) {
         return Card(
-          title: '${item['name']}',
-          description: '${item['description']}',
-          repo: '${item['repo']}',
+          title: '${item.name}',
+          description: '${item.description}',
+          repo: '${item.repo}',
           icon: CupertinoIcons.globe,
           item: item,
           action: DownloadButton(

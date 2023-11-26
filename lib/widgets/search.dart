@@ -52,7 +52,7 @@ class _SearchState extends State<Search> {
               maxLines: 1,
               padding: const EdgeInsets.all(12),
               placeholder: 'Search for a SoundSet...',
-              results: all.map((e) => SearchResultItem(e['name'] as String)).toList(),
+              results: all.map((e) => SearchResultItem(e.name)).toList(),
               onResultSelected: (resultItem) {
                 debugPrint(resultItem.searchKey);
               },

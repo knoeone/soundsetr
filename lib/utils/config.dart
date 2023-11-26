@@ -41,10 +41,12 @@ abstract class Config {
     prefs.getString('path', defaultValue: pathDefault).listen((value) {
       _path = value;
     });
-    prefs.getString('path', defaultValue: repositoryDefault).listen((value) {
+    prefs.getString('repository', defaultValue: repositoryDefault).listen((value) {
       _repository = value;
     });
-    prefs.getString('path', defaultValue: outlookResourcePathDefault).listen((value) {
+    prefs
+        .getString('outlookResourcePath', defaultValue: outlookResourcePathDefault)
+        .listen((value) {
       _outlookResourcePath = value;
     });
   }

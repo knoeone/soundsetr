@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
+import '../models/soundset.dart';
 
 class PublishButton extends StatelessWidget {
-  final item;
+  final SoundSet item;
   const PublishButton({super.key, required this.item});
 
   publishSet(context) async {

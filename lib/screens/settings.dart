@@ -30,7 +30,7 @@ class SettingsScreen extends StatelessWidget {
           setting: Config.repository,
           onChange: (value) => Config.repository = value,
           defaultValue: Config.repositoryDefault,
-          name: 'SoundSet Repository URL',
+          name: 'SoundSet Repository URL Endpoint',
         ),
       ],
     );

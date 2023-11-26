@@ -3,6 +3,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:system_theme/system_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../models/soundset.dart';
 import '../utils/downloader.dart';
 import '../widgets/delete.dart';
 import '../widgets/duplicate.dart';
@@ -50,7 +51,7 @@ class SoundsetScreen extends StatelessWidget {
 }
 
 class SoundSetDetailScreen extends StatefulWidget {
-  final item;
+  final SoundSet item;
   const SoundSetDetailScreen({super.key, required this.item});
 
   @override
@@ -58,10 +59,10 @@ class SoundSetDetailScreen extends StatefulWidget {
 }
 
 class _SoundSetDetailScreenState extends State<SoundSetDetailScreen> {
-  var item;
+  SoundSet? item;
 
   void loadItem() async {
-    if (widget.item['path'] != null) {
+    if (widget.item.path != null) {
       setState(() => item = widget.item);
     } else {
       var updatedItem = await Downloader.preview(widget.item);
@@ -83,7 +84,7 @@ class _SoundSetDetailScreenState extends State<SoundSetDetailScreen> {
       return ScaffoldScreen(
         canBack: true,
         title: Text(
-          widget.item['name'],
+          widget.item.name,
           overflow: TextOverflow.ellipsis,
         ),
         child: const Center(
@@ -95,14 +96,14 @@ class _SoundSetDetailScreenState extends State<SoundSetDetailScreen> {
     return ScaffoldScreen(
       canBack: true,
       title: Text(
-        item['name'],
+        '${item?.name}',
         overflow: TextOverflow.ellipsis,
       ),
       actions: [
-        RevealButton(file: item['path']),
-        PublishButton(item: item),
-        DuplicateButton(item: item),
-        DeleteButton(item: item),
+        RevealButton(file: item!.path),
+        PublishButton(item: item!),
+        DuplicateButton(item: item!),
+        DeleteButton(item: item!),
       ],
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,12 +115,12 @@ class _SoundSetDetailScreenState extends State<SoundSetDetailScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(item['description']),
+                  Text('${item?.description}'),
                   const SizedBox(height: 10),
                   GestureDetector(
-                    onTap: () => launchUrl(Uri.parse(item['repo'])),
+                    onTap: () => launchUrl(Uri.parse('${item?.repo}')),
                     child: Text(
-                      item['repo'],
+                      item!.repo,
                       style: TextStyle(
                         fontSize: 13,
                         color: SystemTheme.accentColor.accent,
@@ -203,10 +204,10 @@ class SoundSetAudioFile extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 20),
-          item['tmp'] == true
+          item.tmp == true
               ? SaveAudioButton(item: item, file: file)
               : ReplaceButton(item: item, file: file),
-          PlayButton(item: item, file: '${item['path']}/${item['plist'][file]}')
+          PlayButton(item: item, file: '${item.path}/${item.plist[file]}')
         ],
       ),
     );

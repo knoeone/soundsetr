@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:flutter_shake_animated/flutter_shake_animated.dart';
 
+import '../models/soundset.dart';
 import '../utils/downloader.dart';
 
 class DuplicateButton extends StatelessWidget {
-  final item;
+  final SoundSet item;
   const DuplicateButton({super.key, required this.item});
 
   duplicateSet(context) async {
@@ -58,7 +59,7 @@ class DuplicateButton extends StatelessWidget {
               const SizedBox(height: 20),
               MacosTextField(
                 autocorrect: true,
-                placeholder: item['name'],
+                placeholder: item.name,
                 controller: controller,
                 focusNode: focusNode,
                 padding: const EdgeInsets.all(12),

@@ -6,9 +6,11 @@ import 'package:macos_ui/macos_ui.dart';
 import 'package:system_theme/system_theme.dart';
 import 'package:watcher/watcher.dart';
 
+import '../models/soundset.dart';
+
 class PlayButton extends StatefulWidget {
   final file;
-  final item;
+  final SoundSet item;
   const PlayButton({
     super.key,
     required this.file,
@@ -26,7 +28,7 @@ class _PlayButtonState extends State<PlayButton> {
   @override
   void initState() {
     super.initState();
-    var watcher = DirectoryWatcher(widget.item['path']);
+    var watcher = DirectoryWatcher(widget.item.path as String);
     watcher.events.listen((e) {
       player = AudioPlayer();
       if (!mounted) return;
@@ -37,7 +39,7 @@ class _PlayButtonState extends State<PlayButton> {
 
   void setSource() {
     try {
-      if (!Directory(widget.item['path']).existsSync() || !File(widget.file).existsSync()) return;
+      if (!Directory('${widget.item.path}').existsSync() || !File(widget.file).existsSync()) return;
 
       setState(() => source = DeviceFileSource(widget.file));
       player.setSource(source);

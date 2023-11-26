@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:system_theme/system_theme.dart';
 
+import '../models/soundset.dart';
 import '../utils/downloader.dart';
 
 class DownloadButton extends StatefulWidget {
-  final item;
-  const DownloadButton({super.key, this.item});
+  final SoundSet item;
+  const DownloadButton({super.key, required this.item});
 
   @override
   _DownloadButtonState createState() => _DownloadButtonState();
@@ -30,7 +31,7 @@ class _DownloadButtonState extends State<DownloadButton> {
             style: MacosTheme.of(context).typography.headline,
           ),
           message: Text(
-            'A SoundSet named "${widget.item['name']}" already exists. Do you want to replace it?',
+            'A SoundSet named "${widget.item.name}" already exists. Do you want to replace it?',
             textAlign: TextAlign.center,
             style: MacosTypography.of(context).body,
           ),

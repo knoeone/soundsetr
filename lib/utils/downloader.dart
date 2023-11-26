@@ -13,6 +13,7 @@ import 'package:crypto/crypto.dart';
 import 'package:sanitize_filename/sanitize_filename.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:watcher/watcher.dart';
+import '../models/soundset.dart';
 import 'config.dart';
 import 'dart:io' as io;
 
@@ -23,23 +24,23 @@ abstract class Downloader {
     return path.join(Config.path, '${sanitizeFilename(name).replaceAll('.zip', '')}.eragesoundset');
   }
 
-  static exists(set) {
-    return Directory(dstName(set['name'])).existsSync();
+  static exists(SoundSet set) {
+    return Directory(dstName(set.name)).existsSync();
   }
 
-  static Future saveAudio(set, name) async {
+  static Future saveAudio(SoundSet set, name) async {
     final Directory tempDir = await getDownloadsDirectory() as Directory;
-    var tmpFileName = path.join(tempDir.path, '${set['name']} - ${set['plist'][name]}');
-    var currentFile = File(path.join(set['path'], set['plist'][name]));
+    var tmpFileName = path.join(tempDir.path, '${set.name} - ${set.plist![name]}');
+    var currentFile = File(path.join(set.path as String, set.plist![name]));
 
     currentFile.copySync(tmpFileName);
     reveal(tempDir.path);
   }
 
-  static Future preview(set) async {
+  static Future preview(SoundSet set) async {
     var appTempDir = 'soundsets';
     final Directory tempDir = await getTemporaryDirectory();
-    var name = sha1.convert(utf8.encode(set['download'])).toString();
+    var name = sha1.convert(utf8.encode(set.download as String)).toString();
     var tmpFileName = path.join(tempDir.path, appTempDir, '$name.zip');
     var tmpFile = File(tmpFileName);
     var tmpDirName = path.join(tempDir.path, appTempDir, name);
@@ -50,7 +51,7 @@ abstract class Downloader {
       print(e);
     }
 
-    final request = await HttpClient().getUrl(Uri.parse(set['download']));
+    final request = await HttpClient().getUrl(Uri.parse(set.download as String));
     final response = await request.close();
     await response.pipe(tmpFile.openWrite());
 
@@ -70,15 +71,9 @@ abstract class Downloader {
         );
     print(extractedDir);
 
-    var plist = PlistParser().parseFileSync(path.join(extractedDir.path, 'soundset.plist'));
-    //'description': plist['SoundSetUserString'],
-    //'repo': plist['SoundSetURL'],
-    return {
-      ...set,
-      'path': extractedDir.path,
-      'tmp': true,
-      'plist': plist,
-    };
+    set.path = extractedDir.path;
+    set.tmp = true;
+    return set;
   }
 
   static Future get(set) async {
@@ -87,13 +82,13 @@ abstract class Downloader {
 
     final Directory tempDir = await getTemporaryDirectory();
     //var name = p.basename(Uri.decodeFull(set['download']));
-    var name = sanitizeFilename(set['name']);
+    var name = sanitizeFilename(set.name);
     var tmpFileName = path.join(tempDir.path, name);
     var tmpFile = File(tmpFileName);
     final destinationDir = Directory(Config.path);
-    final destinationFile = dstName(set['name']);
+    final destinationFile = dstName(set.name);
 
-    final request = await HttpClient().getUrl(Uri.parse(set['download']));
+    final request = await HttpClient().getUrl(Uri.parse(set.download));
     final response = await request.close();
     await response.pipe(tmpFile.openWrite());
     // if (response.statusCode == 200) {
@@ -184,23 +179,23 @@ abstract class Downloader {
     File(path.join(destinationFile, 'soundset.plist')).writeAsStringSync(plist);
   }
 
-  static duplicate(set, name) {
+  static duplicate(SoundSet set, name) {
     var dst = dstName(name);
 
     if (Directory(dst).existsSync()) {
       dst.deleteSync(recursive: true);
     }
 
-    copyPathSync(set['path'], dst);
+    copyPathSync(set.path as String, dst);
   }
 
-  static delete(set) {
-    var dst = dstName(set['name']);
+  static delete(SoundSet set) {
+    var dst = dstName(set.name);
 
     Directory(dst).deleteSync(recursive: true);
   }
 
-  static download(set, file) async {
+  static download(SoundSet set, file) async {
     final Directory? downloads = await getDownloadsDirectory();
     // final request = await HttpClient().getUrl(Uri.parse(file));
     // final response = await request.close();
@@ -212,7 +207,7 @@ abstract class Downloader {
     launchUrl(Uri.parse(file.indexOf('https://') == 0 ? file : 'file://$file'));
   }
 
-  static replace(set, name) async {
+  static replace(SoundSet set, name) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['aif', 'wav', 'mp3', 'ogg', 'aiff', 'flac', 'm4a'],
@@ -235,7 +230,7 @@ abstract class Downloader {
       // ERROR
     }
 
-    final destinationFile = path.join(dstName(set['name']), set['plist'][name]);
+    final destinationFile = path.join(dstName(set.name), set.plist![name]);
 
     File(destinationFile).deleteSync();
     File(tmpFile).renameSync(destinationFile);
@@ -254,6 +249,8 @@ abstract class Downloader {
           if (listener != null) {
             controller.add([]);
             listener!.cancel();
+            listener = null;
+            print("return");
             return;
           }
         }
@@ -266,15 +263,9 @@ abstract class Downloader {
           if (isFile) return;
           if (!name.contains('eragesoundset')) return;
           var plist = PlistParser().parseFileSync(path.join(file.path, 'soundset.plist'));
-          files.add({
-            'name': name.replaceAll('.eragesoundset', ''),
-            'description': plist['SoundSetUserString'],
-            'repo': plist['SoundSetURL'],
-            'path': file.path,
-            'plist': plist
-          });
+          files.add(SoundSet.fromPath(name, file.path));
         });
-        controller.add(files..sort((a, b) => a['name'].compareTo(b['name'])));
+        controller.add(files..sort((a, b) => a.name.compareTo(b.name)));
       } catch (e) {
         print(e);
       }
@@ -290,6 +281,29 @@ abstract class Downloader {
       listener = watcher.events.listen((e) => updateFiles(directory, e));
 
       updateFiles(directory);
+    });
+
+    return controller.stream;
+  }
+
+  static watchNetwork() {
+    var controller = StreamController();
+
+    Config.prefs.getString('repository', defaultValue: '').listen((repository) async {
+      try {
+        final request = await HttpClient().getUrl(Uri.parse(repository));
+        final response = await request.close();
+        final List json = jsonDecode(await response.transform(utf8.decoder).join());
+        print(json);
+        var sets = [];
+        for (var item in json) {
+          sets.add(SoundSet.fromJson(item));
+        }
+        controller.add(sets..sort((a, b) => a.name.compareTo(b.name)));
+      } catch (e) {
+        controller.add([]);
+        print(e);
+      }
     });
 
     return controller.stream;
