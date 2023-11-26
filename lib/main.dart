@@ -4,6 +4,7 @@ import 'package:macos_ui/macos_ui.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:macos_window_utils/macos_window_utils.dart';
 import 'package:system_theme/system_theme.dart';
+import 'package:window_manager/window_manager.dart';
 import 'content.dart';
 import 'installed.dart';
 import 'screens/market_screen.dart';
@@ -23,6 +24,15 @@ Future<void> _configureMacosWindowUtils() async {
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await _configureMacosWindowUtils();
+  await windowManager.ensureInitialized();
+
+  WindowOptions windowOptions = const WindowOptions(
+    minimumSize: Size(800, 600),
+  );
+  windowManager.waitUntilReadyToShow(windowOptions, () async {
+    await windowManager.show();
+    await windowManager.focus();
+  });
   runApp(const App());
 }
 
@@ -34,8 +44,13 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MacosApp(
       //title: 'soundset_market',
-      theme: MacosThemeData.light(),
-      darkTheme: MacosThemeData.dark(),
+      theme: MacosThemeData.light().copyWith(
+        primaryColor: SystemTheme.accentColor.accent,
+      ),
+      darkTheme: MacosThemeData.dark().copyWith(
+        primaryColor: SystemTheme.accentColor.accent,
+        //typography: MacosTypography(color: Colors.white),
+      ),
       themeMode: ThemeMode.system,
       home: const MainView(),
       debugShowCheckedModeBanner: false,
@@ -101,6 +116,7 @@ class _MainViewState extends State<MainView> {
               HomePage(),
               MarketScreen(),
               Container(),
+              Container(),
             ],
           ),
         ),
@@ -115,12 +131,15 @@ class _MainViewState extends State<MainView> {
   }
 
   Widget SideBar([BuildContext? context, ScrollController? scrollController]) {
-    var iconColor = MacosTheme.brightnessOf(context as BuildContext).resolve(
-      const Color.fromRGBO(0, 0, 0, 1),
-      const Color.fromRGBO(255, 255, 255, 1),
-    );
+    // var iconColor = MacosTheme.brightnessOf(context as BuildContext).resolve(
+    //   const Color.fromRGBO(0, 0, 0, 1),
+    //   const Color.fromRGBO(255, 255, 255, 1),
+    // );
+    var iconColor = SystemTheme.accentColor.accent;
     return SidebarItems(
-      selectedColor: SystemTheme.accentColor.accent,
+      //selectedColor: SystemTheme.accentColor.accent,
+      selectedColor: MacosColors.alternatingContentBackgroundColor,
+
       itemSize: SidebarItemSize.large,
       currentIndex: _pageIndex,
       scrollController: scrollController,
@@ -133,7 +152,10 @@ class _MainViewState extends State<MainView> {
             CupertinoIcons.home,
             color: _pageIndex == 0 ? iconColor : SystemTheme.accentColor.accent,
           ),
-          label: Text('Home'),
+          label: Text(
+            'Home',
+            style: TextStyle(color: Colors.white),
+          ),
         ),
         SidebarItem(
           leading: MacosIcon(
@@ -151,8 +173,15 @@ class _MainViewState extends State<MainView> {
         ),
         SidebarItem(
           leading: MacosIcon(
-            CupertinoIcons.speaker_2,
+            CupertinoIcons.gift,
             color: _pageIndex == 3 ? iconColor : SystemTheme.accentColor.accent,
+          ),
+          label: Text('Contribute'),
+        ),
+        SidebarItem(
+          leading: MacosIcon(
+            CupertinoIcons.gear,
+            color: _pageIndex == 4 ? iconColor : SystemTheme.accentColor.accent,
           ),
           label: Text('Setup'),
         ),

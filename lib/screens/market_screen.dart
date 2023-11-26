@@ -2,10 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:path/path.dart' as p;
 import 'package:watcher/watcher.dart';
 import 'dart:io' as io;
+
+import '../widgets/download.dart';
 
 class MarketScreen extends StatefulWidget {
   final ScrollController? scrollController;
@@ -16,7 +19,7 @@ class MarketScreen extends StatefulWidget {
 }
 
 class _MarketScreenState extends State<MarketScreen> {
-  var repo = 'https://api.github.com/repos/l337-haxx0r/microsoft-soundset/contents';
+  var filter = '';
 
   var sets = [
     {
@@ -24,32 +27,44 @@ class _MarketScreenState extends State<MarketScreen> {
       'repo': 'https://github.com/l337-haxx0r/microsoft-soundset',
       'description':
           'The soundset from Microsoft\'s Entourage 2004 for Mac, preserved for Outlook for Mac 2016, 2019, or 2021',
+      'download':
+          'https://raw.githubusercontent.com/l337-haxx0r/microsoft-soundset/main/Microsoft%20Sound%20Set.eragesoundset.zip',
     },
     {
       'name': 'l337-haxx0r/microsoft-soundset2',
       'repo': 'https://github.com/l337-haxx0r/microsoft-soundset',
       'description':
           'The soundset from Microsoft\'s Entourage 2004 for Mac, preserved for Outlook for Mac 2016, 2019, or 2021',
+      'download':
+          'https://raw.githubusercontent.com/l337-haxx0r/microsoft-soundset/main/Microsoft%20Sound%20Set.eragesoundset.zip',
     },
     {
       'name': 'l337-haxx0r/microsoft-soundset3',
       'repo': 'https://github.com/l337-haxx0r/microsoft-soundset',
       'description':
           'The soundset from Microsoft\'s Entourage 2004 for Mac, preserved for Outlook for Mac 2016, 2019, or 2021',
+      'download':
+          'https://raw.githubusercontent.com/l337-haxx0r/microsoft-soundset/main/Microsoft%20Sound%20Set.eragesoundset.zip',
     },
     {
       'name': 'l337-haxx0r/microsoft-soundset4',
       'repo': 'https://github.com/l337-haxx0r/microsoft-soundset',
       'description':
           'The soundset from Microsoft\'s Entourage 2004 for Mac, preserved for Outlook for Mac 2016, 2019, or 2021',
+      'download':
+          'https://raw.githubusercontent.com/l337-haxx0r/microsoft-soundset/main/Microsoft%20Sound%20Set.eragesoundset.zip',
     }
   ];
-
-  void downlodSet(set) {}
 
   @override
   void initState() {
     super.initState();
+  }
+
+  void setSearch(value) {
+    setState(() {
+      filter = value;
+    });
   }
 
   @override
@@ -58,13 +73,13 @@ class _MarketScreenState extends State<MarketScreen> {
     for (var i = 0; i < sets.length; i++) {
       var name = sets[i]['name'];
       var description = sets[i]['description'];
+      if (filter != '' && !name!.contains(filter) && !description!.contains(filter)) continue;
 
       list.add(
         Container(
           alignment: Alignment.topLeft,
           padding: const EdgeInsets.all(20),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               MacosIcon(
@@ -72,24 +87,23 @@ class _MarketScreenState extends State<MarketScreen> {
                 size: 30,
                 color: MacosTheme.of(context).typography.headline.color,
               ),
-              SizedBox(width: 20),
+              const SizedBox(width: 20),
               Expanded(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       '$name',
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Text(
                       '$description',
                       //overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
+                      style: const TextStyle(
                         height: 1.4,
                         fontSize: 13,
                       ),
@@ -97,15 +111,8 @@ class _MarketScreenState extends State<MarketScreen> {
                   ],
                 ),
               ),
-              SizedBox(width: 10),
-              PushButton(
-                secondary: true,
-                child: Text('GET'),
-                controlSize: ControlSize.large,
-                onPressed: () {
-                  downlodSet(sets[i]);
-                },
-              ),
+              const SizedBox(width: 10),
+              DownloadButton(set: sets[i]),
             ],
           ),
         ),
@@ -113,8 +120,6 @@ class _MarketScreenState extends State<MarketScreen> {
     }
 
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Flexible(
           flex: 0,
@@ -124,19 +129,19 @@ class _MarketScreenState extends State<MarketScreen> {
             onResultSelected: (resultItem) {
               debugPrint(resultItem.searchKey);
             },
+            onChanged: (value) {
+              setSearch(value);
+            },
           ),
         ),
         Expanded(
           child: LayoutBuilder(
             builder: (context, constraints) {
-              return GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: 1.7,
-                  crossAxisCount: (constraints.maxWidth / 360).floor(),
-                  mainAxisSpacing: 10,
-                  crossAxisSpacing: 10,
-                ),
-                itemCount: sets.length,
+              return MasonryGridView.count(
+                crossAxisCount: (constraints.maxWidth / 400).floor().clamp(1, 4),
+                itemCount: list.length,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
                 itemBuilder: (context, index) {
                   return list[index];
                 },
