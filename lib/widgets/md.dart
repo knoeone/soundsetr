@@ -40,10 +40,21 @@ class _MdState extends State<Md> {
       const Color.fromRGBO(0, 0, 0, 1),
       const Color.fromRGBO(255, 255, 255, 1),
     );
+
     return MarkdownBody(
+      softLineBreak: true,
       data: md as String,
       onTapLink: (text, url, title) {
         launchUrl(Uri.parse(url as String));
+      },
+      imageBuilder: (url, text, title) {
+        if (text == 'jumbo') {
+          return const SizedBox();
+        }
+        return ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 700),
+          child: Image.network(url.toString()),
+        );
       },
       styleSheet: MarkdownStyleSheet.fromCupertinoTheme(CupertinoTheme.of(context)).copyWith(
         h1: TextStyle(

@@ -147,7 +147,7 @@ class _MainViewState extends State<MainView> with WindowListener {
           child: IndexedStack(
             index: _pageIndex,
             children: [
-              SetupScreen(goToIndex: goToIndex),
+              SetupScreen(),
               CupertinoTabView(builder: (context) {
                 return const ScaffoldScreen(
                   title: Text('Installed'),
