@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'back.dart';
 import 'toggle.dart';
@@ -42,7 +41,7 @@ class ScaffoldScreen extends StatelessWidget {
 
     if (canBack) {
       leading.add(Flexible(
-        child: Back(),
+        child: BackButton(),
       ));
     }
 

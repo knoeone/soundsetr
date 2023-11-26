@@ -31,17 +31,23 @@ class Card extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          MacosIcon(
-            icon,
-            size: 30,
-            color: MacosTheme.of(context).typography.headline.color,
+          GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: () {
+              Navigator.of(context).push(SoundsetScreen.route(item: item));
+            },
+            child: MacosIcon(
+              icon,
+              size: 30,
+              color: MacosTheme.of(context).typography.headline.color,
+            ),
           ),
           const SizedBox(width: 20),
           Expanded(
             child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
               onTap: () {
                 Navigator.of(context).push(SoundsetScreen.route(item: item));
-                //Navigator.of(context).pushNamed('/soundset');
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

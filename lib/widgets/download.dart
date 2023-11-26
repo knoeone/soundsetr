@@ -26,7 +26,7 @@ class _DownloadButtonState extends State<DownloadButton> {
         builder: (_) => MacosAlertDialog(
           appIcon: Container(),
           title: Text(
-            'Replace SoundSet',
+            'Replace',
             style: MacosTheme.of(context).typography.headline,
           ),
           message: Text(

@@ -30,5 +30,11 @@
 	<string>NSApplication</string>
 	<key>com.apple.security.app-sandbox</key>
 	<false/>
+	 <key>CFBundleURLName</key>
+	<string>soundsetr</string>
+	<key>CFBundleURLSchemes</key>
+	<array>
+			<string>soundsetr</string>
+	</array>
 </dict>
 </plist>

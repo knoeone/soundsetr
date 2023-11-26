@@ -5,6 +5,7 @@ import 'package:plist_parser/plist_parser.dart';
 import 'package:watcher/watcher.dart';
 import 'dart:io' as io;
 
+import '../utils/config.dart';
 import '../widgets/card.dart';
 import '../widgets/search.dart';
 
@@ -17,8 +18,7 @@ class InstalledScreen extends StatefulWidget {
 }
 
 class _InstalledScreenState extends State<InstalledScreen> {
-  var directory =
-      '/Users/spacedevin/Library/Group Containers/UBF8T346G9.Office/Outlook/Outlook Sound Sets';
+  var directory = Config.path;
   var filter = '';
   var sets = [];
 
