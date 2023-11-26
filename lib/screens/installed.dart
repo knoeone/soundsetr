@@ -1,11 +1,15 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:path/path.dart' as p;
+import 'package:plist_parser/plist_parser.dart';
+import 'package:soundset_market/screens/soundset.dart';
 import 'package:watcher/watcher.dart';
 import 'dart:io' as io;
+
+import '../widgets/card.dart';
+import '../widgets/search_view.dart';
 
 class InstalledScreen extends StatefulWidget {
   final ScrollController? scrollController;
@@ -18,8 +22,8 @@ class InstalledScreen extends StatefulWidget {
 class _InstalledScreenState extends State<InstalledScreen> {
   var directory =
       '/Users/spacedevin/Library/Group Containers/UBF8T346G9.Office/Outlook/Outlook Sound Sets';
-
-  List<FileSystemEntity> sets = [];
+  var filter = '';
+  var sets = [];
 
   @override
   void initState() {
@@ -31,7 +35,7 @@ class _InstalledScreenState extends State<InstalledScreen> {
   }
 
   void updateFiles() {
-    List<FileSystemEntity> files = [];
+    var files = [];
 
     io.Directory(directory).listSync().forEach((file) async {
       bool isFile = file is File;
@@ -40,71 +44,36 @@ class _InstalledScreenState extends State<InstalledScreen> {
       //if (isFile && !isZip) return;
       if (isFile) return;
       if (!name.contains('eragesoundset')) return;
-      files.add(file);
+      var plist = PlistParser().parseFileSync(p.join(file.path, 'soundset.plist'));
+      files.add({
+        'name': name.replaceAll('.eragesoundset', ''),
+        'description': plist['SoundSetUserString'],
+        'repo': plist['SoundSetURL'],
+      });
     });
 
     setState(() {
-      sets = files..sort((a, b) => a.path.compareTo(b.path));
+      sets = files..sort((a, b) => a['name'].compareTo(b['name']));
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> list = [];
-    for (var i = 0; i < sets.length; i++) {
-      var name = p.basename(sets[i].path).replaceAll('.eragesoundset', '');
-
-      list.add(
-        Container(
-          padding: const EdgeInsets.all(20),
-          child: Row(
-            children: [
-              const MacosIcon(
-                CupertinoIcons.speaker_2_fill,
-                color: Colors.white,
-                size: 30,
-              ),
-              const SizedBox(width: 20),
-              Expanded(
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            name,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const MacosIconButton(
-                      icon: MacosIcon(
-                        CupertinoIcons.star_fill,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            childAspectRatio: 1.7,
-            crossAxisCount: (constraints.maxWidth / 280).floor(),
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
-          ),
-          itemCount: sets.length,
-          itemBuilder: (context, index) {
-            return list[index];
-          },
+    return SearchView(
+      items: (filter) => sets
+          .where(
+            (item) =>
+                (item['name'] as String).contains(filter) ||
+                (item['description'] as String).contains(filter),
+          )
+          .toList(),
+      itemBuilder: (context, index, item) {
+        return Card(
+          title: '${item['name']}',
+          description: '${item['description']}',
+          repo: '${item['repo']}',
+          icon: CupertinoIcons.speaker_2,
+          action: Container(),
         );
       },
     );

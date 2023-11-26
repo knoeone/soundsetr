@@ -19,6 +19,7 @@ dependencies:
   flutter_staggered_grid_view: ^0.7.0
   window_manager: ^0.3.7
   flutter_archive: ^5.0.0
+  plist_parser: ^0.0.11
 
 dev_dependencies:
   flutter_test:
