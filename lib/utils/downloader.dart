@@ -7,6 +7,8 @@ import 'package:ffmpeg_kit_flutter/return_code.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_archive/flutter_archive.dart';
 import 'package:io/io.dart';
+import 'package:macos_file_picker/macos_file_picker.dart';
+import 'package:macos_file_picker/macos_file_picker_platform_interface.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:plist_parser/plist_parser.dart';
@@ -215,6 +217,11 @@ abstract class Downloader {
       allowedExtensions: ['aif', 'wav', 'mp3', 'ogg', 'aiff', 'flac', 'm4a'],
     );
 
+    // final _macosFilePickerPlugin = MacosFilePicker();
+
+    // final result =
+    //     await _macosFilePickerPlugin.pick(MacosFilePickerMode.fileAndFolder, allowsMultiple: false);
+
     if (result == null) return;
     File file = File(result.files.single.path!);
 
@@ -368,8 +375,9 @@ abstract class Downloader {
   static saveSoundSet(SoundSet set) async {
     final sourceFilename = set.path as String;
     final sourcePathname = sourceFilename.replaceAll(path.basename(sourceFilename), '');
-    final destinationFileName = path.join(sourcePathname, '${set.name}.eragesoundset');
-    print('file $destinationFileName ${set.path}');
+    final destinationFileName =
+        path.join(sourcePathname, '${sanitizeFilename(set.name)}.eragesoundset');
+
     if (destinationFileName != set.path) {
       Directory(sourceFilename).renameSync(destinationFileName);
       set.path = destinationFileName;

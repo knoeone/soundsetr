@@ -15,7 +15,6 @@ class ReplaceButton extends StatelessWidget {
   });
 
   void replaceFile() async {
-    print('file $file');
     await Downloader.replaceSelect(item, file);
   }
 

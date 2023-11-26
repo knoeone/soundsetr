@@ -7,6 +7,10 @@ class RevealButton extends StatelessWidget {
   final file;
   const RevealButton({super.key, required this.file});
 
+  void onReveal() {
+    Downloader.reveal(file);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -24,7 +28,7 @@ class RevealButton extends StatelessWidget {
             ),
             size: 20.0,
           ),
-          onPressed: () => Downloader.reveal(file),
+          onPressed: onReveal,
         ),
       ),
     );
