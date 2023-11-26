@@ -1,30 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:macos_ui/macos_ui.dart';
 
 import '../utils/downloader.dart';
 import '../widgets/md.dart';
+import '../widgets/scaffold.dart';
 
 class ContributeScreen extends StatelessWidget {
   const ContributeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Md(fetch: Downloader.contributing);
-
-    return const Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text(
-        'Have a soundset you want to share?',
-      ),
-      Text(
-        'Visit https://github.com/knoeone/soundsettr, fork the project, and submit a pull request with your soundset.',
-      ),
-      Text(
-        'Have a soundset you want to share? Found a bug you need fixing? Or maybe you have an idea on how to improve Soundsetr?',
-      ),
-      Text(
-        'Have a soundset you want to share? Found a bug you need fixing? Or maybe you have an idea on how to improve Soundsetr?',
-      )
-    ]);
+    return ScaffoldScreen(
+      useSliver: true,
+      children: [
+        Container(
+          color: MacosTheme.of(context).canvasColor,
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Md(fetch: Downloader.contributing),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }

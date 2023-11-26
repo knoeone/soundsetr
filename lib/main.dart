@@ -19,7 +19,6 @@ import 'widgets/window.dart';
 Future<void> _configureMacosWindowUtils() async {
   const config = MacosWindowUtilsConfig();
   await config.apply();
-  Config.init();
   // await WindowManipulator.makeTitlebarTransparent();
   // await WindowManipulator.setWindowBackgroundColorToClear();
   // WindowManipulator.makeWindowFullyTransparent();
@@ -32,12 +31,13 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemTheme.accentColor.load();
 
+  Config.init();
   await _configureMacosWindowUtils();
   await windowManager.ensureInitialized();
 
   WindowOptions windowOptions = const WindowOptions(
     minimumSize: Size(600, 500),
-    size: Size(1024, 500),
+    size: Size(1024, 700),
   );
   windowManager.waitUntilReadyToShow(windowOptions, () async {
     await windowManager.show();
@@ -161,10 +161,7 @@ class _MainViewState extends State<MainView> with WindowListener {
                   child: MarketScreen(),
                 );
               }),
-              const ScaffoldScreen(
-                title: Text('Contribute'),
-                child: ContributeScreen(),
-              ),
+              const ContributeScreen(),
               const ScaffoldScreen(
                 title: Text('Settings'),
                 child: SettingsScreen(),

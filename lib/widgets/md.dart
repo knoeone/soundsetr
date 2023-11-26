@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:system_theme/system_theme.dart';
@@ -39,7 +40,7 @@ class _MdState extends State<Md> {
       const Color.fromRGBO(0, 0, 0, 1),
       const Color.fromRGBO(255, 255, 255, 1),
     );
-    return Markdown(
+    return MarkdownBody(
       data: md as String,
       onTapLink: (text, url, title) {
         launchUrl(Uri.parse(url as String));
@@ -67,20 +68,30 @@ class _MdState extends State<Md> {
           fontSize: 16,
           fontWeight: FontWeight.bold,
           color: textColor,
+          letterSpacing: 0,
         ),
         h5: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.bold,
           color: textColor,
+          letterSpacing: 0,
         ),
         h6: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.bold,
           color: textColor,
+          letterSpacing: 0,
         ),
         p: TextStyle(
           fontSize: 14,
           color: textColor,
+          letterSpacing: 0,
+          height: 1.7,
+        ),
+        strong: TextStyle(
+          fontSize: 14,
+          color: textColor,
+          letterSpacing: 0,
         ),
         a: TextStyle(
           color: SystemTheme.accentColor.accent,
@@ -89,9 +100,25 @@ class _MdState extends State<Md> {
           fontSize: 14,
           fontStyle: FontStyle.italic,
         ),
-        code: const TextStyle(
+        blockquoteDecoration: BoxDecoration(
+          border: Border(
+            left: BorderSide(
+              color: MacosTheme.brightnessOf(context).resolve(
+                const Color.fromRGBO(0, 0, 0, 0.15),
+                const Color.fromRGBO(255, 255, 255, 0.15),
+              ),
+              width: 4,
+            ),
+          ),
+        ),
+        code: TextStyle(
+          backgroundColor: Colors.transparent,
           fontSize: 14,
-          fontFamily: 'monospace',
+          fontFamily: 'Courier',
+          color: MacosTheme.brightnessOf(context).resolve(
+            const Color.fromRGBO(0, 0, 0, 1),
+            const Color.fromRGBO(255, 255, 255, 1),
+          ),
         ),
         codeblockPadding: const EdgeInsets.all(8),
         codeblockDecoration: BoxDecoration(
@@ -101,27 +128,40 @@ class _MdState extends State<Md> {
           ),
           borderRadius: BorderRadius.circular(4),
         ),
+        blockSpacing: 14,
         horizontalRuleDecoration: BoxDecoration(
+          gradient:
+              LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+            Colors.transparent,
+            MacosTheme.brightnessOf(context).resolve(
+              const Color.fromRGBO(0, 0, 0, 0.15),
+              const Color.fromRGBO(255, 255, 255, 0.15),
+            ),
+            Colors.transparent,
+          ], stops: [
+            0.499,
+            0.5,
+            0.599,
+          ]),
           border: Border(
             top: BorderSide(
-              color: MacosTheme.brightnessOf(context).resolve(
-                const Color.fromRGBO(0, 0, 0, 0.05),
-                const Color.fromRGBO(255, 255, 255, 0.05),
-              ),
-              width: 1,
+              width: 10,
+              color: Colors.transparent,
+            ),
+            bottom: BorderSide(
+              color: Colors.transparent,
+              width: 10,
             ),
           ),
         ),
-        blockquotePadding: const EdgeInsets.only(left: 16.0),
-        // blockquoteDecoration: BoxDecoration(
-        //   border: Border(
-        //     left: BorderSide(
-        //       color: MacosTheme.brightnessOf(context).resolve(
-        //         Color.fromRGBO(0)
-        //       ),
-        //     ),
-        //   ),
-        // ),
+        // blockquotePadding: const EdgeInsets.only(left: 16.0),
+        listBulletPadding: const EdgeInsets.only(right: 16),
+        listBullet: TextStyle(
+          fontSize: 14,
+          color: textColor,
+          letterSpacing: 0,
+        ),
+        listIndent: 20,
       ),
     );
   }

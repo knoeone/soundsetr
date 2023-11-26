@@ -311,10 +311,18 @@ abstract class Downloader {
 
   static Future contributing() async {
     try {
-      final request = await HttpClient().getUrl(Uri.parse(
-          'https://raw.githubusercontent.com/auth0/open-source-template/master/GENERAL-CONTRIBUTING.md'));
-      final response = await request.close();
-      final String md = await response.transform(utf8.decoder).join();
+      // final request = await HttpClient().getUrl(
+      //   Uri.parse(
+      //     'https://raw.githubusercontent.com/auth0/open-source-template/master/GENERAL-CONTRIBUTING.md',
+      //   ),
+      // );
+      // final response = await request.close();
+      // final String md = await response.transform(utf8.decoder).join();
+
+      File file = File(
+        '/Users/spacedevin/Library/CloudStorage/OneDrive-AEG/Projects/knoeone/soundsetr/README.md',
+      );
+      String md = await file.readAsString();
       return md;
     } catch (e) {
       print(e);
