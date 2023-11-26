@@ -8,6 +8,7 @@ import 'package:window_manager/window_manager.dart';
 import 'screens/contribute.dart';
 import 'screens/installed.dart';
 import 'screens/market.dart';
+import 'screens/settings.dart';
 import 'screens/setup.dart';
 import 'widgets/scaffold.dart';
 import 'widgets/toggle.dart';
@@ -127,7 +128,7 @@ class _MainViewState extends State<MainView> {
             children: [
               ScaffoldScreen(
                 title: const Text('Get Started'),
-                child: Container(),
+                child: SetupScreen(goToIndex: goToIndex),
               ),
               CupertinoTabView(builder: (context) {
                 return ScaffoldScreen(
@@ -146,8 +147,8 @@ class _MainViewState extends State<MainView> {
                 child: ContributeScreen(),
               ),
               ScaffoldScreen(
-                title: const Text('Outlook Settings'),
-                child: SetupScreen(goToIndex: goToIndex),
+                title: const Text('Settings'),
+                child: SettingsScreen(),
               ),
             ],
           ),
@@ -165,7 +166,7 @@ class _MainViewState extends State<MainView> {
     return SidebarItems(
       //selectedColor: SystemTheme.accentColor.accent,
       selectedColor: MacosColors.alternatingContentBackgroundColor,
-      itemSize: SidebarItemSize.large,
+      itemSize: SidebarItemSize.medium,
       currentIndex: _pageIndex,
       scrollController: scrollController,
       onChanged: (index) {
@@ -208,7 +209,7 @@ class _MainViewState extends State<MainView> {
             CupertinoIcons.settings,
             color: _pageIndex == 4 ? iconColor : SystemTheme.accentColor.accent,
           ),
-          label: Text('Outlook Settings'),
+          label: Text('Settings'),
         ),
       ],
     );

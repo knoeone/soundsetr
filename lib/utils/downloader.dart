@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter_archive/flutter_archive.dart';
-import 'package:path/path.dart' as p;
+import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:sanitize_filename/sanitize_filename.dart';
 import 'config.dart';
@@ -9,7 +9,7 @@ abstract class Downloader {
   static var downloading = [];
 
   static dstName(name) {
-    return p.join(Config.path, '${sanitizeFilename(name).replaceAll('.zip', '')}.eragesoundset');
+    return path.join(Config.path, '${sanitizeFilename(name).replaceAll('.zip', '')}.eragesoundset');
   }
 
   static exists(set) {
@@ -23,7 +23,7 @@ abstract class Downloader {
     final Directory tempDir = await getTemporaryDirectory();
     //var name = p.basename(Uri.decodeFull(set['download']));
     var name = sanitizeFilename(set['name']);
-    var tmpFileName = p.join(tempDir.path, name);
+    var tmpFileName = path.join(tempDir.path, name);
     var tmpFile = File(tmpFileName);
     final destinationDir = Directory(Config.path);
     final destinationFile = dstName(set['name']);
@@ -40,7 +40,7 @@ abstract class Downloader {
     //https://pub.dev/packages/accessing_security_scoped_resource
 
     try {
-      Directory(p.join(Config.path, '__MACOSX')).deleteSync(recursive: true);
+      Directory(path.join(Config.path, '__MACOSX')).deleteSync(recursive: true);
     } catch (e) {
       print(e);
     }
@@ -55,7 +55,7 @@ abstract class Downloader {
       print(e);
     }
     try {
-      Directory(p.join(Config.path, '__MACOSX')).deleteSync(recursive: true);
+      Directory(path.join(Config.path, '__MACOSX')).deleteSync(recursive: true);
     } catch (e) {
       print(e);
     }

@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
-import 'package:path/path.dart' as p;
+import 'package:path/path.dart' as path;
 import 'package:plist_parser/plist_parser.dart';
 import 'package:watcher/watcher.dart';
 import 'dart:io' as io;
@@ -27,7 +27,7 @@ class _InstalledScreenState extends State<InstalledScreen> {
     super.initState();
     updateFiles();
 
-    var watcher = DirectoryWatcher(p.absolute(directory));
+    var watcher = DirectoryWatcher(path.absolute(directory));
     watcher.events.listen((e) => updateFiles());
   }
 
@@ -37,11 +37,11 @@ class _InstalledScreenState extends State<InstalledScreen> {
     io.Directory(directory).listSync().forEach((file) async {
       bool isFile = file is File;
       //bool isZip = isFile && p.basename(file.path).endsWith('.zip');
-      var name = p.basename(file.path);
+      var name = path.basename(file.path);
       //if (isFile && !isZip) return;
       if (isFile) return;
       if (!name.contains('eragesoundset')) return;
-      var plist = PlistParser().parseFileSync(p.join(file.path, 'soundset.plist'));
+      var plist = PlistParser().parseFileSync(path.join(file.path, 'soundset.plist'));
       files.add({
         'name': name.replaceAll('.eragesoundset', ''),
         'description': plist['SoundSetUserString'],
