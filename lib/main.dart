@@ -57,8 +57,8 @@ class App extends StatelessWidget {
         primaryColor: SystemTheme.accentColor.accent,
         //typography: MacosTypography(color: Colors.white),
       ),
-      //themeMode: ThemeMode.system,
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.system,
+      //themeMode: ThemeMode.light,
       home: const MainView(),
       debugShowCheckedModeBanner: false,
     );
@@ -158,12 +158,12 @@ class _MainViewState extends State<MainView> {
   }
 
   Widget sideBar(BuildContext? context, ScrollController? scrollController) {
-    // var iconColor = MacosTheme.brightnessOf(context as BuildContext).resolve(
-    //   const Color.fromRGBO(0, 0, 0, 1),
-    //   const Color.fromRGBO(255, 255, 255, 1),
-    // );
+    var iconColor = MacosTheme.brightnessOf(context as BuildContext).resolve(
+      const Color.fromRGBO(255, 255, 255, 1),
+      const Color.fromRGBO(0, 0, 0, 1),
+    );
     //var iconColor = SystemTheme.accentColor.accent;
-    var iconColor = MacosTheme.of(context as BuildContext).typography.body.color;
+    //var iconColor = CupertinoColors.secondaryLabel.color;
 
     return SidebarItems(
       //selectedColor: SystemTheme.accentColor.accent,
