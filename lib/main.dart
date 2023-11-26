@@ -229,43 +229,39 @@ class ScaffoldScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) {
-        return MacosScaffold(
-          toolBar: ToolBar(
-            leading: MacosTooltip(
-              message: 'Toggle Sidebar',
-              useMousePosition: false,
-              child: MacosIconButton(
-                icon: MacosIcon(
-                  CupertinoIcons.sidebar_left,
-                  color: MacosTheme.brightnessOf(context).resolve(
-                    const Color.fromRGBO(0, 0, 0, 0.5),
-                    const Color.fromRGBO(255, 255, 255, 0.5),
-                  ),
-                  size: 20.0,
-                ),
-                boxConstraints: const BoxConstraints(
-                  minHeight: 20,
-                  minWidth: 20,
-                  maxWidth: 48,
-                  maxHeight: 38,
-                ),
-                onPressed: () => MacosWindowScope.of(context).toggleSidebar(),
+    return MacosScaffold(
+      toolBar: ToolBar(
+        leading: MacosTooltip(
+          message: 'Toggle Sidebar',
+          useMousePosition: false,
+          child: MacosIconButton(
+            icon: MacosIcon(
+              CupertinoIcons.sidebar_left,
+              color: MacosTheme.brightnessOf(context).resolve(
+                const Color.fromRGBO(0, 0, 0, 0.5),
+                const Color.fromRGBO(255, 255, 255, 0.5),
               ),
+              size: 20.0,
             ),
-            title: title,
+            boxConstraints: const BoxConstraints(
+              minHeight: 20,
+              minWidth: 20,
+              maxWidth: 48,
+              maxHeight: 38,
+            ),
+            onPressed: () => MacosWindowScope.of(context).toggleSidebar(),
           ),
-          children: [
-            ContentArea(
-              builder: (context, scrollController) {
-                //return child(scrollController: scrollController);
-                return child;
-              },
-            ),
-          ],
-        );
-      },
+        ),
+        title: title,
+      ),
+      children: [
+        ContentArea(
+          builder: (context, scrollController) {
+            //return child(scrollController: scrollController);
+            return child;
+          },
+        ),
+      ],
     );
   }
 }
