@@ -311,21 +311,21 @@ abstract class Downloader {
 
   static Future contributingMd() async {
     try {
-      // final request = await HttpClient().getUrl(
-      //   Uri.parse(
-      //     'https://raw.githubusercontent.com/auth0/open-source-template/master/GENERAL-CONTRIBUTING.md',
-      //   ),
-      // );
-      // final response = await request.close();
-      // final String md = await response.transform(utf8.decoder).join();
-
-      File file = File(
-        path.join(
-          path.absolute(io.Platform.environment['HOME'] as String,
-              'Projects/knoeone/soundsetr/CONTRIBUTING.md'),
+      final request = await HttpClient().getUrl(
+        Uri.parse(
+          'https://raw.githubusercontent.com/knoeone/soundsetr/main/CONTRIBUTING.md',
         ),
       );
-      String md = await file.readAsString();
+      final response = await request.close();
+      final String md = await response.transform(utf8.decoder).join();
+
+      // File file = File(
+      //   path.join(
+      //     path.absolute(io.Platform.environment['HOME'] as String,
+      //         'Projects/knoeone/soundsetr/CONTRIBUTING.md'),
+      //   ),
+      // );
+      // String md = await file.readAsString();
       return md;
     } catch (e) {
       print(e);
@@ -334,21 +334,21 @@ abstract class Downloader {
 
   static Future readmeMd() async {
     try {
-      // final request = await HttpClient().getUrl(
-      //   Uri.parse(
-      //     'https://raw.githubusercontent.com/auth0/open-source-template/master/GENERAL-CONTRIBUTING.md',
-      //   ),
-      // );
-      // final response = await request.close();
-      // final String md = await response.transform(utf8.decoder).join();
-
-      File file = File(
-        path.join(
-          path.absolute(
-              io.Platform.environment['HOME'] as String, 'Projects/knoeone/soundsetr/README.md'),
+      final request = await HttpClient().getUrl(
+        Uri.parse(
+          'https://raw.githubusercontent.com/knoeone/soundsetr/main/README.md',
         ),
       );
-      String md = await file.readAsString();
+      final response = await request.close();
+      final String md = await response.transform(utf8.decoder).join();
+
+      // File file = File(
+      //   path.join(
+      //     path.absolute(
+      //         io.Platform.environment['HOME'] as String, 'Projects/knoeone/soundsetr/README.md'),
+      //   ),
+      // );
+      // String md = await file.readAsString();
       return md;
     } catch (e) {
       print(e);
