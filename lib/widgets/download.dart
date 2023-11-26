@@ -26,6 +26,7 @@ class _DownloadButtonState extends State<DownloadButton> {
 
     setState(() => downloading = true);
     await Downloader.get(widget.set);
+    if (!mounted || !context.mounted) return;
     setState(() => downloading = false);
   }
 
@@ -37,8 +38,10 @@ class _DownloadButtonState extends State<DownloadButton> {
       onPressed: () => downlodSet(),
       child: downloading
           ? ProgressCircle()
-          : Text('GET',
-              style: TextStyle(color: SystemTheme.accentColor.accent, fontWeight: FontWeight.bold)),
+          : Text(
+              'GET',
+              style: TextStyle(color: SystemTheme.accentColor.accent, fontWeight: FontWeight.bold),
+            ),
     );
   }
 }

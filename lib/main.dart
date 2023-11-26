@@ -6,8 +6,8 @@ import 'package:macos_window_utils/macos_window_utils.dart';
 import 'package:system_theme/system_theme.dart';
 import 'package:window_manager/window_manager.dart';
 import 'content.dart';
-import 'installed.dart';
-import 'screens/market_screen.dart';
+import 'screens/installed.dart';
+import 'screens/market.dart';
 
 /// This method initializes macos_window_utils and styles the window.
 Future<void> _configureMacosWindowUtils() async {
@@ -113,8 +113,14 @@ class _MainViewState extends State<MainView> {
             index: _pageIndex,
             children: [
               Container(),
-              HomePage(),
-              MarketScreen(),
+              ScaffoldScreen(
+                title: const Text('Installed'),
+                child: InstalledScreen(),
+              ),
+              ScaffoldScreen(
+                title: const Text('Store'),
+                child: MarketScreen(),
+              ),
               Container(),
               Container(),
             ],
@@ -169,7 +175,7 @@ class _MainViewState extends State<MainView> {
             CupertinoIcons.cloud,
             color: _pageIndex == 2 ? iconColor : SystemTheme.accentColor.accent,
           ),
-          label: Text('Market'),
+          label: Text('Store'),
         ),
         SidebarItem(
           leading: MacosIcon(
@@ -190,8 +196,14 @@ class _MainViewState extends State<MainView> {
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class ScaffoldScreen extends StatelessWidget {
+  Widget child;
+  Widget title;
+  ScaffoldScreen({
+    super.key,
+    required this.child,
+    required this.title,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -220,12 +232,13 @@ class HomePage extends StatelessWidget {
                 onPressed: () => MacosWindowScope.of(context).toggleSidebar(),
               ),
             ),
-            title: const Text('Installed'),
+            title: title,
           ),
           children: [
             ContentArea(
               builder: (context, scrollController) {
-                return Installed(scrollController: scrollController);
+                //return child(scrollController: scrollController);
+                return child;
               },
             ),
           ],

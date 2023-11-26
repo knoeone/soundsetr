@@ -7,15 +7,15 @@ import 'package:path/path.dart' as p;
 import 'package:watcher/watcher.dart';
 import 'dart:io' as io;
 
-class Installed extends StatefulWidget {
+class InstalledScreen extends StatefulWidget {
   final ScrollController? scrollController;
-  const Installed({super.key, this.scrollController});
+  const InstalledScreen({super.key, this.scrollController});
 
   @override
-  _InstalledState createState() => _InstalledState();
+  _InstalledScreenState createState() => _InstalledScreenState();
 }
 
-class _InstalledState extends State<Installed> {
+class _InstalledScreenState extends State<InstalledScreen> {
   var directory =
       '/Users/spacedevin/Library/Group Containers/UBF8T346G9.Office/Outlook/Outlook Sound Sets';
 

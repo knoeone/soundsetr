@@ -123,15 +123,19 @@ class _MarketScreenState extends State<MarketScreen> {
       children: [
         Flexible(
           flex: 0,
-          child: MacosSearchField(
-            placeholder: 'Search for a sound set...',
-            results: sets.map((e) => SearchResultItem(e['name'] as String)).toList(),
-            onResultSelected: (resultItem) {
-              debugPrint(resultItem.searchKey);
-            },
-            onChanged: (value) {
-              setSearch(value);
-            },
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: MacosSearchField(
+              padding: EdgeInsets.all(12),
+              placeholder: 'Search for a sound set...',
+              results: sets.map((e) => SearchResultItem(e['name'] as String)).toList(),
+              onResultSelected: (resultItem) {
+                debugPrint(resultItem.searchKey);
+              },
+              onChanged: (value) {
+                setSearch(value);
+              },
+            ),
           ),
         ),
         Expanded(
