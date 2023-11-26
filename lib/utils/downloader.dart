@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:accessing_security_scoped_resource/accessing_security_scoped_resource.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter/return_code.dart';
@@ -256,7 +257,9 @@ abstract class Downloader {
     DirectoryWatcher watcher;
     StreamSubscription? listener;
 
-    void updateFiles(directory, [WatchEvent? e]) {
+    final _plugin = AccessingSecurityScopedResource();
+
+    void updateFiles(directory, [WatchEvent? e]) async {
       var files = [];
 
       try {
@@ -265,7 +268,7 @@ abstract class Downloader {
             controller.add([]);
             listener!.cancel();
             listener = null;
-            print("return");
+            _plugin.stopAccessingSecurityScopedResourceWithFilePath(directory);
             return;
           }
         }
@@ -282,13 +285,17 @@ abstract class Downloader {
         });
         controller.add(files..sort((a, b) => a.name.compareTo(b.name)));
       } catch (e) {
+        _plugin.stopAccessingSecurityScopedResourceWithFilePath(directory);
         print(e);
       }
     }
 
-    Config.prefs.getString('path', defaultValue: '').listen((directory) {
-      if (!Directory(directory).existsSync()) {
+    Config.prefs.getString('path', defaultValue: '').listen((directory) async {
+      final hasAccess = await _plugin.startAccessingSecurityScopedResourceWithFilePath(directory);
+
+      if (!Directory(directory).existsSync() || !hasAccess) {
         controller.add([]);
+        _plugin.stopAccessingSecurityScopedResourceWithFilePath(directory);
         return;
       }
 
