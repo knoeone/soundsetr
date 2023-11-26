@@ -36,7 +36,7 @@ class _DownloadButtonState extends State<DownloadButton> {
           ),
           primaryButton: PushButton(
             controlSize: ControlSize.large,
-            child: Text('Yes'),
+            child: const Text('Yes'),
             onPressed: () {
               downlodSetConfirmed(confirmed: true);
               Navigator.of(context, rootNavigator: true).pop();
@@ -45,7 +45,7 @@ class _DownloadButtonState extends State<DownloadButton> {
           secondaryButton: PushButton(
             secondary: true,
             controlSize: ControlSize.large,
-            child: Text('No'),
+            child: const Text('No'),
             onPressed: () {
               //Navigator.of(context).pop();
               downlodSetConfirmed(confirmed: false);

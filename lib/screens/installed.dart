@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:path/path.dart' as path;
 import 'package:plist_parser/plist_parser.dart';
-import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
 import 'package:watcher/watcher.dart';
 import 'dart:io' as io;
 

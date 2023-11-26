@@ -31,18 +31,23 @@ class OtherMacosWindow extends MacosWindow {
   /// Specifies the background color for the Window.
   ///
   /// The default colors from the theme would be used if no color is specified.
+  @override
   final Color? backgroundColor;
 
   /// The child of the [MacosWindow]
+  @override
   final Widget? child;
 
   /// An app bar to display at the top of the window.
+  @override
   final TitleBar? titleBar;
 
   /// A sidebar to display at the left of the window.
+  @override
   final Sidebar? sidebar;
 
   /// A sidebar to display at the right of the window.
+  @override
   final Sidebar? endSidebar;
 
   /// Whether wallpaper tinting should be disabled.
@@ -65,6 +70,7 @@ class OtherMacosWindow extends MacosWindow {
   ///
   /// Since the disabling of wallpaper tinting may be found to be too noticeable,
   /// this property may be used to disable wallpaper tinting outright.
+  @override
   final bool disableWallpaperTinting;
 
   /// The state of the sidebar's [NSVisualEffectView].
@@ -77,6 +83,7 @@ class OtherMacosWindow extends MacosWindow {
   /// follows the window's active state.
   ///
   /// Defaults to [NSVisualEffectViewState.followsWindowActiveState].
+  @override
   final NSVisualEffectViewState sidebarState;
 
   @override

@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
-import 'package:flutter_shake_animated/flutter_shake_animated.dart';
 
-import '../utils/downloader.dart';
 
 class PublishButton extends StatelessWidget {
   final item;
@@ -31,13 +29,13 @@ class PublishButton extends StatelessWidget {
         ),
         primaryButton: PushButton(
           controlSize: ControlSize.large,
-          child: Text('OK'),
+          child: const Text('OK'),
           onPressed: () => onComplete(),
         ),
         secondaryButton: PushButton(
           secondary: true,
           controlSize: ControlSize.large,
-          child: Text('Cancel'),
+          child: const Text('Cancel'),
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
           },

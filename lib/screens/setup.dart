@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
-import 'package:system_theme/system_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../widgets/scaffold.dart';
@@ -15,7 +13,7 @@ class SetupScreen extends StatelessWidget {
     return ScaffoldScreen(
       useSliver: true,
       title: const Text(
-        'Get Started',
+        'Get Started with Soundsetr',
         maxLines: 1,
       ),
       children: [
@@ -48,7 +46,7 @@ class SetupScreen extends StatelessWidget {
                   secondary: true,
                   controlSize: ControlSize.large,
                   onPressed: () => goToIndex(2),
-                  child: Text(
+                  child: const Text(
                     'Open Store',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -57,7 +55,7 @@ class SetupScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 26),
-              SetupItem(
+              const SetupItem(
                 num: 2,
                 text: 'Select any pack you want and click "GET".\n',
               ),
@@ -78,7 +76,7 @@ class SetupScreen extends StatelessWidget {
                   secondary: true,
                   controlSize: ControlSize.large,
                   onPressed: () => launchUrl(Uri.parse('ms-outlook://')),
-                  child: Text(
+                  child: const Text(
                     'Open Outlook',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -134,7 +132,7 @@ class SetupItem extends StatelessWidget {
       children: [
         Text(
           '$num.',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         const SizedBox(width: 20),
         Flexible(

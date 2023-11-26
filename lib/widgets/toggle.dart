@@ -8,10 +8,10 @@ class Toggle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (hideIfToggled && MacosWindowScope.of(context).isSidebarShown) {
-      return SizedBox();
+      return const SizedBox();
     }
     if (!hideIfToggled && !MacosWindowScope.of(context).isSidebarShown) {
-      return SizedBox(height: 40);
+      return const SizedBox(height: 40);
     }
     return SizedBox(
       height: 40,

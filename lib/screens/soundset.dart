@@ -1,10 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:macos_ui/macos_ui.dart';
-import 'package:plist_parser/plist_parser.dart';
-import 'package:siri_wave/siri_wave.dart';
+import 'package:system_theme/system_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../utils/downloader.dart';
 import '../widgets/delete.dart';
@@ -15,8 +12,6 @@ import '../widgets/replace.dart';
 import '../widgets/reveal.dart';
 import '../widgets/save.dart';
 import '../widgets/scaffold.dart';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:path/path.dart' as path;
 
 const audioDescriptions = {
   'SoundFile_NewMail': 'Played when receiving new mails.',
@@ -56,7 +51,7 @@ class SoundsetScreen extends StatelessWidget {
 
 class SoundSetDetailScreen extends StatefulWidget {
   final item;
-  SoundSetDetailScreen({super.key, required this.item});
+  const SoundSetDetailScreen({super.key, required this.item});
 
   @override
   State<SoundSetDetailScreen> createState() => _SoundSetDetailScreenState();
@@ -91,7 +86,7 @@ class _SoundSetDetailScreenState extends State<SoundSetDetailScreen> {
           widget.item['name'],
           overflow: TextOverflow.ellipsis,
         ),
-        child: Center(
+        child: const Center(
           child: ProgressCircle(),
         ),
       );
@@ -120,14 +115,14 @@ class _SoundSetDetailScreenState extends State<SoundSetDetailScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(item['description']),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   GestureDetector(
                     onTap: () => launchUrl(Uri.parse(item['repo'])),
                     child: Text(
                       item['repo'],
                       style: TextStyle(
                         fontSize: 13,
-                        color: MacosTheme.of(context).primaryColor,
+                        color: SystemTheme.accentColor.accent,
                         //decoration: TextDecoration.underline,
                       ),
                     ),
@@ -159,7 +154,7 @@ class _SoundSetDetailScreenState extends State<SoundSetDetailScreen> {
 }
 
 class SoundSetAudioFile extends StatelessWidget {
-  SoundSetAudioFile({
+  const SoundSetAudioFile({
     super.key,
     required this.item,
     required this.file,

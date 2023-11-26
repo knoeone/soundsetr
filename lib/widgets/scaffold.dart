@@ -27,31 +27,31 @@ class ScaffoldScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> leading = [];
     if (!MacosWindowScope.of(context).isSidebarShown) {
-      leading.add(SizedBox(width: 8));
+      leading.add(const SizedBox(width: 8));
     }
 
-    leading.add(Toggle(hideIfToggled: true));
+    leading.add(const Toggle(hideIfToggled: true));
     if (!MacosWindowScope.of(context).isSidebarShown) {
-      leading.add(SizedBox(width: 8));
+      leading.add(const SizedBox(width: 8));
       leading.add(
         Flexible(
           child: Container(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             width: 1,
             color: MacosTheme.of(context).dividerColor,
           ),
         ),
       );
-      leading.add(SizedBox(width: 8));
+      leading.add(const SizedBox(width: 8));
     }
 
     if (canBack) {
-      leading.add(Flexible(
+      leading.add(const Flexible(
         child: BackButton(),
       ));
     }
 
-    leading.add(SizedBox(width: 8));
+    leading.add(const SizedBox(width: 8));
 
     var a = actions ?? [];
 
@@ -71,10 +71,11 @@ class ScaffoldScreen extends StatelessWidget {
         controller: scrollController,
         slivers: [
           SliverToolBar(
+            automaticallyImplyLeading: false,
             title: titleRow,
             pinned: true,
             toolbarOpacity: 0.75,
-            padding: EdgeInsets.all(0),
+            padding: const EdgeInsets.all(0),
           ),
           SliverList.list(
             children: children ?? [],
@@ -88,7 +89,7 @@ class ScaffoldScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
         allowWallpaperTintingOverrides: true,
         titleWidth: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.all(0),
+        padding: const EdgeInsets.all(0),
         title: titleRow,
       ),
       children: [

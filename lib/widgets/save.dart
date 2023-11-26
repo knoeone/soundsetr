@@ -24,7 +24,7 @@ class SaveAudioButton extends StatelessWidget {
         child: MacosIconButton(
           icon: MacosIcon(
             CupertinoIcons.arrow_down_doc,
-            color: MacosTheme.of(context).primaryColor,
+            color: SystemTheme.accentColor.accent,
             size: 20.0,
           ),
           onPressed: saveAudio,

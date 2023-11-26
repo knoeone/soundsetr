@@ -33,7 +33,7 @@ class DuplicateButton extends StatelessWidget {
     showMacosAlertDialog(
       context: context,
       builder: (_) => ShakeWidget(
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         enableWebMouseHover: false,
         onController: (c) {
           shakeController = c;
@@ -55,7 +55,7 @@ class DuplicateButton extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: MacosTypography.of(context).body,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               MacosTextField(
                 autocorrect: true,
                 placeholder: item['name'],
@@ -68,13 +68,13 @@ class DuplicateButton extends StatelessWidget {
           ),
           primaryButton: PushButton(
             controlSize: ControlSize.large,
-            child: Text('OK'),
+            child: const Text('OK'),
             onPressed: () => onComplete(),
           ),
           secondaryButton: PushButton(
             secondary: true,
             controlSize: ControlSize.large,
-            child: Text('Cancel'),
+            child: const Text('Cancel'),
             onPressed: () {
               Navigator.of(context, rootNavigator: true).pop();
             },

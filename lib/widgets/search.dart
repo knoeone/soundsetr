@@ -60,7 +60,7 @@ class _SearchState extends State<Search> {
           ),
         ),
         Expanded(
-          child: filterd.length > 0
+          child: filterd.isNotEmpty
               ? LayoutBuilder(
                   builder: (context, constraints) {
                     return MasonryGridView.count(
@@ -73,7 +73,7 @@ class _SearchState extends State<Search> {
                     );
                   },
                 )
-              : Padding(
+              : const Padding(
                   padding: EdgeInsets.only(top: 20, left: 20),
                   child: Text('No results found'),
                 ),

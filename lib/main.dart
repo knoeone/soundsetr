@@ -29,9 +29,9 @@ Future<void> _configureMacosWindowUtils() async {
 }
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
   await _configureMacosWindowUtils();
   await windowManager.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
 
   WindowOptions windowOptions = const WindowOptions(
     minimumSize: Size(800, 600),
@@ -57,7 +57,8 @@ class App extends StatelessWidget {
         primaryColor: SystemTheme.accentColor.accent,
         //typography: MacosTypography(color: Colors.white),
       ),
-      themeMode: ThemeMode.system,
+      //themeMode: ThemeMode.system,
+      themeMode: ThemeMode.light,
       home: const MainView(),
       debugShowCheckedModeBanner: false,
     );
@@ -100,12 +101,12 @@ class _MainViewState extends State<MainView> {
           PlatformMenu(
             label: 'Soundsetr',
             menus: [
-              PlatformProvidedMenuItem(
+              const PlatformProvidedMenuItem(
                 type: PlatformProvidedMenuItemType.about,
               ),
               PlatformMenuItem(
                   label: 'Open Outlook', onSelected: () => launchUrl(Uri.parse('ms-outlook://'))),
-              PlatformProvidedMenuItem(
+              const PlatformProvidedMenuItem(
                 type: PlatformProvidedMenuItemType.quit,
               ),
             ],
@@ -122,31 +123,31 @@ class _MainViewState extends State<MainView> {
               child: const HelpButton(),
             ),
             minWidth: 200,
-            builder: SideBar,
+            builder: sideBar,
           ),
           child: IndexedStack(
             index: _pageIndex,
             children: [
               SetupScreen(goToIndex: goToIndex),
               CupertinoTabView(builder: (context) {
-                return ScaffoldScreen(
-                  title: const Text('Installed'),
-                  child: InstalledScreen(),
+                return const ScaffoldScreen(
+                  title: Text('Installed'),
                   actions: [CreateButton()],
+                  child: InstalledScreen(),
                 );
               }),
               CupertinoTabView(builder: (context) {
-                return ScaffoldScreen(
-                  title: const Text('Store'),
+                return const ScaffoldScreen(
+                  title: Text('Store'),
                   child: MarketScreen(),
                 );
               }),
-              ScaffoldScreen(
-                title: const Text('Contribute'),
+              const ScaffoldScreen(
+                title: Text('Contribute'),
                 child: ContributeScreen(),
               ),
-              ScaffoldScreen(
-                title: const Text('Settings'),
+              const ScaffoldScreen(
+                title: Text('Settings'),
                 child: SettingsScreen(),
               ),
             ],
@@ -156,7 +157,7 @@ class _MainViewState extends State<MainView> {
     );
   }
 
-  Widget SideBar([BuildContext? context, ScrollController? scrollController]) {
+  Widget sideBar(BuildContext? context, ScrollController? scrollController) {
     // var iconColor = MacosTheme.brightnessOf(context as BuildContext).resolve(
     //   const Color.fromRGBO(0, 0, 0, 1),
     //   const Color.fromRGBO(255, 255, 255, 1),
@@ -180,38 +181,35 @@ class _MainViewState extends State<MainView> {
             CupertinoIcons.flag,
             color: _pageIndex == 0 ? iconColor : SystemTheme.accentColor.accent,
           ),
-          label: Text(
-            'Get Started',
-            style: TextStyle(color: Colors.white),
-          ),
+          label: const Text('Get Started'),
         ),
         SidebarItem(
           leading: MacosIcon(
             CupertinoIcons.folder,
             color: _pageIndex == 1 ? iconColor : SystemTheme.accentColor.accent,
           ),
-          label: Text('Installed'),
+          label: const Text('Installed'),
         ),
         SidebarItem(
           leading: MacosIcon(
             CupertinoIcons.cloud,
             color: _pageIndex == 2 ? iconColor : SystemTheme.accentColor.accent,
           ),
-          label: Text('Store'),
+          label: const Text('Store'),
         ),
         SidebarItem(
           leading: MacosIcon(
             CupertinoIcons.sparkles,
             color: _pageIndex == 3 ? iconColor : SystemTheme.accentColor.accent,
           ),
-          label: Text('Contribute'),
+          label: const Text('Contribute'),
         ),
         SidebarItem(
           leading: MacosIcon(
             CupertinoIcons.wrench,
             color: _pageIndex == 4 ? iconColor : SystemTheme.accentColor.accent,
           ),
-          label: Text('Settings'),
+          label: const Text('Settings'),
         ),
       ],
     );

@@ -3,10 +3,8 @@ import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
-import 'package:flutter_shake_animated/flutter_shake_animated.dart';
+import 'package:system_theme/system_theme.dart';
 import 'package:watcher/watcher.dart';
-
-import '../utils/downloader.dart';
 
 class PlayButton extends StatefulWidget {
   final file;
@@ -64,7 +62,7 @@ class _PlayButtonState extends State<PlayButton> {
         child: MacosIconButton(
           icon: MacosIcon(
             CupertinoIcons.play,
-            color: MacosTheme.of(context).primaryColor,
+            color: SystemTheme.accentColor.accent,
             size: 20.0,
           ),
           onPressed: playSound,

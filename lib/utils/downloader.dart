@@ -167,14 +167,16 @@ abstract class Downloader {
 
     void copyFile(name) => File(path.join(Config.outlookResourcePath, name))
         .copySync(path.join(destinationFile, name));
-    [
+    for (var file in [
       'mailerror.wav',
       'mailsent.wav',
       'newmail.wav',
       'nomail.wav',
       'reminder.wav',
       'welcome.wav',
-    ].forEach((file) => copyFile(file));
+    ]) {
+      copyFile(file);
+    }
 
     File(path.join(destinationFile, 'soundset.plist')).writeAsStringSync(plist);
   }
@@ -218,8 +220,8 @@ abstract class Downloader {
     File file = File(result.files.single.path!);
 
     final Directory downloads = await getTemporaryDirectory();
-    final tmpFile = path.join('${downloads.path}', 'converted.aif');
-    final session = await FFmpegKit.execute('-y -i "${file.path}" "${tmpFile}"');
+    final tmpFile = path.join(downloads.path, 'converted.aif');
+    final session = await FFmpegKit.execute('-y -i "${file.path}" "$tmpFile"');
     final returnCode = await session.getReturnCode();
 
     if (ReturnCode.isSuccess(returnCode)) {

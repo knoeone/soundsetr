@@ -6,6 +6,6 @@ class ContributeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [Text('Gontribute on github')]);
+    return const Column(children: [Text('Gontribute on github')]);
   }
 }

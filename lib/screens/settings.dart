@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../utils/config.dart';
 import '../widgets/reset.dart';
@@ -44,7 +43,7 @@ class SettingItem extends StatefulWidget {
   final Function onChange;
   final String defaultValue;
 
-  SettingItem({
+  const SettingItem({
     super.key,
     required this.setting,
     required this.name,
@@ -89,7 +88,7 @@ class _SettingItemState extends State<SettingItem> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(widget.name),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Row(
             children: [
               Expanded(
@@ -99,7 +98,7 @@ class _SettingItemState extends State<SettingItem> {
                   placeholder: '',
                 ),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               ResetButton(onPressed: resetDefault),
               RevealButton(file: controller.text)
             ],

@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
-import 'package:flutter_shake_animated/flutter_shake_animated.dart';
 
-import '../utils/downloader.dart';
 
 class ResetButton extends StatelessWidget {
   final onPressed;
