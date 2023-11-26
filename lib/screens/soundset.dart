@@ -1,8 +1,12 @@
+import 'package:desktop_drop/desktop_drop.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:system_theme/system_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:cross_file/cross_file.dart';
+
 import '../models/soundset.dart';
 import '../utils/downloader.dart';
 import '../widgets/delete.dart';
@@ -154,7 +158,7 @@ class _SoundSetDetailScreenState extends State<SoundSetDetailScreen> {
   }
 }
 
-class SoundSetAudioFile extends StatelessWidget {
+class SoundSetAudioFile extends StatefulWidget {
   const SoundSetAudioFile({
     super.key,
     required this.item,
@@ -165,50 +169,80 @@ class SoundSetAudioFile extends StatelessWidget {
   final String file;
 
   @override
+  State<SoundSetAudioFile> createState() => _SoundSetAudioFileState();
+}
+
+class _SoundSetAudioFileState extends State<SoundSetAudioFile> {
+  final List<XFile> _list = [];
+
+  bool _dragging = false;
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.topLeft,
-      padding: const EdgeInsets.all(20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          MacosIcon(
-            CupertinoIcons.speaker_2,
-            size: 30,
-            color: MacosTheme.of(context).typography.headline.color,
+    return DropTarget(
+      onDragDone: (detail) {
+        Downloader.replace(widget.item, widget.file, detail.files[0]);
+      },
+      onDragEntered: (detail) {
+        setState(() => _dragging = true);
+      },
+      onDragExited: (detail) {
+        setState(() => _dragging = false);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: _dragging ? SystemTheme.accentColor.accent : Colors.transparent,
+          border: Border.all(
+            color: Colors.transparent,
           ),
-          const SizedBox(width: 20),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '${audioNames[file]}',
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  audioDescriptions[file] as String,
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    height: 1.4,
-                    fontSize: 13,
-                  ),
-                ),
-              ],
+          borderRadius: BorderRadius.all(
+            Radius.circular(10),
+          ),
+        ),
+        alignment: Alignment.topLeft,
+        padding: const EdgeInsets.all(20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            MacosIcon(
+              CupertinoIcons.speaker_2,
+              size: 30,
+              color: MacosTheme.of(context).typography.headline.color,
             ),
-          ),
-          const SizedBox(width: 20),
-          item.tmp == true
-              ? SaveAudioButton(item: item, file: file)
-              : ReplaceButton(item: item, file: file),
-          PlayButton(item: item, file: '${item.path}/${item.plist[file]}')
-        ],
+            const SizedBox(width: 20),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${audioNames[widget.file]}',
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    audioDescriptions[widget.file] as String,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      height: 1.4,
+                      fontSize: 13,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 20),
+            widget.item.tmp == true
+                ? SaveAudioButton(item: widget.item, file: widget.file)
+                : ReplaceButton(item: widget.item, file: widget.file),
+            PlayButton(
+                item: widget.item, file: '${widget.item.path}/${widget.item.plist[widget.file]}')
+          ],
+        ),
       ),
     );
   }

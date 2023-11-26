@@ -32,6 +32,8 @@ dependencies:
   shared_preferences: ^2.2.2
   streaming_shared_preferences: ^2.0.0
   flutter_markdown: ^0.6.18+2
+  desktop_drop: ^0.4.4
+  cross_file: ^0.3.3+7
 
 dev_dependencies:
   flutter_test:

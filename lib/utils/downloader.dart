@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter/return_code.dart';
 import 'package:file_picker/file_picker.dart';
@@ -207,16 +208,19 @@ abstract class Downloader {
     launchUrl(Uri.parse(file.indexOf('https://') == 0 ? file : 'file://$file'));
   }
 
-  static replace(SoundSet set, name) async {
+  static replaceSelect(SoundSet set, name) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['aif', 'wav', 'mp3', 'ogg', 'aiff', 'flac', 'm4a'],
     );
 
     if (result == null) return;
-
     File file = File(result.files.single.path!);
 
+    return replace(set, name, file);
+  }
+
+  static replace(SoundSet set, name, file) async {
     final Directory downloads = await getTemporaryDirectory();
     final tmpFile = path.join(downloads.path, 'converted.aif');
     final session = await FFmpegKit.execute('-y -i "${file.path}" "$tmpFile"');
@@ -234,6 +238,9 @@ abstract class Downloader {
 
     File(destinationFile).deleteSync();
     File(tmpFile).renameSync(destinationFile);
+
+    var player = AudioPlayer();
+    player.play(DeviceFileSource(destinationFile));
   }
 
   static watchFiles() {
