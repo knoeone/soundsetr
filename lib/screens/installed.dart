@@ -1,15 +1,12 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:macos_ui/macos_ui.dart';
 import 'package:path/path.dart' as p;
 import 'package:plist_parser/plist_parser.dart';
-import 'package:soundset_market/screens/soundset.dart';
 import 'package:watcher/watcher.dart';
 import 'dart:io' as io;
 
 import '../widgets/card.dart';
-import '../widgets/search_view.dart';
+import '../widgets/search.dart';
 
 class InstalledScreen extends StatefulWidget {
   final ScrollController? scrollController;
@@ -59,10 +56,11 @@ class _InstalledScreenState extends State<InstalledScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SearchView(
+    return Search(
       items: (filter) => sets
           .where(
             (item) =>
+                filter == '' ||
                 (item['name'] as String).contains(filter) ||
                 (item['description'] as String).contains(filter),
           )

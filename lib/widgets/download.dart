@@ -1,12 +1,7 @@
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:macos_ui/macos_ui.dart';
-import 'package:path/path.dart' as p;
 import 'package:system_theme/system_theme.dart';
-import 'package:watcher/watcher.dart';
-import 'dart:io' as io;
 
 import '../utils/downloader.dart';
 
@@ -37,7 +32,7 @@ class _DownloadButtonState extends State<DownloadButton> {
       controlSize: ControlSize.large,
       onPressed: () => downlodSet(),
       child: downloading
-          ? ProgressCircle()
+          ? const ProgressCircle()
           : Text(
               'GET',
               style: TextStyle(color: SystemTheme.accentColor.accent, fontWeight: FontWeight.bold),

@@ -1,14 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:macos_ui/macos_ui.dart';
-import 'package:path/path.dart' as p;
-import 'package:watcher/watcher.dart';
-import 'dart:io' as io;
-import '../main.dart';
-import '../widgets/download.dart';
+import '../widgets/scaffold.dart';
 
 class SoundsetScreen extends StatelessWidget {
   final ScrollController? scrollController;
@@ -16,7 +8,7 @@ class SoundsetScreen extends StatelessWidget {
   static Route<dynamic> route() {
     return CupertinoPageRoute(
       builder: (BuildContext context) {
-        return SoundSetDetailScreen();
+        return const SoundSetDetailScreen();
       },
     );
   }

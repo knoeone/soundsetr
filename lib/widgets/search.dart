@@ -2,31 +2,43 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-class SearchView extends StatefulWidget {
+class Search extends StatefulWidget {
   final Function itemBuilder;
   final Function items;
-  const SearchView({
+  const Search({
     super.key,
     required this.items,
     required this.itemBuilder,
   });
 
   @override
-  State<SearchView> createState() => _SearchViewState();
+  State<Search> createState() => _SearchState();
 }
 
-class _SearchViewState extends State<SearchView> {
+class _SearchState extends State<Search> {
   var filter = '';
+  var controller = TextEditingController();
 
-  void setSearch(value) {
-    setState(() {
-      filter = value;
+  @override
+  void initState() {
+    super.initState();
+    controller.addListener(() {
+      setState(() {
+        filter = controller.text;
+      });
     });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     List filterd = widget.items(filter);
+    List all = widget.items('');
 
     return Column(
       children: [
@@ -35,15 +47,13 @@ class _SearchViewState extends State<SearchView> {
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: MacosSearchField(
+              controller: controller,
               maxLines: 1,
               padding: const EdgeInsets.all(12),
               placeholder: 'Search for a sound set...',
-              //results: sets.map((e) => SearchResultItem(e.path as String)).toList(),
+              results: all.map((e) => SearchResultItem(e['name'] as String)).toList(),
               onResultSelected: (resultItem) {
                 debugPrint(resultItem.searchKey);
-              },
-              onChanged: (value) {
-                setSearch(value);
               },
             ),
           ),

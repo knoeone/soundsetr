@@ -20,6 +20,8 @@ dependencies:
   window_manager: ^0.3.7
   flutter_archive: ^5.0.0
   plist_parser: ^0.0.11
+  sanitize_filename: ^1.0.5
+  path: ^1.8.3
 
 dev_dependencies:
   flutter_test:

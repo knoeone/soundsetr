@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:macos_ui/macos_ui.dart';
 import '../widgets/card.dart';
 import '../widgets/download.dart';
-import '../widgets/search_view.dart';
-import 'soundset.dart';
+import '../widgets/search.dart';
 
 class MarketScreen extends StatefulWidget {
   final ScrollController? scrollController;
@@ -57,10 +54,11 @@ class _MarketScreenState extends State<MarketScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SearchView(
+    return Search(
       items: (filter) => sets
           .where(
             (item) =>
+                filter == '' ||
                 (item['name'] as String).contains(filter) ||
                 (item['description'] as String).contains(filter),
           )
@@ -72,7 +70,7 @@ class _MarketScreenState extends State<MarketScreen> {
           repo: '${item['repo']}',
           icon: CupertinoIcons.archivebox,
           action: DownloadButton(
-            set: item['download'],
+            set: item,
           ),
         );
       },

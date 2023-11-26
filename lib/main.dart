@@ -1,14 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:macos_window_utils/macos_window_utils.dart';
 import 'package:soundset_market/screens/soundset.dart';
 import 'package:system_theme/system_theme.dart';
 import 'package:window_manager/window_manager.dart';
-import 'content.dart';
 import 'screens/installed.dart';
 import 'screens/market.dart';
+import 'widgets/scaffold.dart';
 
 /// This method initializes macos_window_utils and styles the window.
 Future<void> _configureMacosWindowUtils() async {
@@ -120,10 +118,12 @@ class _MainViewState extends State<MainView> {
                 title: const Text('Home'),
                 child: Container(),
               ),
-              ScaffoldScreen(
-                title: const Text('Installed'),
-                child: InstalledScreen(),
-              ),
+              CupertinoTabView(builder: (context) {
+                return ScaffoldScreen(
+                  title: const Text('Installed'),
+                  child: InstalledScreen(),
+                );
+              }),
               CupertinoTabView(builder: (context) {
                 return ScaffoldScreen(
                   title: const Text('Store'),
@@ -134,26 +134,7 @@ class _MainViewState extends State<MainView> {
               Container(),
             ],
           ),
-          // child: ScaffoldScreen(
-          //   title: const Text('Home'),
-          //   child: IndexedStack(
-          //     index: _pageIndex,
-          //     children: [
-          //       Container(),
-          //       InstalledScreen(),
-          //       MarketScreen(),
-          //       Container(),
-          //       Container(),
-          //     ],
-          //   ),
-          // ),
         ),
-        // child: TransparentSidebarAndContent(
-        //   width: 200,
-        //   isOpen: true,
-        //   sidebarBuilder: SideBar,
-        //   child: HomePage(),
-        // ),
       ),
     );
   }
@@ -167,7 +148,6 @@ class _MainViewState extends State<MainView> {
     return SidebarItems(
       //selectedColor: SystemTheme.accentColor.accent,
       selectedColor: MacosColors.alternatingContentBackgroundColor,
-
       itemSize: SidebarItemSize.large,
       currentIndex: _pageIndex,
       scrollController: scrollController,
@@ -212,54 +192,6 @@ class _MainViewState extends State<MainView> {
             color: _pageIndex == 4 ? iconColor : SystemTheme.accentColor.accent,
           ),
           label: Text('Setup'),
-        ),
-      ],
-    );
-  }
-}
-
-class ScaffoldScreen extends StatelessWidget {
-  Widget child;
-  Widget title;
-  ScaffoldScreen({
-    super.key,
-    required this.child,
-    required this.title,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return MacosScaffold(
-      toolBar: ToolBar(
-        leading: MacosTooltip(
-          message: 'Toggle Sidebar',
-          useMousePosition: false,
-          child: MacosIconButton(
-            icon: MacosIcon(
-              CupertinoIcons.sidebar_left,
-              color: MacosTheme.brightnessOf(context).resolve(
-                const Color.fromRGBO(0, 0, 0, 0.5),
-                const Color.fromRGBO(255, 255, 255, 0.5),
-              ),
-              size: 20.0,
-            ),
-            boxConstraints: const BoxConstraints(
-              minHeight: 20,
-              minWidth: 20,
-              maxWidth: 48,
-              maxHeight: 38,
-            ),
-            onPressed: () => MacosWindowScope.of(context).toggleSidebar(),
-          ),
-        ),
-        title: title,
-      ),
-      children: [
-        ContentArea(
-          builder: (context, scrollController) {
-            //return child(scrollController: scrollController);
-            return child;
-          },
         ),
       ],
     );

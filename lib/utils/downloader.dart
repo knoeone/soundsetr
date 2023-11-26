@@ -1,8 +1,8 @@
 import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_archive/flutter_archive.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import 'package:sanitize_filename/sanitize_filename.dart';
 import 'config.dart';
 
 abstract class Downloader {
@@ -13,7 +13,8 @@ abstract class Downloader {
     downloading.add(set);
 
     final Directory tempDir = await getTemporaryDirectory();
-    var name = p.basename(Uri.decodeFull(set['download']));
+    //var name = p.basename(Uri.decodeFull(set['download']));
+    var name = sanitizeFilename(set['name']);
     var tmpFileName = p.join(tempDir.path, name);
     var tmpFile = File(tmpFileName);
     final destinationDir = Directory(Config.path);

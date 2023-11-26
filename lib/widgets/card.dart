@@ -5,13 +5,13 @@ import 'package:soundset_market/screens/soundset.dart';
 import 'package:system_theme/system_theme.dart';
 
 class Card extends StatelessWidget {
-  String title;
-  String description;
-  String repo;
-  IconData icon;
-  Widget? action;
+  final String title;
+  final String description;
+  final String repo;
+  final IconData icon;
+  final Widget? action;
 
-  Card({
+  const Card({
     super.key,
     required this.title,
     required this.repo,
