@@ -22,7 +22,7 @@ class _MarketScreenState extends State<MarketScreen> {
           'https://raw.githubusercontent.com/l337-haxx0r/microsoft-soundset/main/Microsoft%20Sound%20Set.eragesoundset.zip',
     },
     {
-      'name': 'l337-haxx0r/microsoft-soundset2',
+      'name': 'Microsoft Sound Set',
       'repo': 'https://github.com/l337-haxx0r/microsoft-soundset',
       'description':
           'The soundset from Microsoft\'s Entourage 2004 for Mac, preserved for Outlook for Mac 2016, 2019, or 2021',
@@ -30,7 +30,7 @@ class _MarketScreenState extends State<MarketScreen> {
           'https://raw.githubusercontent.com/l337-haxx0r/microsoft-soundset/main/Microsoft%20Sound%20Set.eragesoundset.zip',
     },
     {
-      'name': 'l337-haxx0r/microsoft-soundset3',
+      'name': 'Microsoft Sound Set',
       'repo': 'https://github.com/l337-haxx0r/microsoft-soundset',
       'description':
           'The soundset from Microsoft\'s Entourage 2004 for Mac, preserved for Outlook for Mac 2016, 2019, or 2021',
@@ -38,7 +38,7 @@ class _MarketScreenState extends State<MarketScreen> {
           'https://raw.githubusercontent.com/l337-haxx0r/microsoft-soundset/main/Microsoft%20Sound%20Set.eragesoundset.zip',
     },
     {
-      'name': 'l337-haxx0r/microsoft-soundset4',
+      'name': 'Microsoft Sound Set',
       'repo': 'https://github.com/l337-haxx0r/microsoft-soundset',
       'description':
           'The soundset from Microsoft\'s Entourage 2004 for Mac, preserved for Outlook for Mac 2016, 2019, or 2021',
@@ -69,8 +69,9 @@ class _MarketScreenState extends State<MarketScreen> {
           description: '${item['description']}',
           repo: '${item['repo']}',
           icon: CupertinoIcons.archivebox,
+          item: item,
           action: DownloadButton(
-            set: item,
+            item: item,
           ),
         );
       },

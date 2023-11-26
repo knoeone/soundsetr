@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:soundset_market/screens/soundset.dart';
 import 'package:system_theme/system_theme.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:window_manager/window_manager.dart';
+import 'screens/contribute.dart';
 import 'screens/installed.dart';
 import 'screens/market.dart';
+import 'screens/setup.dart';
 import 'widgets/scaffold.dart';
 import 'widgets/toggle.dart';
 import 'widgets/window.dart';
@@ -87,13 +90,15 @@ class _MainViewState extends State<MainView> {
       duration: const Duration(milliseconds: 600),
       curve: Curves.easeOutExpo,
       child: PlatformMenuBar(
-        menus: const [
+        menus: [
           PlatformMenu(
             label: 'SoundsetMarket',
             menus: [
               PlatformProvidedMenuItem(
                 type: PlatformProvidedMenuItemType.about,
               ),
+              PlatformMenuItem(
+                  label: 'Open Outlook', onSelected: () => launchUrl(Uri.parse('ms-outlook://'))),
               PlatformProvidedMenuItem(
                 type: PlatformProvidedMenuItemType.quit,
               ),
@@ -132,8 +137,14 @@ class _MainViewState extends State<MainView> {
                   child: MarketScreen(),
                 );
               }),
-              Container(),
-              Container(),
+              ScaffoldScreen(
+                title: const Text('Contribute'),
+                child: ContributeScreen(),
+              ),
+              ScaffoldScreen(
+                title: const Text('Outlook Settings'),
+                child: SetupScreen(),
+              ),
             ],
           ),
         ),
@@ -183,17 +194,17 @@ class _MainViewState extends State<MainView> {
         ),
         SidebarItem(
           leading: MacosIcon(
-            CupertinoIcons.gift,
+            CupertinoIcons.sparkles,
             color: _pageIndex == 3 ? iconColor : SystemTheme.accentColor.accent,
           ),
           label: Text('Contribute'),
         ),
         SidebarItem(
           leading: MacosIcon(
-            CupertinoIcons.gear,
+            CupertinoIcons.settings,
             color: _pageIndex == 4 ? iconColor : SystemTheme.accentColor.accent,
           ),
-          label: Text('Setup'),
+          label: Text('Outlook Settings'),
         ),
       ],
     );

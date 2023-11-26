@@ -8,6 +8,14 @@ import 'config.dart';
 abstract class Downloader {
   static var downloading = [];
 
+  static dstName(name) {
+    return p.join(Config.path, '${sanitizeFilename(name).replaceAll('.zip', '')}.eragesoundset');
+  }
+
+  static exists(set) {
+    return Directory(dstName(set['name'])).existsSync();
+  }
+
   static Future get(set) async {
     if (downloading.contains(set)) return Future.value();
     downloading.add(set);
@@ -18,6 +26,7 @@ abstract class Downloader {
     var tmpFileName = p.join(tempDir.path, name);
     var tmpFile = File(tmpFileName);
     final destinationDir = Directory(Config.path);
+    final destinationFile = dstName(set['name']);
 
     final request = await HttpClient().getUrl(Uri.parse(set['download']));
     final response = await request.close();
@@ -28,13 +37,15 @@ abstract class Downloader {
     //   await file.writeAsBytes(bytes);
     // }
 
+    //https://pub.dev/packages/accessing_security_scoped_resource
+
     try {
       Directory(p.join(Config.path, '__MACOSX')).deleteSync(recursive: true);
     } catch (e) {
       print(e);
     }
     try {
-      Directory(p.join(Config.path, name.replaceAll('.zip', ''))).deleteSync(recursive: true);
+      Directory(destinationFile).deleteSync(recursive: true);
     } catch (e) {
       print(e);
     }

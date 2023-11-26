@@ -47,6 +47,7 @@ class _InstalledScreenState extends State<InstalledScreen> {
         'description': plist['SoundSetUserString'],
         'repo': plist['SoundSetURL'],
         'path': file.path,
+        'plist': plist
       });
     });
 
@@ -73,6 +74,7 @@ class _InstalledScreenState extends State<InstalledScreen> {
           repo: '${item['repo']}',
           icon: CupertinoIcons.speaker_2,
           action: Container(),
+          item: item,
         );
       },
     );

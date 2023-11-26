@@ -10,6 +10,7 @@ class Card extends StatelessWidget {
   final String repo;
   final IconData icon;
   final Widget? action;
+  final item;
 
   const Card({
     super.key,
@@ -17,6 +18,7 @@ class Card extends StatelessWidget {
     required this.repo,
     required this.description,
     required this.icon,
+    required this.item,
     this.action,
   });
 
@@ -38,7 +40,7 @@ class Card extends StatelessWidget {
           Expanded(
             child: GestureDetector(
               onTap: () {
-                Navigator.of(context).push(SoundsetScreen.route());
+                Navigator.of(context).push(SoundsetScreen.route(item: item));
                 //Navigator.of(context).pushNamed('/soundset');
               },
               child: Column(
