@@ -4,9 +4,8 @@ import 'package:flutter_shake_animated/flutter_shake_animated.dart';
 
 import '../utils/downloader.dart';
 
-class DuplicateButton extends StatelessWidget {
-  final item;
-  const DuplicateButton({super.key, required this.item});
+class CreateButton extends StatelessWidget {
+  const CreateButton({super.key});
 
   duplicateSet(context) async {
     var controller = TextEditingController();
@@ -27,7 +26,7 @@ class DuplicateButton extends StatelessWidget {
 
       Navigator.of(context, rootNavigator: true).pop();
       Navigator.of(context).pop();
-      Downloader.duplicate(item, controller.text);
+      Downloader.newFromDefault(controller.text);
     }
 
     showMacosAlertDialog(
@@ -38,6 +37,7 @@ class DuplicateButton extends StatelessWidget {
         onController: (c) {
           shakeController = c;
         },
+        //shakeConstant: ShakeHorizontalConstant2(),
         shakeConstant: ShakeHardConstant1(),
         autoPlay: false,
         child: MacosAlertDialog(
@@ -45,7 +45,7 @@ class DuplicateButton extends StatelessWidget {
             height: 1,
           ),
           title: Text(
-            'Duplicate SoundSet ',
+            'Create New SoundSet ',
             style: MacosTheme.of(context).typography.headline,
           ),
           message: Column(
@@ -58,7 +58,7 @@ class DuplicateButton extends StatelessWidget {
               SizedBox(height: 20),
               MacosTextField(
                 autocorrect: true,
-                placeholder: item['name'],
+                placeholder: 'New SoundSet',
                 controller: controller,
                 focusNode: focusNode,
                 padding: const EdgeInsets.all(12),
@@ -91,11 +91,11 @@ class DuplicateButton extends StatelessWidget {
       height: 40,
       width: 40,
       child: MacosTooltip(
-        message: 'Duplicate ',
+        message: 'Create',
         useMousePosition: false,
         child: MacosIconButton(
           icon: MacosIcon(
-            CupertinoIcons.doc_on_clipboard,
+            CupertinoIcons.add,
             color: MacosTheme.brightnessOf(context).resolve(
               const Color.fromRGBO(0, 0, 0, 0.5),
               const Color.fromRGBO(255, 255, 255, 0.5),

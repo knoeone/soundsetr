@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
+import 'package:soundset_market/widgets/create.dart';
 import 'package:system_theme/system_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:window_manager/window_manager.dart';
@@ -133,6 +134,7 @@ class _MainViewState extends State<MainView> {
                 return ScaffoldScreen(
                   title: const Text('Installed'),
                   child: InstalledScreen(),
+                  actions: [CreateButton()],
                 );
               }),
               CupertinoTabView(builder: (context) {

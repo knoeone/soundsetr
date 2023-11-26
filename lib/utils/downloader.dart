@@ -6,6 +6,7 @@ import 'package:flutter_archive/flutter_archive.dart';
 import 'package:io/io.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
+import 'package:plist_parser/plist_parser.dart';
 import 'package:sanitize_filename/sanitize_filename.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'config.dart';
@@ -75,6 +76,53 @@ abstract class Downloader {
     });
   }
 
+  static newFromDefault(name) {
+    var cleanName = sanitizeFilename(name);
+    final destinationFile = dstName(cleanName);
+
+    Directory(destinationFile).createSync();
+
+    var plist = """
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>SoundSetFileFormatVersion</key>
+  <integer>0</integer>
+  <key>SoundSetUserString</key>
+  <string>$name</string>
+  <key>SoundSetURL</key>
+  <string>http://www.microsoft.com/mac</string>
+  <key>SoundFile_MailError</key>
+  <string>mailerror.wav</string>
+  <key>SoundFile_MailSent</key>
+  <string>mailsent.wav</string>
+  <key>SoundFile_NewMail</key>
+  <string>newmail.wav</string>
+  <key>SoundFile_NoMail</key>
+  <string>nomail.wav</string>
+  <key>SoundFile_Reminder</key>
+  <string>reminder.wav</string>
+  <key>SoundFile_Welcome</key>
+  <string>welcome.wav</string>
+</dict>
+</plist>
+""";
+
+    void copyFile(name) => File(path.join(Config.outlookResourcePath, name))
+        .copySync(path.join(destinationFile, name));
+    [
+      'mailerror.wav',
+      'mailsent.wav',
+      'newmail.wav',
+      'nomail.wav',
+      'reminder.wav',
+      'welcome.wav',
+    ].forEach((file) => copyFile(file));
+
+    File(path.join(destinationFile, 'soundset.plist')).writeAsStringSync(plist);
+  }
+
   static duplicate(set, name) {
     var dst = dstName(name);
 
@@ -106,13 +154,12 @@ abstract class Downloader {
   static replace(set, name) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['aif', 'wav', 'mp3', 'ogg', 'aiff'],
+      allowedExtensions: ['aif', 'wav', 'mp3', 'ogg', 'aiff', 'flac', 'm4a'],
     );
 
     if (result == null) return;
 
     File file = File(result.files.single.path!);
-    print(file.path);
 
     final Directory downloads = await getTemporaryDirectory();
     final tmpFile = path.join('${downloads.path}', 'converted.aif');
@@ -127,12 +174,7 @@ abstract class Downloader {
       // ERROR
     }
 
-    print(returnCode);
-    print(name);
-
-    print(set['plist'][name]);
     final destinationFile = path.join(dstName(set['name']), set['plist'][name]);
-    print(destinationFile);
 
     File(destinationFile).deleteSync();
     File(tmpFile).renameSync(destinationFile);

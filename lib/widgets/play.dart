@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
@@ -36,8 +38,14 @@ class _PlayButtonState extends State<PlayButton> {
   }
 
   void setSource() {
-    setState(() => source = DeviceFileSource(widget.file));
-    player.setSource(source);
+    try {
+      if (!Directory(widget.item['path]']).existsSync() || !File(widget.file).existsSync()) return;
+
+      setState(() => source = DeviceFileSource(widget.file));
+      player.setSource(source);
+    } catch (e) {
+      print(e);
+    }
   }
 
   void playSound() {
