@@ -7,6 +7,14 @@ class MainFlutterWindow: NSWindow {
     self.titleVisibility = NSWindow.TitleVisibility.hidden
     self.titlebarAppearsTransparent = true
     self.isMovableByWindowBackground = true
+//      self.styleMask = []
+//      //self.styleMask.insert(.texturedBackground)
+//      self.styleMask.insert(.resizable)
+//
+//      self.standardWindowButton(.closeButton)?.isHidden = true
+//              self.standardWindowButton(.miniaturizeButton)?.isHidden = true
+//              self.standardWindowButton(.zoomButton)?.isHidden = true
+//              self.standardWindowButton(.fullScreenButton)?.isHidden = true
 
     let flutterViewController = FlutterViewController.init()
     // let flutterViewController.titleVisibility = NSWindow.TitleVisibility.hidden

@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:macos_window_utils/macos_window_utils.dart';
-
+import 'package:system_theme/system_theme.dart';
 import 'content.dart';
 import 'installed.dart';
+import 'screens/market_screen.dart';
 
 /// This method initializes macos_window_utils and styles the window.
 Future<void> _configureMacosWindowUtils() async {
@@ -84,15 +85,22 @@ class _MainViewState extends State<MainView> {
           ),
         ],
         child: MacosWindow(
-          backgroundColor: Color.fromRGBO(0, 0, 0, 0.0),
+          backgroundColor: const Color.fromRGBO(0, 0, 0, 0.0),
           sidebar: Sidebar(
+            bottom: Container(
+              alignment: Alignment.bottomLeft,
+              child: HelpButton(),
+            ),
             minWidth: 200,
             builder: SideBar,
           ),
           child: IndexedStack(
             index: _pageIndex,
-            children: const [
+            children: [
+              Container(),
               HomePage(),
+              MarketScreen(),
+              Container(),
             ],
           ),
         ),
@@ -107,26 +115,45 @@ class _MainViewState extends State<MainView> {
   }
 
   Widget SideBar([BuildContext? context, ScrollController? scrollController]) {
+    var iconColor = MacosTheme.brightnessOf(context as BuildContext).resolve(
+      const Color.fromRGBO(0, 0, 0, 1),
+      const Color.fromRGBO(255, 255, 255, 1),
+    );
     return SidebarItems(
+      selectedColor: SystemTheme.accentColor.accent,
+      itemSize: SidebarItemSize.large,
       currentIndex: _pageIndex,
+      scrollController: scrollController,
       onChanged: (index) {
         setState(() => _pageIndex = index);
       },
-      items: const [
+      items: [
         SidebarItem(
-          leading: MacosIcon(CupertinoIcons.home),
+          leading: MacosIcon(
+            CupertinoIcons.home,
+            color: _pageIndex == 0 ? iconColor : SystemTheme.accentColor.accent,
+          ),
           label: Text('Home'),
         ),
         SidebarItem(
-          leading: MacosIcon(CupertinoIcons.folder),
+          leading: MacosIcon(
+            CupertinoIcons.folder,
+            color: _pageIndex == 1 ? iconColor : SystemTheme.accentColor.accent,
+          ),
           label: Text('Installed'),
         ),
         SidebarItem(
-          leading: MacosIcon(CupertinoIcons.cloud),
+          leading: MacosIcon(
+            CupertinoIcons.cloud,
+            color: _pageIndex == 2 ? iconColor : SystemTheme.accentColor.accent,
+          ),
           label: Text('Market'),
         ),
         SidebarItem(
-          leading: MacosIcon(CupertinoIcons.speaker_2),
+          leading: MacosIcon(
+            CupertinoIcons.speaker_2,
+            color: _pageIndex == 3 ? iconColor : SystemTheme.accentColor.accent,
+          ),
           label: Text('Setup'),
         ),
       ],
@@ -164,7 +191,7 @@ class HomePage extends StatelessWidget {
                 onPressed: () => MacosWindowScope.of(context).toggleSidebar(),
               ),
             ),
-            title: const Text('Home'),
+            title: const Text('Installed'),
           ),
           children: [
             ContentArea(
