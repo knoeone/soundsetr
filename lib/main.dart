@@ -127,10 +127,7 @@ class _MainViewState extends State<MainView> {
           child: IndexedStack(
             index: _pageIndex,
             children: [
-              ScaffoldScreen(
-                title: const Text('Get Started'),
-                child: SetupScreen(goToIndex: goToIndex),
-              ),
+              SetupScreen(goToIndex: goToIndex),
               CupertinoTabView(builder: (context) {
                 return ScaffoldScreen(
                   title: const Text('Installed'),
@@ -164,10 +161,13 @@ class _MainViewState extends State<MainView> {
     //   const Color.fromRGBO(0, 0, 0, 1),
     //   const Color.fromRGBO(255, 255, 255, 1),
     // );
-    var iconColor = SystemTheme.accentColor.accent;
+    //var iconColor = SystemTheme.accentColor.accent;
+    var iconColor = MacosTheme.of(context as BuildContext).typography.body.color;
+
     return SidebarItems(
       //selectedColor: SystemTheme.accentColor.accent,
-      selectedColor: MacosColors.alternatingContentBackgroundColor,
+      //selectedColor: MacosColors.alternatingContentBackgroundColor.withOpacity(0.2),
+      selectedColor: SystemTheme.accentColor.accent,
       itemSize: SidebarItemSize.medium,
       currentIndex: _pageIndex,
       scrollController: scrollController,

@@ -4,17 +4,23 @@ import 'back.dart';
 import 'toggle.dart';
 
 class ScaffoldScreen extends StatelessWidget {
-  final Widget child;
+  final Widget? child;
+  final List<Widget>? children;
   final Widget title;
   final bool canBack;
   final List<Widget>? actions;
+  final bool useSliver;
+  final ScrollController? scrollController;
 
   const ScaffoldScreen({
     super.key,
-    required this.child,
+    this.child,
     required this.title,
     this.canBack = false,
     this.actions,
+    this.useSliver = false,
+    this.scrollController,
+    this.children,
   });
 
   @override
@@ -49,31 +55,44 @@ class ScaffoldScreen extends StatelessWidget {
 
     var a = actions ?? [];
 
+    var titleRow = Row(
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: leading,
+        ),
+        Expanded(child: title),
+        ...a,
+      ],
+    );
+
+    if (useSliver) {
+      return CustomScrollView(
+        controller: scrollController,
+        slivers: [
+          SliverToolBar(
+            title: titleRow,
+            pinned: true,
+            toolbarOpacity: 0.75,
+            padding: EdgeInsets.all(0),
+          ),
+          SliverList.list(
+            children: children ?? [],
+          ),
+        ],
+      );
+    }
+
     return MacosScaffold(
       toolBar: ToolBar(
         automaticallyImplyLeading: false,
+        allowWallpaperTintingOverrides: true,
         titleWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.all(0),
-        // alignment: Alignment.centerLeft,
-        // leading: Back(),
-        title: Row(
-          children: [
-            Row(
-              children: leading,
-              mainAxisSize: MainAxisSize.min,
-            ),
-            Expanded(child: title),
-            ...a,
-          ],
-        ),
+        title: titleRow,
       ),
       children: [
-        ContentArea(
-          builder: (context, scrollController) {
-            //return child(scrollController: scrollController);
-            return child;
-          },
-        ),
+        ContentArea(builder: (context, scrollController) => child ?? Container()),
       ],
     );
   }
