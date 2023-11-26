@@ -3,18 +3,23 @@
 
 # Soundsetr
 
-
-Changing your Outlook sounds its a two part process. First you need to download the soundset, then you need to install it. This guide will walk you through both steps.
+A MacOS app to change your Outlook notification sounds.
 
 ---
 
-When downloading a SoundSet, it will automaticly be created in your Outlook SoundSet Directory.',
+## Changing sounds
 
+Changing your Outlook sounds its a two part process. First you need to download the soundset, then you need to install it. This guide will walk you through both steps.
+
+### Download a new Sound Set
+
+When downloading a Sound Set, it will automaticly be created in your Outlook SoundSet Directory.',
 
 1. Go to the Store on the left hand menu.
 2. Select any pack you want and click "GET".
 
----
+
+### Change sounds to the new Sound Set
 
 Once you have a SoundSet downloaded, you will need to change the SoundSet in Outlook.',
 

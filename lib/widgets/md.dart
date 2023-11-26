@@ -25,10 +25,7 @@ class _MdState extends State<Md> {
 
   void init() async {
     String response = await widget.fetch();
-    print(response);
-    setState(() {
-      md = response;
-    });
+    setState(() => md = response);
   }
 
   @override
@@ -149,12 +146,12 @@ class _MdState extends State<Md> {
               const Color.fromRGBO(255, 255, 255, 0.15),
             ),
             Colors.transparent,
-          ], stops: [
+          ], stops: const [
             0.499,
             0.5,
             0.599,
           ]),
-          border: Border(
+          border: const Border(
             top: BorderSide(
               width: 10,
               color: Colors.transparent,
