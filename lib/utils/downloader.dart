@@ -21,6 +21,18 @@ import '../models/soundset.dart';
 import 'config.dart';
 import 'dart:io' as io;
 
+class DownloaderSendResponse {
+  final List files;
+  final String zip;
+  final String path;
+
+  DownloaderSendResponse({
+    required this.files,
+    required this.zip,
+    required this.path,
+  });
+}
+
 abstract class Downloader {
   static var downloading = [];
 
@@ -39,6 +51,60 @@ abstract class Downloader {
 
     currentFile.copySync(tmpFileName);
     reveal(tempDir.path);
+  }
+
+  static Future send(SoundSet set) async {
+    var appTempDir = 'soundsets';
+
+    final Directory tempDir = await getTemporaryDirectory();
+    var name = sha1.convert(utf8.encode(set.name as String)).toString();
+
+    var tmpDirName = path.join(tempDir.path, appTempDir, name, '${set.name}.eragesoundset');
+    var zipFileName = path.join(tempDir.path, appTempDir, name, '${set.name}.eragesoundset.zip');
+
+    try {
+      await Directory(path.join(tempDir.path, appTempDir, name)).delete(recursive: true);
+    } catch (e) {
+      print(e);
+    }
+
+    try {
+      await Directory(tmpDirName).create(recursive: true);
+    } catch (e) {
+      print(e);
+    }
+
+    var files = [
+      set.plist!['SoundFile_MailError'],
+      set.plist!['SoundFile_MailSent'],
+      set.plist!['SoundFile_NewMail'],
+      set.plist!['SoundFile_NoMail'],
+      set.plist!['SoundFile_Reminder'],
+      set.plist!['SoundFile_Welcome'],
+      'soundset.plist',
+    ];
+
+    void copyFile(name) =>
+        File(path.join(set.path as String, name)).copySync(path.join(tmpDirName, name));
+
+    for (var file in files) {
+      copyFile(file);
+    }
+
+    try {
+      await ZipFile.createFromDirectory(
+        sourceDir: Directory(tmpDirName),
+        zipFile: File(zipFileName),
+      );
+    } catch (e) {
+      print(e);
+    }
+
+    return DownloaderSendResponse(
+      files: files,
+      zip: zipFileName,
+      path: path.join(tempDir.path, appTempDir, name),
+    );
   }
 
   static Future preview(SoundSet set) async {
@@ -85,7 +151,6 @@ abstract class Downloader {
     downloading.add(set);
 
     final Directory tempDir = await getTemporaryDirectory();
-    //var name = p.basename(Uri.decodeFull(set['download']));
     var name = sanitizeFilename(set.name);
     var tmpFileName = path.join(tempDir.path, name);
     var tmpFile = File(tmpFileName);
@@ -95,13 +160,6 @@ abstract class Downloader {
     final request = await HttpClient().getUrl(Uri.parse(set.download));
     final response = await request.close();
     await response.pipe(tmpFile.openWrite());
-    // if (response.statusCode == 200) {
-    //   var bytes = await consolidateHttpClientResponseBytes(response);
-    //   var file = File(tmpFileName);
-    //   await file.writeAsBytes(bytes);
-    // }
-
-    //https://pub.dev/packages/accessing_security_scoped_resource
 
     try {
       Directory(path.join(Config.path, '__MACOSX')).deleteSync(recursive: true);

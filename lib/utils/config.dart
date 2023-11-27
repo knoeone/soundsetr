@@ -57,7 +57,8 @@ abstract class Config {
 
   static void init() async {
     prefs = await StreamingSharedPreferences.instance;
-    prefs.getString('gethubToken', defaultValue: pathDefault).listen((value) {
+    prefs.getString('gethubToken', defaultValue: '').listen((value) {
+      print('loading token $value');
       _githubToken = value;
     });
     prefs.getString('path', defaultValue: pathDefault).listen((value) {
