@@ -2,6 +2,8 @@
 
 Thanks for taking the time to contribute! ❤️
 
+Visit https://github.com/knoeone/soundsetr to join the community.
+
 All types of contributions are encouraged and valued. Please make sure to read the relevant section before making your contribution. It will make it a lot easier for us maintainers and smooth out the experience for all involved. The community looks forward to your contributions. 🎉
 
 > And if you like the project, but just don't have time to contribute, that's fine. There are other easy ways to support the project and show your appreciation, which we would also be very happy about:
@@ -97,16 +99,18 @@ Enhancement suggestions are tracked as [GitHub issues](https://github.com/knoeon
 - **Explain why this enhancement would be useful** to most Soundsettr users. You may also want to point out the other projects that solved it better and which could serve as inspiration.
 
 
-### Submitting SoundSets
+### Submitting SoundSets In Soundsetr
+1. Make sure you have rights to the audio
+1. Click the publish button on the Sound Set you want to publish
+1. Login with github
+1. Create a **Pull Request** with `knoeone/soundsetr/main`
+1. Someone will review and merge the changes!
+
+### Submitting SoundSets Manually
 
 1. Make sure you have rights to the audio
 1. Create a ZIP file of your Sound Set. Make sure the filename looks like `Your Cool Soundset.eragesoundset.zip`
-1.- Create your own repository with your set on GitHub, ex: https://github.com/yourname/your-cool-soundset
-1. Upload your ZIP file to that repository
-1. On your repositories main page, click your zip file and copy the **raw** link on the right had side. I will look like `https://raw.githubusercontent.com/yourname/your-cool-soundset/main/Your%20Cool%20Soundset.eragesoundset.zip`. This is the `download` url we will use.
-1. Fork https://github.com/knoeone/soundsetr
-1. Create your own branch from `main`
-1. Modfy `https://github.com/knoeone/soundsetr/blob/main/soundsets/soundsets.json` and add your SoundSet to the list.
-1. Save the file
+1. Fork https://github.com/soundsetr-soundsets
+1. Upload your ZIP file to the dist file of that repo
 1. Create a **Pull Request** with `knoeone/soundsetr/main`
 1. Someone will review and merge the changes!
