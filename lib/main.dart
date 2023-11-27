@@ -46,7 +46,6 @@ Future<void> main() async {
     await windowManager.show();
     await windowManager.focus();
   });
-  Publish.init();
 
   runApp(const App());
 }
@@ -121,7 +120,8 @@ class _MainViewState extends State<MainView> with WindowListener, ProtocolListen
 
   @override
   void onProtocolUrlReceived(String url) {
-    print('3 $url');
+    print('Incoming url: $url');
+    Publish.receiveAuth(url);
   }
 
   @override

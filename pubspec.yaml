@@ -39,6 +39,7 @@ dependencies:
   propertylistserialization: ^1.3.0
   app_links: ^3.4.5
   protocol_handler: ^0.1.5
+  github: ^9.20.0
 
 dev_dependencies:
   flutter_test:

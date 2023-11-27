@@ -5,7 +5,7 @@ import app_links
 import macos_window_utils
 
 @NSApplicationMain
-@objc class AppDelegate: FlutterAppDelegate {
+class AppDelegate: FlutterAppDelegate {
   override func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
     NSApp.hide(self)
     return true
@@ -19,7 +19,7 @@ import macos_window_utils
   @objc public func handleURLEvent(_ event: NSAppleEventDescriptor, with replyEvent: NSAppleEventDescriptor) {
     guard let urlString = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue else { return }
     
-    let window = self.mainFlutterWindow.contentViewController as! MacOSWindowUtilsViewController
+      let window = self.mainFlutterWindow?.contentViewController as! MacOSWindowUtilsViewController
     let messenger = window.flutterViewController.engine.binaryMessenger
     let channel = FlutterMethodChannel(name: "protocol_handler", binaryMessenger: messenger)
     let args: NSDictionary = [

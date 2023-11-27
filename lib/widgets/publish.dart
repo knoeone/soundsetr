@@ -9,7 +9,7 @@ class PublishButton extends StatelessWidget {
   const PublishButton({super.key, required this.item});
 
   publishSet(context) async {
-    Publish.auth();
+    Publish.getAuth();
     return;
     void onComplete() {
       Navigator.of(context, rootNavigator: true).pop();

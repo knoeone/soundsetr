@@ -4,24 +4,29 @@ import 'package:url_launcher/url_launcher.dart';
 import 'config.dart';
 
 abstract class Publish {
-  static final _appLinks = AppLinks();
+  // static final _appLinks = AppLinks();
 
-  static init() {
-    // (Use allStringLinkStream to get it as [String])
-    _appLinks.allUriLinkStream.listen((uri) {
-      print(uri);
-      // Do something (navigation, ...)
-    });
+  // static init() {
+  //   // (Use allStringLinkStream to get it as [String])
+  //   _appLinks.allUriLinkStream.listen((uri) {
+  //     print(uri);
+  //     // Do something (navigation, ...)
+  //   });
 
-    _appLinks.uriLinkStream.listen((uri) {
-      print('asdasd $uri');
+  //   _appLinks.uriLinkStream.listen((uri) {
+  //     print('asdasd $uri');
 
-      // Do something (navigation, ...)
-    });
+  //     // Do something (navigation, ...)
+  //   });
+  // }
+
+  static receiveAuth(url) {
+    var uri = Uri.parse(url);
+    Config.githubToken = uri.path.replaceAll('/', '');
   }
 
-  static auth({refresh = false}) {
-    //if (refresh || !refresh && Config.githubToken.isNotEmpty) return;
+  static getAuth({refresh = false}) {
+    if (Config.githubToken.isEmpty || refresh) return;
 
     launchUrl(
       Uri.parse(
