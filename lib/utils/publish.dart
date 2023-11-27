@@ -61,11 +61,11 @@ abstract class Publish {
 
     var github = GitHub(auth: Authentication.withToken(Config.githubToken));
     var repo = RepositorySlug('knoeone', 'soundsetr-soundsets');
-    //Repository fork = await github.repositories.createFork(repo);
-    //var forked = fork.slug()
-    var forked = RepositorySlug('spacedevin', 'soundsetr-soundsets');
-    Repository fork = await github.repositories.getRepository(forked);
-    print(fork);
+    Repository fork = await github.repositories.createFork(repo);
+    var forked = fork.slug();
+    // var forked = RepositorySlug('spacedevin', 'soundsetr-soundsets');
+    // Repository fork = await github.repositories.getRepository(forked);
+    print(fork.htmlUrl);
 
     GitTree head = await github.git.getTree(forked, 'main');
     print(head.sha);
@@ -133,5 +133,10 @@ abstract class Publish {
     print(commit);
     print(commit.message);
     print(results.object?.sha);
+
+    var commitUrl = 'https://github.com/${forked.fullName}/commit/${results.object?.sha}';
+    launchUrl(Uri.parse(commitUrl));
+
+    return commitUrl;
   }
 }
