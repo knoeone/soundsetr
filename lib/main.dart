@@ -102,17 +102,13 @@ class _MainViewState extends State<MainView> with WindowListener, ProtocolListen
     final _appLinks = AppLinks();
     // (Use allStringLinkStream to get it as [String])
     _appLinks.allUriLinkStream.listen((uri) {
-      setState(() => _pageIndex = 2);
+      // setState(() => _pageIndex = 2);
       print('1 $uri');
-
-      // Do something (navigation, ...)
     });
 
     _appLinks.uriLinkStream.listen((uri) {
-      setState(() => _pageIndex = 2);
+      // setState(() => _pageIndex = 2);
       print('1 $uri');
-
-      // Do something (navigation, ...)
     });
   }
 
@@ -126,8 +122,6 @@ class _MainViewState extends State<MainView> with WindowListener, ProtocolListen
   @override
   void onProtocolUrlReceived(String url) {
     print('3 $url');
-
-    setState(() => _pageIndex = 3);
   }
 
   @override
@@ -224,9 +218,6 @@ class _MainViewState extends State<MainView> with WindowListener, ProtocolListen
       currentIndex: _pageIndex,
       scrollController: scrollController,
       onChanged: (index) async {
-        final _appLinks = AppLinks();
-        final uri = await _appLinks.getInitialAppLink();
-        print(uri);
         setState(() => _pageIndex = index);
       },
       items: [

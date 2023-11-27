@@ -73,8 +73,6 @@ class MainFlutterWindow: NSWindow {
 
     RegisterGeneratedPlugins(registry: flutterViewController)
       
-    let controller = self.contentViewController as! FlutterViewController
-      let channel = FlutterMethodChannel(name: "sync", binaryMessenger: controller.engine.binaryMessenger)
     //channel.setMethodCallHandler(handleMessage)
 
     //NSAppleEventManager.shared().setEventHandler(self, andSelector: #selector(handleURLEvent(_:with:)), forEventClass: AEEventClass(kInternetEventClass), andEventID: AEEventID(kAEGetURL))
@@ -92,28 +90,5 @@ class MainFlutterWindow: NSWindow {
     super.order(place, relativeTo: otherWin)
     hiddenWindowAtLaunch()
   }
-
-  @objc func handleGetURL(event: NSAppleEventDescriptor!, withReplyEvent: NSAppleEventDescriptor!) {
-      print("handleURLEvent")
-
-      // if let urlString = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue, let url = URL(string: urlString) {
-      //     applicationHandle(url: url)
-      // }
-  }
-
-  @objc
-  public func handleURLEvent(_ event: NSAppleEventDescriptor, with replyEvent: NSAppleEventDescriptor) {
-    print("handleURLEvent")
-      // guard let urlString = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue else { return }
-      // if (_initialUrl == nil) {
-      //     _initialUrl = urlString
-      // }
-        
-      // let args: NSDictionary = [
-      //     "url": urlString,
-      // ]
-      // channel.invokeMethod("onProtocolUrlReceived", arguments: args, result: nil)
-  }
-    
 }
 
