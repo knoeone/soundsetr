@@ -21,12 +21,15 @@ abstract class Config {
   static String _path = pathDefault;
   static String _outlookResourcePath = outlookResourcePathDefault;
   static String _repository = repositoryDefault;
+  static String _githubToken = '';
+  static String githubClientId = '331853a44a2c5dfad169';
 
   static late StreamingSharedPreferences prefs;
 
   static String get path => _path;
   static String get outlookResourcePath => _outlookResourcePath;
   static String get repository => _repository;
+  static String get githubToken => _githubToken;
 
   static set path(String value) {
     if (_path == value) return;
@@ -46,8 +49,17 @@ abstract class Config {
     prefs.setString('repository', value);
   }
 
+  static set githubToken(String value) {
+    if (_githubToken == value) return;
+    _githubToken = value;
+    prefs.setString('githubToken', value);
+  }
+
   static void init() async {
     prefs = await StreamingSharedPreferences.instance;
+    prefs.getString('gethubToken', defaultValue: pathDefault).listen((value) {
+      _githubToken = value;
+    });
     prefs.getString('path', defaultValue: pathDefault).listen((value) {
       _path = value;
     });

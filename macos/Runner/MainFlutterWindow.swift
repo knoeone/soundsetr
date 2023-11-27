@@ -1,7 +1,8 @@
 import Cocoa
 import FlutterMacOS
-import macos_window_utils
-import window_manager
+//import macos_window_utils
+//import window_manager
+import protocol_handler
 
 class MainFlutterWindow: NSWindow {
   override func awakeFromNib() {
@@ -71,6 +72,18 @@ class MainFlutterWindow: NSWindow {
     self.setFrame(windowFrame, display: true)
 
     RegisterGeneratedPlugins(registry: flutterViewController)
+      
+    let controller = self.contentViewController as! FlutterViewController
+      let channel = FlutterMethodChannel(name: "sync", binaryMessenger: controller.engine.binaryMessenger)
+    //channel.setMethodCallHandler(handleMessage)
+
+    //NSAppleEventManager.shared().setEventHandler(self, andSelector: #selector(handleURLEvent(_:with:)), forEventClass: AEEventClass(kInternetEventClass), andEventID: AEEventID(kAEGetURL))
+    //NSAppleEventManager.shared().setEventHandler(self, andSelector:#selector(handleGetURL(event:withReplyEvent:)), forEventClass: AEEventClass(kInternetEventClass), andEventID: AEEventID(kAEGetURL))
+//            NSAppleEventManager.shared().removeEventHandler(
+//              forEventClass: AEEventClass(kInternetEventClass),
+//                andEventID: AEEventID(kAEGetURL)
+//            )
+//      NSAppleEventManager.shared().setEventHandler(self, andSelector:#selector(ProtocolHandlerPlugin.handleURLEvent(_:with:)), forEventClass: AEEventClass(kInternetEventClass), andEventID: AEEventID(kAEGetURL))
 
     super.awakeFromNib()
   }
@@ -79,4 +92,28 @@ class MainFlutterWindow: NSWindow {
     super.order(place, relativeTo: otherWin)
     hiddenWindowAtLaunch()
   }
+
+  @objc func handleGetURL(event: NSAppleEventDescriptor!, withReplyEvent: NSAppleEventDescriptor!) {
+      print("handleURLEvent")
+
+      // if let urlString = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue, let url = URL(string: urlString) {
+      //     applicationHandle(url: url)
+      // }
+  }
+
+  @objc
+  public func handleURLEvent(_ event: NSAppleEventDescriptor, with replyEvent: NSAppleEventDescriptor) {
+    print("handleURLEvent")
+      // guard let urlString = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue else { return }
+      // if (_initialUrl == nil) {
+      //     _initialUrl = urlString
+      // }
+        
+      // let args: NSDictionary = [
+      //     "url": urlString,
+      // ]
+      // channel.invokeMethod("onProtocolUrlReceived", arguments: args, result: nil)
+  }
+    
 }
+

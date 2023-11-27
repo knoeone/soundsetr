@@ -2,12 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../models/soundset.dart';
+import '../utils/publish.dart';
 
 class PublishButton extends StatelessWidget {
   final SoundSet item;
   const PublishButton({super.key, required this.item});
 
   publishSet(context) async {
+    Publish.auth();
+    return;
     void onComplete() {
       Navigator.of(context, rootNavigator: true).pop();
     }

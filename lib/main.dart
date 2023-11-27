@@ -1,6 +1,8 @@
+import 'package:app_links/app_links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
+import 'package:protocol_handler/protocol_handler.dart';
 import 'package:system_theme/system_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:window_manager/window_manager.dart';
@@ -10,6 +12,7 @@ import 'screens/market.dart';
 import 'screens/settings.dart';
 import 'screens/setup.dart';
 import 'utils/config.dart';
+import 'utils/publish.dart';
 import 'widgets/create.dart';
 import 'widgets/scaffold.dart';
 import 'widgets/toggle.dart';
@@ -43,6 +46,8 @@ Future<void> main() async {
     await windowManager.show();
     await windowManager.focus();
   });
+  Publish.init();
+
   runApp(const App());
 }
 
@@ -80,24 +85,49 @@ class MainView extends StatefulWidget {
   State<MainView> createState() => _MainViewState();
 }
 
-class _MainViewState extends State<MainView> with WindowListener {
+class _MainViewState extends State<MainView> with WindowListener, ProtocolListener {
   int _pageIndex = 0;
   bool _visible = false;
 
   @override
   void initState() {
     super.initState();
+    protocolHandler.addListener(this);
     windowManager.addListener(this);
     //setState(() => _visible = true);
     Future.delayed(const Duration(milliseconds: 100), () {
       setState(() => _visible = true);
+    });
+
+    final _appLinks = AppLinks();
+    // (Use allStringLinkStream to get it as [String])
+    _appLinks.allUriLinkStream.listen((uri) {
+      setState(() => _pageIndex = 2);
+      print('1 $uri');
+
+      // Do something (navigation, ...)
+    });
+
+    _appLinks.uriLinkStream.listen((uri) {
+      setState(() => _pageIndex = 2);
+      print('1 $uri');
+
+      // Do something (navigation, ...)
     });
   }
 
   @override
   void dispose() {
     windowManager.removeListener(this);
+    protocolHandler.removeListener(this);
     super.dispose();
+  }
+
+  @override
+  void onProtocolUrlReceived(String url) {
+    print('3 $url');
+
+    setState(() => _pageIndex = 3);
   }
 
   @override
@@ -193,7 +223,10 @@ class _MainViewState extends State<MainView> with WindowListener {
       itemSize: SidebarItemSize.medium,
       currentIndex: _pageIndex,
       scrollController: scrollController,
-      onChanged: (index) {
+      onChanged: (index) async {
+        final _appLinks = AppLinks();
+        final uri = await _appLinks.getInitialAppLink();
+        print(uri);
         setState(() => _pageIndex = index);
       },
       items: [
