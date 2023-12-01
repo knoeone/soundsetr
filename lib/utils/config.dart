@@ -16,7 +16,7 @@ abstract class Config {
     ),
   );
   static String repositoryDefault =
-      'https://raw.githubusercontent.com/knoeone/soundsetr/main/soundsets/soundsets.json';
+      'https://github.com/knoeone/soundsetr-soundsets/releases/download/soundsets.json/soundsets.json';
 
   static String _path = pathDefault;
   static String _outlookResourcePath = outlookResourcePathDefault;

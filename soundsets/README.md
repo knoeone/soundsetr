@@ -1,1 +1,1 @@
-Main entry point for the app to discover new soundsets.
+An example of the soundsets.json output. This will be dafualt set to https://github.com/knoeone/soundsetr-soundsets/releases/download/soundsets.json/soundsets.json
