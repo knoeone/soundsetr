@@ -1,8 +1,14 @@
 [
   {
     "name": "Microsoft Sound Set",
-    "repo": "https://github.com/l337-haxx0r/microsoft-soundset",
+    "repo": "https://github.com/spacedevin/soundsetr-soundsets",
     "description": "The soundset from Microsoft's Entourage 2004 for Mac, preserved for Outlook for Mac 2016, 2019, or 2021",
-    "download": "https://raw.githubusercontent.com/l337-haxx0r/microsoft-soundset/main/Microsoft%20Sound%20Set.eragesoundset.zip"
+    "download": "https://github.com/knoeone/soundsetr-soundsets/releases/download/v2/Microsoft.Sound.Set.eragesoundset.zip"
+  },
+  {
+    "name": "Default Outlook Sounds",
+    "repo": "https://github.com/spacedevin/soundsetr-soundsets",
+    "description": "The default Outlook notification sounds packaged with Outlook",
+    "download": "https://github.com/knoeone/soundsetr-soundsets/releases/download/v1/Default.Outlook.Sounds.eragesoundset.zip"
   }
 ]

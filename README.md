@@ -13,7 +13,7 @@ Changing your Outlook sounds its a two part process. First you need to download 
 
 ### Download a new Sound Set
 
-When downloading a Sound Set, it will automaticly be created in your Outlook SoundSet Directory.',
+When downloading a Sound Set, it will automaticly be created in your Outlook SoundSet Directory.
 
 1. Go to the Shop on the left hand menu.
 2. Select any pack you want and click "GET".
@@ -21,13 +21,13 @@ When downloading a Sound Set, it will automaticly be created in your Outlook Sou
 
 ### Change sounds to the new Sound Set
 
-Once you have a SoundSet downloaded, you will need to change the SoundSet in Outlook.',
+Once you have a SoundSet downloaded, you will need to change the SoundSet in Outlook.
 
 1. **Open the Outlook desktop app** on the Mac you want to change the sounds on.
 
     [Open Outlook](ms-outlook://)
 
-2. **From the top meny bar**, Click "Outlook" and select "Settings..."
+2. **From the top menu bar**, Click "Outlook" and select "Settings..."
 
     ![Outlook Menu](https://raw.githubusercontent.com/knoeone/soundsetr/main/res/outlook_menu.png)
 
