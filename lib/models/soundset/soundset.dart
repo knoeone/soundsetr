@@ -63,6 +63,7 @@ class SoundSet {
 
   static createNew(name) => createNewSoundSet(name);
   static getPlist(path) => getSoundSetPlist(path);
+  replaceFile(type, file) => replace(type, file);
 
   SoundSet.fromJson(Map<String, dynamic> json)
       : name = json['name'] as String,

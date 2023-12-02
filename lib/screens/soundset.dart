@@ -222,7 +222,10 @@ class _SoundSetAudioFileState extends State<SoundSetAudioFile> {
   Widget build(BuildContext context) {
     return DropTarget(
       onDragDone: (detail) {
-        widget.item.replace(widget.file, detail.files[0]);
+        print(widget.file);
+        print(detail.files[0]);
+
+        widget.item.replaceFile(widget.file, detail.files[0]);
       },
       onDragEntered: (detail) {
         setState(() => _dragging = true);
