@@ -24,7 +24,13 @@ class Card extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var repoShort = repo.replaceAll('https://github.com/', '');
+    var repoShort = repo
+        .replaceAll('https://github.com/', '')
+        .replaceAll('https://www.', '')
+        .replaceAll('http://www.', '')
+        .replaceAll('https://', '')
+        .replaceAll('http://', '');
+
     return Container(
       alignment: Alignment.topLeft,
       padding: const EdgeInsets.all(20),

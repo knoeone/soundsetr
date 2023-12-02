@@ -49,9 +49,13 @@ class _PlayButtonState extends State<PlayButton> {
   }
 
   void playSound() {
-    player.stop();
-    if (source == null) return;
-    player.play(source as DeviceFileSource);
+    try {
+      player.stop();
+      if (source == null) return;
+      player.play(source as DeviceFileSource);
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override

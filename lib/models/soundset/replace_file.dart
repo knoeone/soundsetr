@@ -20,6 +20,10 @@ extension SoundSetReplace on SoundSet {
     if (File(destinationFile).existsSync()) {
       File(destinationFile).deleteSync();
     }
+
+    if (!File(tmpFile).existsSync()) {
+      return;
+    }
     File(tmpFile).renameSync(destinationFile);
 
     final player = AudioPlayer();
