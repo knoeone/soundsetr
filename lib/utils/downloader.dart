@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
-import 'package:plist_parser/plist_parser.dart';
+// import 'package:plist_parser/plist_parser.dart';
 import 'package:crypto/crypto.dart';
 import 'package:sanitize_filename/sanitize_filename.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -46,7 +46,7 @@ abstract class Downloader {
     var appTempDir = 'soundsets';
 
     final Directory tempDir = await getTemporaryDirectory();
-    var name = sha1.convert(utf8.encode(set.name as String)).toString();
+    var name = sha1.convert(utf8.encode(set.name)).toString();
 
     var tmpDirName = path.join(tempDir.path, appTempDir, name, '${set.name}.eragesoundset');
 
@@ -289,7 +289,7 @@ abstract class Downloader {
           //if (isFile && !isZip) return;
           if (isFile) return;
           if (!name.contains('eragesoundset')) return;
-          var plist = PlistParser().parseFileSync(path.join(file.path, 'soundset.plist'));
+          // var plist = PlistParser().parseFileSync(path.join(file.path, 'soundset.plist'));
           files.add(SoundSet.fromPath(name, file.path));
         });
         controller.add(files..sort((a, b) => a.name.compareTo(b.name)));
