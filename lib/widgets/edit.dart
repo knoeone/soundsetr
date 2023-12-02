@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 import '../models/soundset/soundset.dart';
@@ -37,7 +39,7 @@ class EditButton extends StatelessWidget {
 
     EditButtonEdits edits = onSave();
 
-    if (edits.name == '') {
+    if (edits.name == '' || Directory(edits.name).existsSync()) {
       return;
     }
 

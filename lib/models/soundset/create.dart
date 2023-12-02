@@ -1,8 +1,7 @@
 part of 'soundset.dart';
 
 createNewSoundSet(name) {
-  var cleanName = sanitizeFilename(name);
-  final destinationFile = SoundSet.createSoundsetPathByName(cleanName);
+  final destinationFile = SoundSet.createPathByName(name);
 
   Directory(destinationFile).createSync();
 
@@ -16,7 +15,7 @@ createNewSoundSet(name) {
     <key>SoundSetUserString</key>
     <string>Created by Soundsetr</string>
     <key>SoundSetURL</key>
-    <string>http://www.microsoft.com/mac</string>
+    <string>https://soundsetr.com</string>
     <key>SoundFile_MailError</key>
     <string>mailerror.wav</string>
     <key>SoundFile_MailSent</key>

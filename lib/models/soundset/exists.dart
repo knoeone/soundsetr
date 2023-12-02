@@ -4,7 +4,7 @@ extension SoundSetExists on SoundSet {
   bool exists() {
     return name != ''
         ? Directory(
-            SoundSet.createSoundsetPathByName(name),
+            SoundSet.createPathByName(name),
           ).existsSync()
         : false;
   }

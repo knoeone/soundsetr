@@ -56,13 +56,16 @@ class SoundSet {
     _plist = plist;
   }
 
-  static createSoundsetPathByName(name) {
+  static createPathByName(name) {
     return p.join(Config.path,
         '${sanitizeFilename(name).replaceAll('.zip', '').replaceAll('.eragesoundset', '')}.eragesoundset');
   }
 
   static createNew(name) => createNewSoundSet(name);
   static getPlist(path) => getSoundSetPlist(path);
+
+  // some sort if strange behavior when being called from DropTarget.onDragDone
+  //   requires us to have this non extension method
   replaceFile(type, file) => replace(type, file);
 
   SoundSet.fromJson(Map<String, dynamic> json)

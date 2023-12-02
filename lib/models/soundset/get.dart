@@ -5,7 +5,7 @@ extension SoundSetGet on SoundSet {
     await cache();
 
     //final destinationDir = Directory(Config.path);
-    final destinationFile = SoundSet.createSoundsetPathByName(name);
+    final destinationFile = SoundSet.createPathByName(name);
 
     copyPathSync(path as String, destinationFile);
 

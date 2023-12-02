@@ -15,9 +15,11 @@ extension SoundSetReplace on SoundSet {
       // ERROR
     }
 
-    final destinationFile = p.join(SoundSet.createSoundsetPathByName(name), plist![type]);
+    final destinationFile = p.join(SoundSet.createPathByName(name), plist![type]);
 
-    File(destinationFile).deleteSync();
+    if (File(destinationFile).existsSync()) {
+      File(destinationFile).deleteSync();
+    }
     File(tmpFile).renameSync(destinationFile);
 
     final player = AudioPlayer();

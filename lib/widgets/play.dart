@@ -22,8 +22,8 @@ class PlayButton extends StatefulWidget {
 }
 
 class _PlayButtonState extends State<PlayButton> {
-  var player = AudioPlayer();
-  var source;
+  AudioPlayer player = AudioPlayer();
+  DeviceFileSource? source;
 
   @override
   void initState() {
@@ -42,7 +42,7 @@ class _PlayButtonState extends State<PlayButton> {
       if (!Directory('${widget.item.path}').existsSync() || !File(widget.file).existsSync()) return;
 
       setState(() => source = DeviceFileSource(widget.file));
-      player.setSource(source);
+      player.setSource(source as DeviceFileSource);
     } catch (e) {
       print(e);
     }
@@ -50,7 +50,8 @@ class _PlayButtonState extends State<PlayButton> {
 
   void playSound() {
     player.stop();
-    player.play(source);
+    if (source == null) return;
+    player.play(source as DeviceFileSource);
   }
 
   @override

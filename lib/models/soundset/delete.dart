@@ -2,7 +2,7 @@ part of 'soundset.dart';
 
 extension SoundSetDelete on SoundSet {
   delete() {
-    var dst = SoundSet.createSoundsetPathByName(name);
+    final dst = SoundSet.createPathByName(name);
 
     Directory(dst).deleteSync(recursive: true);
   }
