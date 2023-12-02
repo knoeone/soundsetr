@@ -1,14 +1,6 @@
-import 'dart:io';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
-import 'package:ffmpeg_kit_flutter/return_code.dart';
-import 'package:path_provider/path_provider.dart';
+part of 'soundset.dart';
 
-import 'soundset.dart';
-import 'package:path/path.dart' as p;
-
-mixin ReplaceFile on SoundSet {
-  @override
+extension SoundSetReplace on SoundSet {
   replace(name, file) async {
     final Directory downloads = await getTemporaryDirectory();
     final tmpFile = p.join(downloads.path, 'converted.aif');

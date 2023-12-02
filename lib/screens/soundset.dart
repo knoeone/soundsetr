@@ -19,6 +19,10 @@ import '../widgets/reveal.dart';
 import '../widgets/save.dart';
 import '../widgets/scaffold.dart';
 
+// extension _SoundSetCache on SoundSet {
+//   bool cache() => false;
+// }
+
 const audioDescriptions = {
   'SoundFile_NewMail': 'Played when receiving new mails.',
   'SoundFile_MailError': 'Played when mail fails to sync, or you are offline.',

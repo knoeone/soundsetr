@@ -1,9 +1,6 @@
-import 'dart:io';
-import 'package:file_picker/file_picker.dart';
-import 'soundset.dart';
+part of 'soundset.dart';
 
-mixin Duplicate on SoundSet {
-  @override
+extension SoundSetReplaceSelect on SoundSet {
   replaceSelect(name) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,

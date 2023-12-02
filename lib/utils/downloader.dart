@@ -397,6 +397,6 @@ abstract class Downloader {
       Directory(sourceFilename).renameSync(destinationFileName);
       set.path = destinationFileName;
     }
-    SoundSet.savePlist(set);
+    set.savePlist();
   }
 }

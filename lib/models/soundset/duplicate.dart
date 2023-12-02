@@ -1,9 +1,6 @@
-import 'dart:io';
-import 'package:io/io.dart';
-import 'soundset.dart';
+part of 'soundset.dart';
 
-mixin Duplicate on SoundSet {
-  @override
+extension SoundSetDuplicate on SoundSet {
   duplicate(name) {
     var dst = SoundSet.createSoundsetPathByName(name);
 

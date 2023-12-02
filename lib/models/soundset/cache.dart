@@ -1,13 +1,6 @@
-import 'dart:convert';
-import 'dart:io';
-import 'package:crypto/crypto.dart';
-import 'package:flutter_archive/flutter_archive.dart';
-import 'package:path_provider/path_provider.dart';
-import 'soundset.dart';
-import 'package:path/path.dart' as p;
+part of 'soundset.dart';
 
-mixin Cache on SoundSet {
-  @override
+extension SoundSetCache on SoundSet {
   Future cache() async {
     var appTempDir = 'soundsets';
     final Directory tempDir = await getTemporaryDirectory();

@@ -1,22 +1,33 @@
 import 'dart:io';
+import 'dart:convert';
 import 'package:path/path.dart' as p;
 import 'package:propertylistserialization/propertylistserialization.dart';
-import 'create_new.dart';
-import 'path.dart';
-import 'soundset_type.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:io/io.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
+import 'package:ffmpeg_kit_flutter/return_code.dart';
+import 'package:crypto/crypto.dart';
+import 'package:flutter_archive/flutter_archive.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:sanitize_filename/sanitize_filename.dart';
 
-class SoundSet with CreateNew, Path {
-  static createSoundsetPathByName(name) => {};
-  static createNew(name) => {};
-  saveAudio(type) => {};
-  duplicate(name) => {};
-  cache() => {};
-  exists() => {};
-  delete() => {};
-  get() => {};
-  replace(type, file) => {};
-  replaceSelect(type) => {};
+import '../../utils/downloader.dart';
+import '../../utils/config.dart';
+//import 'soundset_type.dart';
 
+part 'create.dart';
+part 'cache.dart';
+part 'duplicate.dart';
+part 'delete.dart';
+part 'exists.dart';
+part 'get.dart';
+part 'replace_select.dart';
+part 'replace_file.dart';
+part 'save_audio.dart';
+part 'plist.dart';
+
+class SoundSet {
   String name;
   String description;
   String repo;
@@ -45,32 +56,13 @@ class SoundSet with CreateNew, Path {
     _plist = plist;
   }
 
-  // static getPlist(path) {
-  //   return PlistParser().parseFileSync(p.join(path as String, 'soundset.plist'));
-  // }
-
-  static getPlist(path) {
-    File file = File(p.join(path as String, 'soundset.plist'));
-    String plist = file.readAsStringSync();
-    var list = PropertyListSerialization.propertyListWithString(plist);
-    return list;
+  static createSoundsetPathByName(name) {
+    return p.join(Config.path,
+        '${sanitizeFilename(name).replaceAll('.zip', '').replaceAll('.eragesoundset', '')}.eragesoundset');
   }
 
-  static savePlist(SoundSet set) async {
-    final soundsetFile = p.join(set.path as String, 'soundset.plist');
-
-    File file = File(soundsetFile);
-    String plist = await file.readAsString();
-
-    var dict = PropertyListSerialization.propertyListWithString(plist) as Map;
-    dict['SoundSetUserString'] = set.description;
-    dict['SoundSetURL'] = set.repo;
-    dict['SoundSetDownloadURL'] = '${set.download}';
-
-    var result = PropertyListSerialization.stringWithPropertyList(dict);
-
-    File(soundsetFile).writeAsStringSync(result);
-  }
+  static createNew(name) => createNewSoundSet(name);
+  static getPlist(path) => getSoundSetPlist(path);
 
   SoundSet.fromJson(Map<String, dynamic> json)
       : name = json['name'] as String,
@@ -80,7 +72,7 @@ class SoundSet with CreateNew, Path {
         tmp = true;
 
   factory SoundSet.fromPath(name, path) {
-    var plist = getPlist(path);
+    var plist = SoundSet.getPlist(path);
     return SoundSet(
       name: name.replaceAll('.eragesoundset', ''),
       description: plist['SoundSetUserString'],

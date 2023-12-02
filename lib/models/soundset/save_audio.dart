@@ -1,11 +1,6 @@
-import 'dart:io';
-import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
-import 'soundset.dart';
-import '../../utils/downloader.dart';
+part of 'soundset.dart';
 
-mixin SaveAudio on SoundSet {
-  @override
+extension SoundSetSaveAudio on SoundSet {
   Future saveAudio(audioType) async {
     final Directory tempDir = await getDownloadsDirectory() as Directory;
     var tmpFileName = p.join(tempDir.path, '${name} - ${plist![audioType]}');

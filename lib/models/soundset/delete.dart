@@ -1,8 +1,6 @@
-import 'dart:io';
-import 'soundset.dart';
+part of 'soundset.dart';
 
-mixin Delete on SoundSet {
-  @override
+extension SoundSetDelete on SoundSet {
   delete() {
     var dst = SoundSet.createSoundsetPathByName(name);
 

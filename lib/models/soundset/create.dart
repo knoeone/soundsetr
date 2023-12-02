@@ -1,16 +1,12 @@
-import 'dart:io';
-import 'package:sanitize_filename/sanitize_filename.dart';
-import 'soundset.dart';
-import 'package:path/path.dart' as p;
+part of 'soundset.dart';
 
-mixin CreateNew {
-  static createNew(name) {
-    var cleanName = sanitizeFilename(name);
-    final destinationFile = SoundSet.createSoundsetPathByName(cleanName);
+createNewSoundSet(name) {
+  var cleanName = sanitizeFilename(name);
+  final destinationFile = SoundSet.createSoundsetPathByName(cleanName);
 
-    Directory(destinationFile).createSync();
+  Directory(destinationFile).createSync();
 
-    var plist = """
+  var plist = """
   <?xml version="1.0" encoding="UTF-8"?>
   <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
   <plist version="1.0">
@@ -37,6 +33,5 @@ mixin CreateNew {
   </plist>
   """;
 
-    File(p.join(destinationFile, 'soundset.plist')).writeAsStringSync(plist);
-  }
+  File(p.join(destinationFile, 'soundset.plist')).writeAsStringSync(plist);
 }

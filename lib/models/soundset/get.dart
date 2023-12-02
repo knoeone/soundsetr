@@ -1,11 +1,6 @@
-import 'dart:io';
-import 'package:io/io.dart';
-import 'path.dart';
-import 'soundset.dart';
-import 'package:path/path.dart' as p;
+part of 'soundset.dart';
 
-mixin Get on SoundSet {
-  @override
+extension SoundSetGet on SoundSet {
   Future get() async {
     final tmpSet = await cache();
 

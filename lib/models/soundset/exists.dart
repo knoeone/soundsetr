@@ -1,9 +1,11 @@
-import 'dart:io';
-import 'soundset.dart';
+part of 'soundset.dart';
 
-mixin Exists on SoundSet {
-  @override
-  exists() {
-    return Directory(SoundSet.createSoundsetPathByName(name)).existsSync();
+extension SoundSetExists on SoundSet {
+  bool exists() {
+    return name != ''
+        ? Directory(
+            SoundSet.createSoundsetPathByName(name),
+          ).existsSync()
+        : false;
   }
 }
