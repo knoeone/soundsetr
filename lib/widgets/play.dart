@@ -6,7 +6,7 @@ import 'package:macos_ui/macos_ui.dart';
 import 'package:system_theme/system_theme.dart';
 import 'package:watcher/watcher.dart';
 
-import '../models/soundset.dart';
+import '../models/soundset/soundset.dart';
 
 class PlayButton extends StatefulWidget {
   final file;

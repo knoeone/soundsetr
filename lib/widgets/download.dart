@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:system_theme/system_theme.dart';
 
-import '../models/soundset.dart';
+import '../models/soundset/soundset.dart';
 import '../utils/downloader.dart';
 
 class DownloadButton extends StatefulWidget {
@@ -21,7 +21,7 @@ class _DownloadButtonState extends State<DownloadButton> {
 
     setState(() => downloading = true);
 
-    if (Downloader.exists(widget.item)) {
+    if (widget.item.exists()) {
       showMacosAlertDialog(
         context: context,
         builder: (_) => MacosAlertDialog(
@@ -62,7 +62,7 @@ class _DownloadButtonState extends State<DownloadButton> {
 
   Future downlodSetConfirmed({confirmed = false}) async {
     if (confirmed) {
-      await Downloader.get(widget.item);
+      await widget.item.get();
     }
     if (!mounted || !context.mounted) return;
     setState(() => downloading = false);

@@ -1,10 +1,22 @@
 import 'dart:io';
-
-import 'package:plist_parser/plist_parser.dart';
 import 'package:path/path.dart' as p;
 import 'package:propertylistserialization/propertylistserialization.dart';
+import 'create_new.dart';
+import 'path.dart';
+import 'soundset_type.dart';
 
-class SoundSet {
+class SoundSet with CreateNew, Path {
+  static createSoundsetPathByName(name) => {};
+  static createNew(name) => {};
+  saveAudio(type) => {};
+  duplicate(name) => {};
+  cache() => {};
+  exists() => {};
+  delete() => {};
+  get() => {};
+  replace(type, file) => {};
+  replaceSelect(type) => {};
+
   String name;
   String description;
   String repo;

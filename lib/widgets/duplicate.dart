@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:flutter_shake_animated/flutter_shake_animated.dart';
 
-import '../models/soundset.dart';
+import '../models/soundset/soundset.dart';
 import '../utils/downloader.dart';
 
 class DuplicateButton extends StatelessWidget {
@@ -28,7 +28,7 @@ class DuplicateButton extends StatelessWidget {
 
       Navigator.of(context, rootNavigator: true).pop();
       Navigator.of(context).pop();
-      Downloader.duplicate(item, controller.text);
+      item.duplicate(controller.text);
     }
 
     showMacosAlertDialog(
