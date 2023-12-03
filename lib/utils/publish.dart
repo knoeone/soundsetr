@@ -135,8 +135,23 @@ abstract class Publish {
     print(results.object?.sha);
 
     var commitUrl = 'https://github.com/${forked.fullName}/commit/${results.object?.sha}';
-    launchUrl(Uri.parse(commitUrl));
+    // launchUrl(Uri.parse(commitUrl));
 
-    return commitUrl;
+    PullRequest pr = await github.pullRequests.create(
+      repo,
+      CreatePullRequest(
+        'Publishing ${set.name} using Soundsetr',
+        '${forked.owner}:main',
+        'main',
+      ),
+    );
+
+    var prUrl = 'https://github.com/${repo.fullName}/pull/${pr.number}';
+
+    print(pr.id);
+
+    launchUrl(Uri.parse(prUrl));
+
+    return prUrl;
   }
 }
