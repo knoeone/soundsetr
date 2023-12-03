@@ -26,6 +26,7 @@ part 'replace_select.dart';
 part 'replace_file.dart';
 part 'save_audio.dart';
 part 'plist.dart';
+part 'publish.dart';
 
 class SoundSet {
   String name;
@@ -75,7 +76,7 @@ class SoundSet {
         description = json['description'] as String,
         repo = json['repo'] as String,
         download = json['download'] as String,
-        icon = json['icon'] as String,
+        icon = json['icon'],
         tmp = true;
 
   factory SoundSet.fromPath(name, path) {
