@@ -75,7 +75,7 @@ class SoundSet {
         description = json['description'] as String,
         repo = json['repo'] as String,
         download = json['download'] as String,
-        icon = json['icon'] as String,
+        icon = json['icon'],
         tmp = true;
 
   factory SoundSet.fromPath(name, path) {
