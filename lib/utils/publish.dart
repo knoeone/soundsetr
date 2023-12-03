@@ -36,7 +36,7 @@ abstract class Publish {
 
     if (_publishing != null) {
       _publishing = null;
-      publishSet(_publishing);
+      publishSet(_publishing as SoundSet);
     }
   }
 
@@ -52,7 +52,7 @@ abstract class Publish {
     return false;
   }
 
-  static publishSet(set) async {
+  static publishSet(SoundSet set) async {
     if (set == null) return;
     _publishing = set;
     if (!getAuth()) return;
@@ -75,7 +75,7 @@ abstract class Publish {
 
     List<GitBlob> blobs = [];
     List<CreateGitTreeEntry> entries = [];
-    DownloaderSendResponse sending = await Downloader.send(set);
+    DownloaderSendResponse sending = await set.publish();
 
     await Future.delayed(Duration(seconds: 1));
 

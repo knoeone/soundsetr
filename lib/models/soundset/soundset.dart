@@ -26,6 +26,7 @@ part 'replace_select.dart';
 part 'replace_file.dart';
 part 'save_audio.dart';
 part 'plist.dart';
+part 'publish.dart';
 
 class SoundSet {
   String name;

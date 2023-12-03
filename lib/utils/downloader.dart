@@ -26,53 +26,6 @@ class DownloaderSendResponse {
 }
 
 abstract class Downloader {
-  static Future send(SoundSet set) async {
-    var appTempDir = 'soundsets';
-
-    final Directory tempDir = await getTemporaryDirectory();
-    var name = sha1.convert(utf8.encode(set.name)).toString();
-
-    var tmpDirName = path.join(tempDir.path, appTempDir, name, '${set.name}.eragesoundset');
-
-    try {
-      await Directory(path.join(tempDir.path, appTempDir, name)).delete(recursive: true);
-    } catch (e) {
-      print(e);
-    }
-
-    try {
-      await Directory(tmpDirName).create(recursive: true);
-    } catch (e) {
-      print(e);
-    }
-
-    var files = [
-      set.plist!['SoundFile_MailError'],
-      set.plist!['SoundFile_MailSent'],
-      set.plist!['SoundFile_NewMail'],
-      set.plist!['SoundFile_NoMail'],
-      set.plist!['SoundFile_Reminder'],
-      set.plist!['SoundFile_Welcome'],
-      set.plist!['ImageFile_Icon'],
-      'soundset.plist',
-      'README.md',
-    ];
-
-    void copyFile(name) =>
-        File(path.join(set.path as String, name)).copySync(path.join(tmpDirName, name));
-
-    for (var file in files) {
-      if (File(file).existsSync()) {
-        copyFile(file);
-      }
-    }
-
-    return DownloaderSendResponse(
-      files: files,
-      path: path.join(tempDir.path, appTempDir, name),
-    );
-  }
-
   static reveal(String file) async {
     launchUrl(Uri.parse(file.indexOf('https://') == 0 ? file : 'file://$file'));
   }
