@@ -29,6 +29,7 @@ part 'plist.dart';
 
 class SoundSet {
   String name;
+  String? icon;
   String description;
   String repo;
   String? download;
@@ -42,6 +43,7 @@ class SoundSet {
     required this.description,
     required this.repo,
     this.download,
+    this.icon,
     this.path,
     this.tmp = false,
   });
@@ -73,6 +75,7 @@ class SoundSet {
         description = json['description'] as String,
         repo = json['repo'] as String,
         download = json['download'] as String,
+        icon = json['icon'] as String,
         tmp = true;
 
   factory SoundSet.fromPath(name, path) {
@@ -82,6 +85,7 @@ class SoundSet {
       description: plist['SoundSetUserString'],
       repo: plist['SoundSetURL'],
       download: plist['SoundSetDownloadURL'],
+      icon: plist['ImageFile_Icon'],
       path: path,
       tmp: false,
     );

@@ -39,6 +39,7 @@ class _MarketScreenState extends State<MarketScreen> {
           description: '${item.description}',
           repo: '${item.repo}',
           icon: CupertinoIcons.globe,
+          image: item.icon != null ? Image.network(item.icon) : null,
           item: item,
           action: DownloadButton(
             item: item,

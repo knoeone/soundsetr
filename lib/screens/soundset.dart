@@ -281,7 +281,9 @@ class _SoundSetAudioFileState extends State<SoundSetAudioFile> {
                 ? SaveAudioButton(item: widget.item, file: widget.file)
                 : ReplaceButton(item: widget.item, file: widget.file),
             PlayButton(
-                item: widget.item, file: '${widget.item.path}/${widget.item.plist[widget.file]}')
+              item: widget.item,
+              file: '${widget.item.path}/${widget.item.plist[widget.file]}',
+            )
           ],
         ),
       ),

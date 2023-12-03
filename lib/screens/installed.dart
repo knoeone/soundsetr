@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import '../utils/downloader.dart';
 import '../widgets/card.dart';
@@ -38,6 +40,13 @@ class _InstalledScreenState extends State<InstalledScreen> {
           description: '${item.description}',
           repo: '${item.repo}',
           icon: CupertinoIcons.archivebox,
+          image: item.icon != null
+              ? Image.file(
+                  File('${item.path}/${item.icon}'),
+                  height: 30,
+                  width: 30,
+                )
+              : null,
           action: Container(),
           item: item,
         );

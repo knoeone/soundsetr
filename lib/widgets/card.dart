@@ -9,6 +9,7 @@ class Card extends StatelessWidget {
   final String description;
   final String repo;
   final IconData icon;
+  final image;
   final Widget? action;
   final item;
 
@@ -18,6 +19,7 @@ class Card extends StatelessWidget {
     required this.repo,
     required this.description,
     required this.icon,
+    required this.image,
     required this.item,
     this.action,
   });
@@ -42,11 +44,13 @@ class Card extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(SoundsetScreen.route(item: item));
             },
-            child: MacosIcon(
-              icon,
-              size: 30,
-              color: MacosTheme.of(context).typography.headline.color,
-            ),
+            child: image == null
+                ? MacosIcon(
+                    icon,
+                    size: 30,
+                    color: MacosTheme.of(context).typography.headline.color,
+                  )
+                : image,
           ),
           const SizedBox(width: 20),
           Expanded(
