@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:system_theme/system_theme.dart';
-
-import '../models/soundset.dart';
-import '../utils/downloader.dart';
+import '../models/soundset/soundset.dart';
 
 class SaveAudioButton extends StatelessWidget {
   final SoundSet item;
@@ -11,7 +9,7 @@ class SaveAudioButton extends StatelessWidget {
   const SaveAudioButton({super.key, required this.item, this.file});
 
   void saveAudio() {
-    Downloader.saveAudio(item, file);
+    item.saveAudio(file);
   }
 
   @override

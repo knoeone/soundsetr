@@ -7,7 +7,7 @@ import 'package:soundsetr/utils/downloader.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:path/path.dart' as path;
 
-import '../models/soundset.dart';
+import '../models/soundset/soundset.dart';
 import 'config.dart';
 
 abstract class Publish {
@@ -105,22 +105,22 @@ abstract class Publish {
       );
     }
 
-    GitBlob zip = await github.git.createBlob(
-      forked,
-      CreateGitBlob(
-        base64.encode(
-          File(path.join(sending.path, sending.zip)).readAsBytesSync(),
-        ),
-        'base64',
-      ),
-    );
+    // GitBlob zip = await github.git.createBlob(
+    //   forked,
+    //   CreateGitBlob(
+    //     base64.encode(
+    //       File(path.join(sending.path, sending.zip)).readAsBytesSync(),
+    //     ),
+    //     'base64',
+    //   ),
+    // );
 
-    entries.add(CreateGitTreeEntry(
-      'dist/${set.name}.eragesoundset.zip',
-      '100644',
-      'blob',
-      sha: zip.sha,
-    ));
+    // entries.add(CreateGitTreeEntry(
+    //   'dist/${set.name}.eragesoundset.zip',
+    //   '100644',
+    //   'blob',
+    //   sha: zip.sha,
+    // ));
 
     GitTree tree = await github.git.createTree(forked, CreateGitTree(entries, baseTree: head.sha));
     GitCommit commit = await github.git.createCommit(

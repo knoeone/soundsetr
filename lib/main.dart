@@ -12,6 +12,7 @@ import 'screens/market.dart';
 import 'screens/settings.dart';
 import 'screens/setup.dart';
 import 'utils/config.dart';
+import 'utils/downloader.dart';
 import 'utils/publish.dart';
 import 'widgets/create.dart';
 import 'widgets/scaffold.dart';
@@ -163,7 +164,9 @@ class _MainViewState extends State<MainView> with WindowListener, ProtocolListen
             topOffset: 0,
             bottom: Container(
               alignment: Alignment.bottomLeft,
-              child: const HelpButton(),
+              child: HelpButton(
+                onPressed: () => Downloader.reveal('https://soundsetr.com'),
+              ),
             ),
             minWidth: 200,
             builder: sideBar,

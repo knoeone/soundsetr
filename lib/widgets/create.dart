@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:flutter_shake_animated/flutter_shake_animated.dart';
 
+import '../models/soundset/soundset.dart';
 import '../utils/downloader.dart';
 
 class CreateButton extends StatelessWidget {
@@ -25,7 +26,7 @@ class CreateButton extends StatelessWidget {
       }
 
       Navigator.of(context, rootNavigator: true).pop();
-      Downloader.newFromDefault(controller.text);
+      SoundSet.createNew(controller.text);
     }
 
     showMacosAlertDialog(

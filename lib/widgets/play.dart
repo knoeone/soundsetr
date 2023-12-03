@@ -6,7 +6,7 @@ import 'package:macos_ui/macos_ui.dart';
 import 'package:system_theme/system_theme.dart';
 import 'package:watcher/watcher.dart';
 
-import '../models/soundset.dart';
+import '../models/soundset/soundset.dart';
 
 class PlayButton extends StatefulWidget {
   final file;
@@ -22,8 +22,8 @@ class PlayButton extends StatefulWidget {
 }
 
 class _PlayButtonState extends State<PlayButton> {
-  var player = AudioPlayer();
-  var source;
+  AudioPlayer player = AudioPlayer();
+  DeviceFileSource? source;
 
   @override
   void initState() {
@@ -42,15 +42,20 @@ class _PlayButtonState extends State<PlayButton> {
       if (!Directory('${widget.item.path}').existsSync() || !File(widget.file).existsSync()) return;
 
       setState(() => source = DeviceFileSource(widget.file));
-      player.setSource(source);
+      player.setSource(source as DeviceFileSource);
     } catch (e) {
       print(e);
     }
   }
 
   void playSound() {
-    player.stop();
-    player.play(source);
+    try {
+      player.stop();
+      if (source == null) return;
+      player.play(source as DeviceFileSource);
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override

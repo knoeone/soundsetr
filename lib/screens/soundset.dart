@@ -7,7 +7,7 @@ import 'package:system_theme/system_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cross_file/cross_file.dart';
 
-import '../models/soundset.dart';
+import '../models/soundset/soundset.dart';
 import '../utils/downloader.dart';
 import '../widgets/delete.dart';
 import '../widgets/duplicate.dart';
@@ -18,6 +18,10 @@ import '../widgets/replace.dart';
 import '../widgets/reveal.dart';
 import '../widgets/save.dart';
 import '../widgets/scaffold.dart';
+
+// extension _SoundSetCache on SoundSet {
+//   bool cache() => false;
+// }
 
 const audioDescriptions = {
   'SoundFile_NewMail': 'Played when receiving new mails.',
@@ -74,10 +78,10 @@ class _SoundSetDetailScreenState extends State<SoundSetDetailScreen> {
     if (widget.item.path != null) {
       setState(() => item = widget.item);
     } else {
-      var updatedItem = await Downloader.preview(widget.item);
-      print(updatedItem);
+      await widget.item.cache();
+      print(widget.item);
 
-      setState(() => item = updatedItem);
+      setState(() => item = widget.item);
     }
 
     controllerName.text = item!.name;
@@ -218,7 +222,7 @@ class _SoundSetAudioFileState extends State<SoundSetAudioFile> {
   Widget build(BuildContext context) {
     return DropTarget(
       onDragDone: (detail) {
-        Downloader.replace(widget.item, widget.file, detail.files[0]);
+        widget.item.replaceFile(widget.file, detail.files[0]);
       },
       onDragEntered: (detail) {
         setState(() => _dragging = true);
@@ -277,7 +281,9 @@ class _SoundSetAudioFileState extends State<SoundSetAudioFile> {
                 ? SaveAudioButton(item: widget.item, file: widget.file)
                 : ReplaceButton(item: widget.item, file: widget.file),
             PlayButton(
-                item: widget.item, file: '${widget.item.path}/${widget.item.plist[widget.file]}')
+              item: widget.item,
+              file: '${widget.item.path}/${widget.item.plist[widget.file]}',
+            )
           ],
         ),
       ),

@@ -21,12 +21,6 @@ class SettingsScreen extends StatelessWidget {
           name: 'Outlook SoundSet Path',
         ),
         SettingItem(
-          setting: Config.outlookResourcePath,
-          onChange: (value) => Config.outlookResourcePath = value,
-          defaultValue: Config.outlookResourcePathDefault,
-          name: 'Outlook App Resource Path',
-        ),
-        SettingItem(
           setting: Config.repository,
           onChange: (value) => Config.repository = value,
           defaultValue: Config.repositoryDefault,

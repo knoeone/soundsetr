@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:system_theme/system_theme.dart';
 
-import '../models/soundset.dart';
+import '../models/soundset/soundset.dart';
 import '../utils/downloader.dart';
 
 class ReplaceButton extends StatelessWidget {
@@ -15,7 +15,7 @@ class ReplaceButton extends StatelessWidget {
   });
 
   void replaceFile() async {
-    await Downloader.replaceSelect(item, file);
+    await item.replaceSelect(file);
   }
 
   @override

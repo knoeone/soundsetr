@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-import '../models/soundset.dart';
+import '../models/soundset/soundset.dart';
 import '../utils/downloader.dart';
 
 class DeleteButton extends StatelessWidget {
@@ -12,7 +12,7 @@ class DeleteButton extends StatelessWidget {
     void onComplete() {
       Navigator.of(context, rootNavigator: true).pop();
       Navigator.of(context).pop();
-      Downloader.delete(item);
+      item.delete();
     }
 
     showMacosAlertDialog(
